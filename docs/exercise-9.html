@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Applied Methods in Statistics</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Applied Methods in Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
+  <meta name="github-repo" content="therimalaya/stat340" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Applied Methods in Statistics" />
+  
+  <meta name="twitter:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
+  
+
+<meta name="author" content="Solve Sæbø">
+
+
+<meta name="date" content="2017-01-01">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="mixed-effect-model.html">
+<link rel="next" href="exercise-10.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Applied Methods in Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a><ul>
+<li class="chapter" data-level="" data-path="reference-books.html"><a href="reference-books.html"><i class="fa fa-check"></i>Reference Books</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a><ul>
+<li class="chapter" data-level="" data-path="create-new-project.html"><a href="create-new-project.html"><i class="fa fa-check"></i>Create New Project</a></li>
+<li class="chapter" data-level="" data-path="exercise-1-data-import.html"><a href="exercise-1-data-import.html"><i class="fa fa-check"></i>Exercise 1: Data Import</a></li>
+<li class="chapter" data-level="" data-path="exercise-2-export-data-to-a-file.html"><a href="exercise-2-export-data-to-a-file.html"><i class="fa fa-check"></i>Exercise 2 - Export data to a file</a></li>
+<li class="chapter" data-level="" data-path="exercise-3-exploring-the-data.html"><a href="exercise-3-exploring-the-data.html"><i class="fa fa-check"></i>Exercise 3 - Exploring the data</a></li>
+<li class="chapter" data-level="" data-path="exercise-4-subsets-of-data-and-logical-operators.html"><a href="exercise-4-subsets-of-data-and-logical-operators.html"><i class="fa fa-check"></i>Exercise 4 - Subsets of data and logical operators</a></li>
+<li class="chapter" data-level="" data-path="exercise-5-graphics.html"><a href="exercise-5-graphics.html"><i class="fa fa-check"></i>Exercise 5 - Graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i>Regression Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="exercise-2.html"><a href="exercise-2.html"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html"><i class="fa fa-check"></i>Analysis of variance</a><ul>
+<li class="chapter" data-level="" data-path="exercise-four.html"><a href="exercise-four.html"><i class="fa fa-check"></i>Exercise Four</a></li>
+<li class="chapter" data-level="" data-path="exercise-five.html"><a href="exercise-five.html"><i class="fa fa-check"></i>Exercise Five</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multivariate-analysis.html"><a href="multivariate-analysis.html"><i class="fa fa-check"></i>Multivariate Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exercise-6.html"><a href="exercise-6.html"><i class="fa fa-check"></i>Exercise 6</a></li>
+<li class="chapter" data-level="" data-path="exercise-7.html"><a href="exercise-7.html"><i class="fa fa-check"></i>Exercise 7</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i>Generalized Linear Model</a><ul>
+<li class="chapter" data-level="" data-path="exercise-7-1.html"><a href="exercise-7-1.html"><i class="fa fa-check"></i>Exercise 7</a></li>
+<li class="chapter" data-level="" data-path="exercise-8.html"><a href="exercise-8.html"><i class="fa fa-check"></i>Exercise 8</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mixed-effect-model.html"><a href="mixed-effect-model.html"><i class="fa fa-check"></i>Mixed Effect Model</a><ul>
+<li class="chapter" data-level="" data-path="exercise-9.html"><a href="exercise-9.html"><i class="fa fa-check"></i>Exercise 9</a></li>
+<li class="chapter" data-level="" data-path="exercise-10.html"><a href="exercise-10.html"><i class="fa fa-check"></i>Exercise 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="group-exercises.html"><a href="group-exercises.html"><i class="fa fa-check"></i>Group Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exercise-one.html"><a href="exercise-one.html"><i class="fa fa-check"></i>Exercise One</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a name="title" href="javascript:void(0)"><b>Lecturer:</b></a><ul>
+<li><a href="https://www.nmbu.no/ans/solve.saebo" target="blank">Solve Sæbø</a></li></ul></li>
+<li><a name="title" href="javascript:void(0)"><b>Assistent Teachers:</b></a><ul>
+<li><a href="https://www.nmbu.no/ans/raju.rimal" target="blank">Raju Rimal</a></li></ul></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Methods in Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-9" class="section level2">
+<h2>Exercise 9</h2>
+<div id="ex-1-litter-sizes" class="section level3">
+<h3>Ex-1: Litter sizes</h3>
+<p>A scientist working with animal breading did the following experiment: He took a random sample of 6 boars (male pigs), and a random sample of 5 swine (pig) farms. At each farm 12 sows (females) were randomly picked out, and each boar was mated with 2 sows. The response was number of piglets from each sow. The data may be found in the file <code>litter.Rdata</code>.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Assume a random effects model using litter <code>Size</code>as a response (<span class="math inline">\(y\)</span>) and <code>Farm</code> and <code>Boar</code> as random effects. Also include the interaction between the random effects in the model. State the model and write up all the assumptions made for the model.</li>
+</ol>
+<div class="ans">
+<p>We assume the random effects model:</p>
+<p><span class="math display">\[y_{ijk} = \mu + \alpha_i + \beta_j + \alpha\beta_{ij} + \epsilon_{ijk}\]</span></p>
+<p>with Farm levels <span class="math inline">\(i=1,...,5\)</span>, Boar levels <span class="math inline">\(j=1,...,b\)</span> and replicates (sows) <span class="math inline">\(k = 1,2\)</span>.</p>
+<p>where</p>
+<p><span class="math display">\[\alpha_i \sim N(0, \sigma_{\alpha}^2)\]</span></p>
+<p><span class="math display">\[\beta_j \sim N(0, \sigma_{\beta}^2)\]</span></p>
+<p><span class="math display">\[\alpha\beta_{ij} \sim N(0, \sigma_{\alpha\beta}^2)\]</span></p>
+<p><span class="math display">\[\epsilon_{ij} \sim N(0, \sigma^2)\]</span></p>
+<p>Further we assume that all random effects are independent of each other.</p>
+</div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Express the total theoretical variance of <span class="math inline">\(y_{ijk}\)</span> (where <span class="math inline">\(i=1,...,6\)</span>, <span class="math inline">\(j=1,...,5\)</span> and <span class="math inline">\(k=1,2\)</span>) in terms of the variance components of all random effects in the model. It may be shown that the theoretical correlation between any two litter sizes from the same Boar and within the same Farm is <span class="math inline">\(\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2\)</span> where the variance components belong to the Herd-effect, the Boar-effect and their interaction, respectively. How can we express the correlation between such to observations?</li>
+</ol>
+<div class="ans">
+<p><span class="math inline">\(Var(y_{ijk}) = var(\mu + \alpha_i + \beta_j + \alpha\beta_{ij} + \epsilon_{ijk}) = \sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2 + \sigma^2\)</span></p>
+<p>This means that the correlation between the litter sizes of two sows (k and l) from the same farm and mated with the same boar is <span class="math display">\[cor(y_{ijk}, y_{ijl})=\frac{cov(y_{ijk}, y_{ijl})}{\sqrt(var(y_{ijk}))\sqrt(var(y_{ijl}))} = \frac{\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2}{\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2 + \sigma^2}\]</span></p>
+</div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Fit the model in R Studio. Estimate the mean litter size and predict the <code>Boar</code>effects. Find estimates for all variance components.</li>
+</ol>
+<div class="ans">
+<pre><code>
+Call:
+lm(formula = Size ~ r(Boar) + r(Farm) + r(Boar:Farm), data = litter)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+  -1.0   -0.5    0.0    0.5    1.0 
+
+Coefficients:
+                        Estimate Std. Error t value             Pr(&gt;|t|)
+(Intercept)              9.16667    0.10000  91.667 &lt; 0.0000000000000002
+Boar(Boar1)             -1.86667    0.34420  -5.423           0.00000705
+Boar(Boar2)             -1.06667    0.34420  -3.099               0.0042
+Boar(Boar3)             -0.16667    0.34420  -0.484               0.6317
+Boar(Boar4)              0.53333    0.34420   1.549               0.1317
+Boar(Boar5)              0.93333    0.34420   2.712               0.0110
+Farm(Farm1)             -0.91667    0.30786  -2.978               0.0057
+Farm(Farm2)             -0.91667    0.30786  -2.978               0.0057
+Farm(Farm3)             -0.16667    0.30786  -0.541               0.5922
+Farm(Farm4)              0.83333    0.30786   2.707               0.0111
+Boar(Boar1):Farm(Farm1)  1.11667    0.44721   2.497               0.0182
+Boar(Boar2):Farm(Farm1)  0.81667    0.44721   1.826               0.0778
+Boar(Boar3):Farm(Farm1)  0.41667    0.44721   0.932               0.3589
+Boar(Boar4):Farm(Farm1) -0.28333    0.44721  -0.634               0.5312
+Boar(Boar5):Farm(Farm1) -0.68333    0.44721  -1.528               0.1370
+Boar(Boar1):Farm(Farm2)  0.61667    0.44721   1.379               0.1781
+Boar(Boar2):Farm(Farm2)  0.31667    0.44721   0.708               0.4844
+Boar(Boar3):Farm(Farm2)  0.41667    0.44721   0.932               0.3589
+Boar(Boar4):Farm(Farm2) -0.28333    0.44721  -0.634               0.5312
+Boar(Boar5):Farm(Farm2) -0.68333    0.44721  -1.528               0.1370
+Boar(Boar1):Farm(Farm3) -1.13333    0.44721  -2.534               0.0167
+Boar(Boar2):Farm(Farm3)  0.06667    0.44721   0.149               0.8825
+Boar(Boar3):Farm(Farm3)  0.16667    0.44721   0.373               0.7120
+Boar(Boar4):Farm(Farm3)  0.46667    0.44721   1.043               0.3051
+Boar(Boar5):Farm(Farm3) -0.43333    0.44721  -0.969               0.3403
+Boar(Boar1):Farm(Farm4) -0.13333    0.44721  -0.298               0.7676
+Boar(Boar2):Farm(Farm4) -0.43333    0.44721  -0.969               0.3403
+Boar(Boar3):Farm(Farm4) -0.83333    0.44721  -1.863               0.0722
+Boar(Boar4):Farm(Farm4)  0.46667    0.44721   1.043               0.3051
+Boar(Boar5):Farm(Farm4)  0.06667    0.44721   0.149               0.8825
+                           
+(Intercept)             ***
+Boar(Boar1)             ***
+Boar(Boar2)             ** 
+Boar(Boar3)                
+Boar(Boar4)                
+Boar(Boar5)             *  
+Farm(Farm1)             ** 
+Farm(Farm2)             ** 
+Farm(Farm3)                
+Farm(Farm4)             *  
+Boar(Boar1):Farm(Farm1) *  
+Boar(Boar2):Farm(Farm1) .  
+Boar(Boar3):Farm(Farm1)    
+Boar(Boar4):Farm(Farm1)    
+Boar(Boar5):Farm(Farm1)    
+Boar(Boar1):Farm(Farm2)    
+Boar(Boar2):Farm(Farm2)    
+Boar(Boar3):Farm(Farm2)    
+Boar(Boar4):Farm(Farm2)    
+Boar(Boar5):Farm(Farm2)    
+Boar(Boar1):Farm(Farm3) *  
+Boar(Boar2):Farm(Farm3)    
+Boar(Boar3):Farm(Farm3)    
+Boar(Boar4):Farm(Farm3)    
+Boar(Boar5):Farm(Farm3)    
+Boar(Boar1):Farm(Farm4)    
+Boar(Boar2):Farm(Farm4)    
+Boar(Boar3):Farm(Farm4) .  
+Boar(Boar4):Farm(Farm4)    
+Boar(Boar5):Farm(Farm4)    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+s: 0.7746 on 30 degrees of freedom
+Multiple R-squared: 0.8979,
+Adjusted R-squared: 0.7992 
+F-statistic:   9.1 on 29 and 30 DF,  p-value: 0.00000001903 </code></pre>
+<pre><code>Analysis of variance (unrestricted model)
+Response: Size
+          Mean Sq Sum Sq Df F value Pr(&gt;F)
+Boar        16.95  84.73  5   11.92 0.0000
+Farm        11.29  45.17  4    7.94 0.0005
+Boar:Farm    1.42  28.43 20    2.37 0.0159
+Residuals    0.60  18.00 30       -      -
+
+            Err.term(s) Err.df VC(SS)
+1 Boar              (3)     20  1.552
+2 Farm              (3)     20  0.822
+3 Boar:Farm         (4)     30  0.411
+4 Residuals           -      -  0.600
+(VC = variance component)
+
+          Expected mean squares
+Boar       (4) + 2 (3) + 10 (1)
+Farm       (4) + 2 (3) + 12 (2)
+Boar:Farm  (4) + 2 (3)         
+Residuals  (4)                 </code></pre>
+<p>Since <code>mixlm</code>uses the “sum-to-zero” parametrization we know that all estimated effect-levels will sum to zero within each random effect. Further we know that the “intercept” represents the overall mean in the population. We can therefore conclude that.</p>
+<ul>
+<li>The estimated mean litter size in the population is 9.17</li>
+<li>The “predicted” effects of boars 1-5 are given under the “Estimate” from the summary. Hence, boar number 1 has a predicted random effect of -1.87, and so on.</li>
+<li>Boar number 6 will have predicted random effect equal to the negative sum of the predicted effects of the other boars. This gives a predicted value of 1.63. This is the largest positive boar effect.</li>
+<li>The variance component estimates are given in the Anova-output as “VC(SS)” (which means “Variance Components based on Sums of Squares”). We have the following estimates:</li>
+</ul>
+<p>Farm variance: <span class="math inline">\(\hat{\sigma}_{\alpha}^2 = 0.82\)</span></p>
+<p>Boar variance: <span class="math inline">\(\hat{\sigma}_{\beta}^2 = 1.55\)</span></p>
+<p>Farm:Boar variance: <span class="math inline">\(\hat{\sigma}_{\alpha\beta}^2 = 0.41\)</span></p>
+<p>Error variance: <span class="math inline">\(\hat{\sigma}^2 = 0.60\)</span></p>
+</div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Find the estimated correlation as derived in exercise b.</li>
+</ol>
+<div class="ans">
+<p>Plugging these estimates into the formula found in exercise b. gives the estimated correlation:</p>
+<p><span class="math display">\[\hat{cor(y_{ijk}, y_{ijl})} = \frac{0.82 + 1.55 + 0.41}{0.82 + 1.55 + 0.41 + 0.60} = 0.82\]</span></p>
+</div>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>State the hypotheses for testing whether there is an interaction effect between Boar and Farm and perform the test. What is the appropriate test statistic for this test, what is the observed test statistic and what is the p-value? How do you interprete the result in terms of boars and farms?</li>
+</ol>
+<div class="ans">
+<p>The Anova reports an F-test for the interaction effect with a p-value of 0.016. With a test level of 5% we therefore reject a null-hypothesis <span class="math inline">\(H_0: \sigma_{\alpha\beta}^2 = 0\)</span> in favour of <span class="math inline">\(H_1: \sigma_{\alpha\beta}^2 &gt; 0\)</span> which implies that there are differences between the farm:boar interaction levels. From the list of Expected mean squares we see that if <span class="math inline">\(\sigma_{\alpha\beta}^2\)</span> coded by <code>(3)</code> is zero (Nullhypothesis is true), then the mean sum of squares for the error (Residuals) and for the interaction term are the same. Hence, the appropriate F-test statistic for the interaction term should use the Residual Mean Sum of Sqaures (MSE) as denominator (test error).</p>
+<p>The observed value for this F-test statistic is reported to be 2.37.</p>
+</div>
+<ol start="6" style="list-style-type: lower-alpha">
+<li>Is there a difference between boars? If you were to choose one boar among the six, which boar should be chosen (if any) in a breeding programme with the aim of increasing litter sizes?</li>
+</ol>
+<div class="ans">
+<p>As mentioned in a. boar 6 has the largest predicted effect of 1.63 and is the one that should be chosen.</p>
+</div>
+<ol start="7" style="list-style-type: lower-alpha">
+<li>Explain why boar should be treated as a random effect and not a fixed effect.</li>
+</ol>
+<div class="ans">
+<p>The boars are assumed to be selected from a large population of boars. We intend to use this selected group to say if there are differences between boars in general (for the entire population of boars). Therefore we should treat boar as a random effect.</p>
+</div>
+
+</div>
+</div>
+<script>
+ans_btn_html = '<a class = "btn-ans"><span class="label label-success no-print">&lt;ANS/&gt;</span></a>';
+  showAns_btn = '<a class="showAns-btn btn pull-right js-toolbar-action">Show Answers</a>';
+  hideAns_btn = '<a class="hideAns-btn btn pull-right js-toolbar-action" style="display:none;">Hide Answers</a>';
+  
+  // Adding Extra Menus in Navigation
+  
+  // Adding button on before each answer:::
+  $(".ans").before(ans_btn_html);
+  $('.btn-ans').each(function(){
+    $(this).next('.ans').andSelf().wrapAll('<div class="wrap-ans"/>');
+  });
+  $('.btn-ans').click(function(){
+    $(this).siblings('.ans').toggle(400);
+  });
+  
+if ($(".ans").length > 0){
+    $('.book-header').prepend(showAns_btn, hideAns_btn);
+    $('.showAns-btn').show();
+    $('.showAns-btn').click(function(){
+      $('.btn-ans').hide(400);
+      $('.ans').show(400);
+      $('.hideAns-btn').show();
+      $(this).hide();
+      $('.hideAns-btn').click(function(){
+        $('.btn-ans').show(400);
+        $('.ans').hide(400);
+        $('.showAns-btn').show();
+        $(this).hide();
+      });
+    });
+  }
+
+var chap = "week-two"
+if(window.location.href.indexOf(chap) != -1){
+  var now = new Date();
+  var release = new Date("August 21, 2016");
+  if(now < release){
+    $(".ans, .btn-ans, .showAns-btn, .hideAns-btn").hide()
+  }
+}
+
+$('.ans p:has(img)').css('text-align', 'center');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82812028-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mixed-effect-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exercise-10.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["STAT340-2017.pdf", "STAT340-2017.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

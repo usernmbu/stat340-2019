@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Applied Methods in Statistics</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Applied Methods in Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
+  <meta name="github-repo" content="therimalaya/stat340" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Applied Methods in Statistics" />
+  
+  <meta name="twitter:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
+  
+
+<meta name="author" content="Solve Sæbø">
+
+
+<meta name="date" content="2017-01-01">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="exercise-9.html">
+<link rel="next" href="group-exercises.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Applied Methods in Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a><ul>
+<li class="chapter" data-level="" data-path="reference-books.html"><a href="reference-books.html"><i class="fa fa-check"></i>Reference Books</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a><ul>
+<li class="chapter" data-level="" data-path="create-new-project.html"><a href="create-new-project.html"><i class="fa fa-check"></i>Create New Project</a></li>
+<li class="chapter" data-level="" data-path="exercise-1-data-import.html"><a href="exercise-1-data-import.html"><i class="fa fa-check"></i>Exercise 1: Data Import</a></li>
+<li class="chapter" data-level="" data-path="exercise-2-export-data-to-a-file.html"><a href="exercise-2-export-data-to-a-file.html"><i class="fa fa-check"></i>Exercise 2 - Export data to a file</a></li>
+<li class="chapter" data-level="" data-path="exercise-3-exploring-the-data.html"><a href="exercise-3-exploring-the-data.html"><i class="fa fa-check"></i>Exercise 3 - Exploring the data</a></li>
+<li class="chapter" data-level="" data-path="exercise-4-subsets-of-data-and-logical-operators.html"><a href="exercise-4-subsets-of-data-and-logical-operators.html"><i class="fa fa-check"></i>Exercise 4 - Subsets of data and logical operators</a></li>
+<li class="chapter" data-level="" data-path="exercise-5-graphics.html"><a href="exercise-5-graphics.html"><i class="fa fa-check"></i>Exercise 5 - Graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i>Regression Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="exercise-2.html"><a href="exercise-2.html"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html"><i class="fa fa-check"></i>Analysis of variance</a><ul>
+<li class="chapter" data-level="" data-path="exercise-four.html"><a href="exercise-four.html"><i class="fa fa-check"></i>Exercise Four</a></li>
+<li class="chapter" data-level="" data-path="exercise-five.html"><a href="exercise-five.html"><i class="fa fa-check"></i>Exercise Five</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multivariate-analysis.html"><a href="multivariate-analysis.html"><i class="fa fa-check"></i>Multivariate Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exercise-6.html"><a href="exercise-6.html"><i class="fa fa-check"></i>Exercise 6</a></li>
+<li class="chapter" data-level="" data-path="exercise-7.html"><a href="exercise-7.html"><i class="fa fa-check"></i>Exercise 7</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i>Generalized Linear Model</a><ul>
+<li class="chapter" data-level="" data-path="exercise-7-1.html"><a href="exercise-7-1.html"><i class="fa fa-check"></i>Exercise 7</a></li>
+<li class="chapter" data-level="" data-path="exercise-8.html"><a href="exercise-8.html"><i class="fa fa-check"></i>Exercise 8</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mixed-effect-model.html"><a href="mixed-effect-model.html"><i class="fa fa-check"></i>Mixed Effect Model</a><ul>
+<li class="chapter" data-level="" data-path="exercise-9.html"><a href="exercise-9.html"><i class="fa fa-check"></i>Exercise 9</a></li>
+<li class="chapter" data-level="" data-path="exercise-10.html"><a href="exercise-10.html"><i class="fa fa-check"></i>Exercise 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="group-exercises.html"><a href="group-exercises.html"><i class="fa fa-check"></i>Group Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exercise-one.html"><a href="exercise-one.html"><i class="fa fa-check"></i>Exercise One</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a name="title" href="javascript:void(0)"><b>Lecturer:</b></a><ul>
+<li><a href="https://www.nmbu.no/ans/solve.saebo" target="blank">Solve Sæbø</a></li></ul></li>
+<li><a name="title" href="javascript:void(0)"><b>Assistent Teachers:</b></a><ul>
+<li><a href="https://www.nmbu.no/ans/raju.rimal" target="blank">Raju Rimal</a></li></ul></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Methods in Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-10" class="section level2">
+<h2>Exercise 10</h2>
+<div id="ex-1-exercises-and-diet---repeated-measurements" class="section level3">
+<h3>Ex-1: Exercises and diet - repeated measurements</h3>
+<p>The data and some examples are found at <a href="http://statistics.ats.ucla.edu/stat/r/seminars/Repeated_Measures/repeated_measures.htm">statistics.ats.ucla.edu</a></p>
+<p>The data called exer, consists of people who were randomly assigned to two different diets: low-fat and not low-fat and three different types of exercise: at rest, walking leisurely and running. Their pulse rate was measured at three different time points during their assigned exercise: at 1 minute, 15 minutes and 30 minutes.</p>
+<p>Upon downloading the data, you can load and plot the data by</p>
+<p><img src="STAT340-2017_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
+<p>You will see six plots with heading’s like <code>2:1</code> which means <code>diet=2</code> and exercises <code>type=1</code>. In each plot we have three repeated measurements for each of 5 people.</p>
+<p>In these exercises you will be asked to answer some questions. Use the R-outputs to the extent your find it necessary.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Below is a output from a linear model fitted to the data. State the model that has been fitted and the assumptions made. Which parametrization is used?</li>
+</ol>
+<pre><code>
+Call:
+lm(formula = pulse ~ (time + diet + exertype)^2, data = exer)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-19.2333  -5.0875   0.6833   4.9125  26.9333 
+
+Coefficients:
+                    Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept)          88.4000     2.1004  42.086 &lt; 0.0000000000000002 ***
+time                  5.6500     0.9723   5.811          0.000000121 ***
+diet(1)              -0.1778     2.1004  -0.085             0.932761    
+exertype(1)           1.2333     2.9705   0.415             0.679110    
+exertype(2)           4.0000     2.9705   1.347             0.181917    
+time:diet(1)         -1.7833     0.9723  -1.834             0.070357 .  
+time:exertype(1)     -5.0500     1.3751  -3.673             0.000432 ***
+time:exertype(2)     -4.2500     1.3751  -3.091             0.002747 ** 
+diet(1):exertype(1)   2.2444     1.1227   1.999             0.048995 *  
+diet(1):exertype(2)   2.0111     1.1227   1.791             0.077034 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+s: 7.532 on 80 degrees of freedom
+Multiple R-squared: 0.769,
+Adjusted R-squared: 0.7431 
+F-statistic:  29.6 on 9 and 80 DF,  p-value: &lt; 0.00000000000000022 </code></pre>
+<pre><code>Analysis of Variance Table
+
+Response: pulse
+              Df Sum Sq Mean Sq F value                Pr(&gt;F)    
+time           1 1915.4  1915.4 33.7660         0.00000012138 ***
+diet           1 1261.9  1261.9 22.2459         0.00001001526 ***
+exertype       2 8326.1  4163.0 73.3908 &lt; 0.00000000000000022 ***
+time:diet      1  190.8   190.8  3.3639              0.070357 .  
+time:exertype  2 2601.1  1300.6 22.9276         0.00000001345 ***
+diet:exertype  2  815.8   407.9  7.1905              0.001343 ** 
+Residuals     80 4537.9    56.7                                  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="ans">
+<p>We can write the model in this way:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathtt{pulse}_{ijkl} = \mu + &amp;\beta\;\mathtt{time}_{l} + \mathtt{diet}_j + \mathtt{exertype}_k + \beta\;\mathtt{time}_{l}\cdot\mathtt{exertype}_{k} +  \\
+&amp;\beta\;\mathtt{time}_{l}\cdot\mathtt{diet}_{jl} +  \mathtt{diet}_j\cdot\mathtt{exertype}_k + \epsilon_{ijkl}
+\end{aligned}
+\]</span></p>
+<p>Where we assume that the errors are identically and independently distributed (iid) as:</p>
+<p><span class="math inline">\(\epsilon_{ijkl} \sim N(0, \sigma^2)\)</span> for all</p>
+<ul>
+<li><span class="math inline">\(j = 1, 2\)</span> (For Diet)</li>
+<li><span class="math inline">\(k = 1, 2, 3\)</span> (For Exercise Type) and</li>
+<li><span class="math inline">\(l = 1, 2, 3\)</span> (For individual time points)</li>
+</ul>
+<p>In orther words it is a linear model with main effects of time, diet and exercise type, plus all second-order interactions between these.</p>
+<p>Remark: From the ANOVA-table output we may observe that time has only one degree of freedom (thus one parameter is estimated for the effect of time) which means that time is assumed to be a continuous effect. If time alternatively was modelled as a categorical variable, it would have had 2 degrees of freedom in the ANOVA table (the number of time-levels minus one).</p>
+<p>Further, a sum-to-zero parametrization is used for all categorical effects, for instance, we assume that the two diet effects sum to zero, hence the estimate of <code>diet(2)</code> is: <code>diet(2) = -diet(1) = -(-0.1778) = 0.1778</code></p>
+<p>The three exercise type effects likewise, that is: <code>exertype(3) = -(exertype(1) + exertype(2)) = -(1.2333 + 4.0000) = -5.233</code></p>
+<p>For interactions between categorical effects, the effects sum to zero if we keep one variable fixed at one level and sum across the levels of the other. E.g. for diet 1 the interaction effects with exercise types 1, 2 and 3 sum to zero, and so on. That is: we would from the ouput find:</p>
+<p><code>diet(1):exertype(3) = -(diet(1):exertype(1) + diet(1):exertype(2)) = -(2.2444 + 2.0111) = -4.256</code></p>
+<p>However, it also means that for fixed level 3 for exercise type, the diet effects should sum to zero. That is:</p>
+<p><code>diet(2):exertype(3) = - diet(1):exertype(3) = -(-4.256) = 4.256</code></p>
+<p>For interactions between the continuous variable time and a catergorical variable, the effects sum to zero across the levels of the categorical variable if we keep time fixed.</p>
+<p>Hence: <code>time:diet(2) = -time:diet(1) = -(-1.783) = 1.783</code></p>
+<p>and <code>time:exertype(3) = -(time:exertype(1) + time:exertype(2)) = -(-5.05 - 4.25)=  9.30</code></p>
+</div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Write up the fitted model for pulse as a function of time for the special case of <code>diet=1</code> and <code>exertype=1</code>. Do the same for <code>diet=2</code> and <code>exertype=3</code>.</li>
+</ol>
+<div class="ans">
+<p>The fitted model for <code>diet=1</code> and <code>exertype=1</code> is found directly by selecting the estimated coefficients from the output for which diet=1 and exertype=1:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\mathtt{pulse}} &amp;= 88.4 + 5.65 \mathtt{time} -0.178 + 1.233-1.783 \mathtt{time} -5.05 \mathtt{time} + 2.244 \\
+&amp;= 91.699 -1.183 \mathtt{time}
+\end{aligned}
+\]</span></p>
+<p>Similarly, using the estimates found above through the sum-to-zero parametrizations, the fitted model for <code>diet=2</code> and <code>exertype=3</code> becomes:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\mathtt{pulse}} &amp;= 87.6 + 16.733 \mathtt{time}
+\end{aligned}
+\]</span></p>
+</div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>What is the estimated noise variance? Give an interpretation of the estimated time effect (5.65) for a person with limited statistics knowledge.</li>
+</ol>
+<div class="ans">
+<p>The estimated noise variance is <span class="math inline">\(\hat{\sigma}^{2}\)</span> = MSE= 56.724. The estimate of <code>time</code> variable which is 5.65 refers to the average change in pulse per unit increase in time, for persons being part of this study.</p>
+</div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>The anova table gives significant interaction between time and exertype. Use the graphs above to explain why there is an interaction between these two variables.</li>
+</ol>
+<div class="ans">
+<p>Since the interaction term is significant, for each individual, the line representing the pulse measured at three time points are inclined different (not parallel) which also says that the pulse for an individual under different exercise type changes differently over time.</p>
+</div>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Are there any problems related to the model assumptions for the model fitted in a. ?</li>
+</ol>
+<div class="ans">
+<p>Model 1 is based on the assumption that all error terms (and hence all observations) are independent. Since we know that there are three repeated observations on each person, we should expect that observations made on the same person are dependent. For instance, a person with low puls at time 1 is expected to also have (relatively) low puls at time points2 and 3. The Figure below confirms this tendency, especially for exercise types 1 and 2. We see that the residuals of any given person tend to be either above or below the fitted lines.</p>
+<p><img src="STAT340-2017_files/figure-html/unnamed-chunk-183-1.png" width="672" /></p>
+</div>
+<ol start="6" style="list-style-type: lower-alpha">
+<li>Another analysis was performed as shown below. Describe the difference between mod2 and mod1. Are there any extra parameters estimated? Why is mod2 probably a more reasonable model than mod1?</li>
+</ol>
+<pre><code>Linear mixed-effects model fit by REML
+ Data: exer 
+       AIC      BIC    logLik
+  609.9181 638.5024 -292.9591
+
+Random effects:
+ Formula: ~1 | id
+        (Intercept) Residual
+StdDev:    3.789659 6.618067
+
+Fixed effects: pulse ~ (time + diet + exertype)^2 
+                   Value Std.Error DF  t-value p-value
+(Intercept)     88.40000 1.9711141 56 44.84773  0.0000
+time             5.65000 0.8543887 56  6.61291  0.0000
+diet1           -0.17778 1.9711141 24 -0.09019  0.9289
+exertype1        1.23333 2.7875763 24  0.44244  0.6621
+exertype2        4.00000 2.7875763 24  1.43494  0.1642
+time:diet1      -1.78333 0.8543887 56 -2.08726  0.0414
+time:exertype1  -5.05000 1.2082881 56 -4.17947  0.0001
+time:exertype2  -4.25000 1.2082881 56 -3.51737  0.0009
+diet1:exertype1  2.24444 1.3895111 24  1.61528  0.1193
+diet1:exertype2  2.01111 1.3895111 24  1.44735  0.1607
+ Correlation: 
+                (Intr) time   diet1  exrty1 exrty2 tm:dt1 tm:xr1 tm:xr2
+time            -0.867                                                 
+diet1            0.000  0.000                                          
+exertype1        0.000  0.000  0.000                                   
+exertype2        0.000  0.000  0.000 -0.500                            
+time:diet1       0.000  0.000 -0.867  0.000  0.000                     
+time:exertype1   0.000  0.000  0.000 -0.867  0.433  0.000              
+time:exertype2   0.000  0.000  0.000  0.433 -0.867  0.000 -0.500       
+diet1:exertype1  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.000
+diet1:exertype2  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.000
+                dt1:x1
+time                  
+diet1                 
+exertype1             
+exertype2             
+time:diet1            
+time:exertype1        
+time:exertype2        
+diet1:exertype1       
+diet1:exertype2 -0.500
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-2.57649557 -0.56594356 -0.03799568  0.45827814  3.47522587 
+
+Number of Observations: 90
+Number of Groups: 30 </code></pre>
+<div class="ans">
+<p>Model 2 assumes a random intercept for each individual and the random intercept is assumed to follow <span class="math inline">\(N(0, \sigma_\alpha^2)\)</span>. So, <span class="math inline">\(\sigma_\alpha\)</span> is an extra parameters to be estimated. From model 2, we can obtain a separate fitted line for each individual, which is more resonable and which take better into account that we may have dependence between observations made on the same person.</p>
+<p><img src="STAT340-2017_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
+</div>
+<ol start="7" style="list-style-type: lower-alpha">
+<li>For models containing random effects there is a function <code>ranef</code> in the <code>nlme</code>-package which displays the predicted random effects. The first 5 random effects are shown below with “rowname” equal to the id number of a given person. Explain what it means that person with id=4 has a random effect of -3.802.</li>
+</ol>
+<pre><code>  (Intercept)
+4  -3.8018198
+1  -1.6529651
+5   0.9917791
+2   1.1570756
+3   3.3059303</code></pre>
+<div class="ans">
+<p>This means that person with <code>id=4</code> has on average 3.802 units lower pulse than the average person, keeping all other variables fixed.</p>
+</div>
+<ol start="8" style="list-style-type: lower-alpha">
+<li>A third model was analysed by:</li>
+</ol>
+<pre><code>Linear mixed-effects model fit by REML
+ Data: exer 
+       AIC      BIC   logLik
+  611.2159 642.1823 -292.608
+
+Random effects:
+ Formula: ~1 | id
+        (Intercept) Residual
+StdDev:    1.449581 7.474896
+
+Correlation Structure: AR(1)
+ Formula: ~1 | id 
+ Parameter estimate(s):
+     Phi 
+0.254466 
+Fixed effects: pulse ~ (time + diet + exertype)^2 
+                   Value Std.Error DF  t-value p-value
+(Intercept)     88.23008 2.0987530 56 42.03929  0.0000
+time             5.65000 0.9332387 56  6.05419  0.0000
+diet1           -0.19734 2.0987530 24 -0.09403  0.9259
+exertype1        1.39707 2.9680849 24  0.47070  0.6421
+exertype2        4.04016 2.9680849 24  1.36120  0.1861
+time:diet1      -1.78333 0.9332387 56 -1.91091  0.0611
+time:exertype1  -5.05000 1.3197988 56 -3.82634  0.0003
+time:exertype2  -4.25000 1.3197988 56 -3.22019  0.0021
+diet1:exertype1  2.24547 1.3572224 24  1.65446  0.1111
+diet1:exertype2  2.05539 1.3572224 24  1.51441  0.1430
+ Correlation: 
+                (Intr) time   diet1  exrty1 exrty2 tm:dt1 tm:xr1 tm:xr2
+time            -0.889                                                 
+diet1            0.000  0.000                                          
+exertype1        0.000  0.000  0.000                                   
+exertype2        0.000  0.000  0.000 -0.500                            
+time:diet1       0.000  0.000 -0.889  0.000  0.000                     
+time:exertype1   0.000  0.000  0.000 -0.889  0.445  0.000              
+time:exertype2   0.000  0.000  0.000  0.445 -0.889  0.000 -0.500       
+diet1:exertype1  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.000
+diet1:exertype2  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.000
+                dt1:x1
+time                  
+diet1                 
+exertype1             
+exertype2             
+time:diet1            
+time:exertype1        
+time:exertype2        
+diet1:exertype1       
+diet1:exertype2 -0.500
+
+Standardized Within-Group Residuals:
+       Min         Q1        Med         Q3        Max 
+-2.4699789 -0.6560689  0.1075098  0.6337954  3.5946016 
+
+Number of Observations: 90
+Number of Groups: 30 </code></pre>
+<p>How does mod 3 differ from mod2 in its model assumptions? Are there any extra parameters estimated?</p>
+<div class="ans">
+<p>Apart from all the assumption in Model 2, Model 3 also assumes a first order autocorrelation between the error terms. In simple words, observation far from each other tend to be less correlated.</p>
+</div>
+<ol style="list-style-type: lower-roman">
+<li>Which of mod2 and mod3 is to prefer. Explain why based on the output below.</li>
+</ol>
+<pre><code>     Model df      AIC      BIC    logLik   Test   L.Ratio p-value
+mod2     1 12 609.9181 638.5024 -292.9591                         
+mod3     2 13 611.2159 642.1823 -292.6080 1 vs 2 0.7021942   0.402</code></pre>
+<div class="ans">
+<p>The <code>anova()</code> function used here returns the result of a likelihood-ratio test (a chi-square test). The null-hypothesis for the test is that the two models fit the data equally well. The p-value is large, and we retain the null-hypothesis. Hence, the extra refinement introduced in mod3 is not improving the model fit significantly, and we may keep the simpler mod2.</p>
+</div>
+
+</div>
+</div>
+<!-- </div> -->
+<script>
+ans_btn_html = '<a class = "btn-ans"><span class="label label-success no-print">&lt;ANS/&gt;</span></a>';
+  showAns_btn = '<a class="showAns-btn btn pull-right js-toolbar-action">Show Answers</a>';
+  hideAns_btn = '<a class="hideAns-btn btn pull-right js-toolbar-action" style="display:none;">Hide Answers</a>';
+  
+  // Adding Extra Menus in Navigation
+  
+  // Adding button on before each answer:::
+  $(".ans").before(ans_btn_html);
+  $('.btn-ans').each(function(){
+    $(this).next('.ans').andSelf().wrapAll('<div class="wrap-ans"/>');
+  });
+  $('.btn-ans').click(function(){
+    $(this).siblings('.ans').toggle(400);
+  });
+  
+if ($(".ans").length > 0){
+    $('.book-header').prepend(showAns_btn, hideAns_btn);
+    $('.showAns-btn').show();
+    $('.showAns-btn').click(function(){
+      $('.btn-ans').hide(400);
+      $('.ans').show(400);
+      $('.hideAns-btn').show();
+      $(this).hide();
+      $('.hideAns-btn').click(function(){
+        $('.btn-ans').show(400);
+        $('.ans').hide(400);
+        $('.showAns-btn').show();
+        $(this).hide();
+      });
+    });
+  }
+
+var chap = "week-two"
+if(window.location.href.indexOf(chap) != -1){
+  var now = new Date();
+  var release = new Date("August 21, 2016");
+  if(now < release){
+    $(".ans, .btn-ans, .showAns-btn, .hideAns-btn").hide()
+  }
+}
+
+$('.ans p:has(img)').css('text-align', 'center');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82812028-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exercise-9.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="group-exercises.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["STAT340-2017.pdf", "STAT340-2017.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

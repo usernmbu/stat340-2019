@@ -1,0 +1,18 @@
+book_filename: "STAT340-2017"
+output_dir: docs
+chapter_name: ""
+rmd_files: [
+  "index.Rmd",
+  # "getting-ready.rmd",
+  # "001-regression-analysis/ex-01.rmd",
+  # "001-regression-analysis/ex-02.rmd",
+  # "002-analysis-of-variance/ex-03.rmd",
+  # "002-analysis-of-variance/ex-04.rmd",
+  # "003-multivariate-statistics/ex-05.rmd",
+  # "003-multivariate-statistics/ex-06.rmd",
+  # "004-generalized-linear-model/ex-07.rmd",
+  # "004-generalized-linear-model/ex-08.rmd",
+  # "005-mixed-effect-model/ex-09.rmd",
+  # "005-mixed-effect-model/ex-10.rmd",
+  # "006-group-exercises/ex-01.rmd"
+]

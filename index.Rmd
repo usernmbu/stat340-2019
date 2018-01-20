@@ -1,0 +1,75 @@
+--- 
+title: "Applied Methods in Statistics"
+author: "Thore Egeland"
+date: "`r format(Sys.Date(), '%Y')`"
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook:
+    split_by: section+number
+    config:
+      toc: 
+        collapse: section
+documentclass: book
+fontsize: '12pt'
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: therimalaya/stat340
+description: "This contains the weekly exercises related to Applied Methods in Statistics (STAT340)"
+---
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      comment = NULL)
+knitr::opts_knit$set(root.dir = "_data")
+options(scipen = 999)
+pkgs <- c("mixlm")
+for (pkg in pkgs) 
+  suppressPackageStartupMessages(require(pkg, character.only = TRUE))
+```
+
+
+# Practical Information
+
+```{r, echo = FALSE}
+tocTbl <- dplyr::data_frame(
+  Topics = c("R and R Studio",
+             "Regression Analysis",
+             "Analysis of Variance",
+             "Multivariate Statistics",
+             "Generalized Linear Model",
+             "Mixed Effect Models")
+)
+tocTbl$Exercises <- 
+  list("Exercise 1", 
+       c("Exercise 2", "Exercise 3"),
+       c("Exercise 4", "Exercise 5"),
+       c("Exercise 6", "Exercise 7"),
+       c("Exercise 8 & 9", "Exercise 10"),
+       c("Exercise 11", "Exercise 12"))
+knitr::kable(tocTbl)
+```
+
+### Reference Books
+
+```{r, echo = FALSE}
+library(htmltools)
+div(class = "container-fluid",
+     div(class = "row",
+         div(class = "col-xs-6 pull-right",
+             tags$figure(
+               img(src = "images/Book1Cover.jpg", width = 300)
+             )),
+         div(class = "col-xs-6 pull-left",
+             tags$figure(
+               img(src = "images/Book2Cover.jpg", width = 268)
+             ))
+     ))
+```
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

@@ -1,0 +1,186 @@
+# Multivariate Analysis
+
+## Exercise 6
+
+```{r, echo = F, message=FALSE}
+load("trackfieldrecords.rdata")
+library(mixlm)
+```
+
+### Ex-1: Track and Field data
+
+Load the `trackfieldrecords.rdata` file with the objects `runMen` and `runWomen`containing national records (a few years ago...) for several track and field events like 100m, 200m and so on up to marathon. 
+
+* Explore the data for both men and women using the `pairs()` - plotting function (you must exclude the Nation variable since this is non-numeric). Which events appear to be most correlated with each other? Check by using the `cor()` - function.
+
+<div class="ans">
+
+##### `runMen`
+
+```{r}
+pairs(runMen[,-9])
+cor(runMen[,-9])
+```
+
+Mens running 5000m have the highest correlation (`r max(cor(runMen[,-9])[cor(runMen[,-9])<1])`) with the mens running 10000m.
+
+##### `runWomen`
+
+```{r}
+pairs(runWomen[,-8])
+cor(runWomen[,-8])
+```
+
+Womens running 3000m and 1500m have highest correlation (`r max(cor(runWomen[,-8])[cor(runWomen[,-8]) < 1])`)
+
+</div>
+
+* Run the following command and inspect the results: 
+
+```{r, eval=FALSE}
+cor(runWomen[,-8], runMen[,-9])
+```
+
+If you were going to "predict" a nation's record for women's M3000, which record among men would you use (rows in the table are women variables, columns are men)?
+
+<div class="ans">
+
+```{r, eval=TRUE, echo=FALSE}
+cor(runWomen[,-8], runMen[,-9])
+```
+
+Men's M1500 shows the highest corrlation to women's M3000 and appears to be the best indicator, but in order to really check this we should run a regression analysis with cross-validation to see which predicts best.
+
+</div>
+
+* Run a PCA (with scale=FALSE) on the men's data and print out a summary and the weights (loadings) for the two first PC's.
+  How many components is needed to explain at least 99% of the variation in the data?
+  Try to give an interpretation of PC1, and explain why so few components explains so much of the total variability.
+
+<div class="ans">
+
+```{r}
+pr <- prcomp(runMen[,1:8], scale = FALSE)
+summary(pr)
+pr
+```
+
+Only one component is needed to explain more than 99% of the variation. From the loadings we
+see that the loading weight for M42K (Marathon) is totally dominating with a weight of 0.98. All other weights are small. PC1 is therefore more or less indentical to the Marathon variable.
+
+PC1 is located in the direction of larget variability, and due to the large scale of marathon times, this variable totally dominates the PCA. In such cases it may be better to use standardized variables (which is equivalent to running the Eigenvalue decomposition on the correlation matrix instead of the covariance matrix of the variables).
+
+</div>
+
+* Re-run the PCA with option `scale=TRUE` in `prcomp()`. How many variables are needed to explain 99% of the variation in this case? How much is explained by the two first components?
+  How would you interprete the loadings of PC1, PC2 and PC3?
+
+<div class="ans">
+
+```{r}
+pr <- prcomp(runMen[,1:8], scale = TRUE)
+summary(pr)
+pr
+```
+
+Now we need 6 components to achieve 99% explained variance. Two components explain about 93.5% of the total variance. The loadings for PC1 are almost identical for all variables, hence PC1 is close to identical to the average run record across all distances for each country. PC2 has weights ranging from highly negative for marathon to highly positive for M100. This PC therefore contrasts short versus long runs. PC3 is a component that contrasts medium long distances (400, 800 and 1500 m) and either short or long distances. This component appears to extract information about how these distances differ from both sprint and endurance distances.
+
+</div>
+
+
+Make a biplot with the first two components. You may use the argument "xlabs" in biplot to indicate that "Nations" should be used to label the scores from each country. Give comments to how the nations cluster relative to the loadings.
+
+<div class="ans">
+
+```{r}
+biplot(pr, xlabs = runMen$Nation)
+```
+
+On the first axis (PC1) we observe that Cook's Islands and West Samoa have the largest weights, and they therefore have on average poor (long time) national records for all distance. At the other end we find USA and others with on average good national records.
+Along PC2 (vertically) we find those with relatively poor times on long distances, but relatively good times on short, at the bottom (Dom. Repub, Bermuda, Singapore, Malaysia, Thailand and West Samoa) whereas at the top we find countries with poor records on short distances compared to their long distance records (Costa Rica, North-Korea, Cook's Island and others).
+
+</div>
+
+* Let's try to predict the 3000M national records for women using the men's data. First use a least squares approach using the men's variables directly as predictor for women's M3000. To accomplish this use `runWomen$M3000` as response in `lm()`. Are there any significant variables? What is the $R^2$ and the adjusted $R^2$ values?
+
+<div class="ans">
+
+```{r}
+lmmod <- lm(runWomen$M3000 ~ M100 + M200 + M400 + M800 + M1500 + M5000 + M10K + M42K, data = runMen)
+summary(lmmod)$r.squared
+summary(lmmod)$adj.r.squared
+```
+
+Two variables are significant at 5% level in this fitted model, M800 and M400. The $R^2$-values indicate more than 80% explained variance. There is a slight difference between the adjusted and the non-adjusted $R^2$ indicating that there may be too many variables included in the model.
+
+</div>
+
+Either perform a manual elimination of insignificant variables, or run `backward()` from the mixlm-package to find a reduced model with only significant effects (5% testlevel). Which variables do you end up having in your model?
+
+<div class="ans">
+
+```{r}
+red.mod <- backward(lmmod, alpha = 0.05)
+summary(red.mod)
+```
+
+In addition to M400 and M800 I find M1500 to be highly significant after removing other variables. This "covered" effect from the full model was because of the inflated variances due to multicollinear variables in the full model. 
+
+</div>
+
+* Fit another model using all principal component scores from the men's data as predictors for women's M3000. The scores are stored in the principal component object as element names `x`.
+  Which components are significant at a 5% test level? Compare the $R^2$ values with those from the full model using all original variables as predictors.
+
+<div class="ans">
+
+```{r}
+#You need to transform the scores into a data.frame first
+PCdata <- as.data.frame(pr$x)
+pcrmod <- lm(runWomen$M3000 ~ PC1 + PC2 + PC3 + PC4 + PC5 + PC6 + PC7 + PC8, data = PCdata)
+
+summary(pcrmod)
+```
+
+Components 1,2 and 4 are highly significant, the others not. The $R^2$ values are identical to the full model on the orginal variables since we use all available components. The information content in PC1-PC8 is therefore the same as in the eight original variables.
+
+</div>
+
+
+* Perfom a model reduction also for the PCR-model by excluding Principal components until you have only PC's significant at 5% test level. Compare the estimated regression coefficients between the full and the reduced PCR-models. Why do you think the effects don't change
+  for the variables retained in the model?
+
+<div class="ans">
+
+```{r}
+pcr.red.mod <- backward(pcrmod, alpha = 0.05)
+summary(pcr.red.mod)
+```
+
+The reduced model has only PC1, PC2 and PC4 as predictors, and the $R^2$ is almost as high as for the full model. The estimated effects are identical due to the fact that the PC's are orthogonal to each other and explain independent variability. 
+
+</div>
+
+* For special interested: Use the estimated effects (alphas from the lecture) from the reduced PCR-model to compute PCR-estimated regression coefficients (betas in the lecture) for the original variables back back-rotation. Compare the estimated regression coefficients from the PCR-approach with Least squares estimates using original (BUT SCALED) variables.
+
+<div class="ans">
+
+```{r, error = T}
+#PCR-estimated betas using components 1,2 and 4. The %*% operator is the inner-product
+#multiplier in R
+PCRest <- pr$rotation[,c(1,2,4)] %*% (coef(pcr.red.mod)[-1])
+
+#Scaling the original variables and re-running the least squares model:
+runMen.scaled <- as.data.frame(scale(runMen[,-9]))
+lmmod2 <- lm(runWomen$M3000 ~ M100 + M200 + M400 + M800 + M1500 + M5000 + M10K + M42K, data = runMen.scaled)
+
+#Estimates without intercept.
+Estimates <- cbind(coef(lmmod2)[-1],PCRest)
+colnames(Estimates) <- c("Least Squares", "PCR")
+Estimates
+```
+
+For most of the variables the PCR-estimates are closer to zero (shrinkage effect) which
+induces a bias, but as lectured, the PCR-model may have smaller variance for the estimates due
+to avoidance of the multicollinearity problem. It seems like PCR has down-weighted the short and long distances compared to the Least Squares approach, which seems reasonable.
+
+</div>

@@ -1,0 +1,21 @@
+bookdown::gitbook:
+  includes:
+    after_body: '_footer.html'
+  css: style.css
+  number_sections: no
+  toc_depth: 2
+  config:
+    toc:
+      before: |
+        <li><a href="./">Applied Methods in Statistics</a></li>
+      after: |
+        <li><a name="title" href="javascript:void(0)"><b>Lecturer:</b></a><ul>
+        <li><a href="https://www.nmbu.no/ans/thore.egeland" target="blank">Thore Egeland</a></li></ul></li>
+        <li><a name="title" href="javascript:void(0)"><b>Assistent Teachers:</b></a><ul>
+        <li><a href="https://www.nmbu.no/ans/raju.rimal" target="blank">Raju Rimal</a></li></ul></li>
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  toc: no
+  citation_package: natbib
+bookdown::epub_book: default

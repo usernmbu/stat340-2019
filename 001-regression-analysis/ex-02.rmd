@@ -1,0 +1,300 @@
+## Exercise 2
+
+```{r, echo = F, message=FALSE}
+load("mtcars.rdata")
+source('../_functions/CV.R')
+```
+
+### Ex-1: The mtcars data from the datasets package
+
+We will use an old data set from 1974 on gasoline consumption for various cars which is part of the `datasets` package in R.
+Load the mtcars.rdata file (first download from Fronter).
+
+```{r}
+head(mtcars)
+```
+
+As you can see there are multiple variables. If you have the datasets package you may look at the help file for the data by:
+
+```{r, eval=FALSE}
+?datasets::mtcars
+```
+
+* Fit a multiple linear regression model with mpg (Miles/Gallon) as response variable and `wt` (Weight) and `cyl` (Number of cylinders) as predictors. Call the model object "`cars1`".
+
+<div class="ans">
+
+```{r}
+cars1 <- lm(mpg ~ cyl + wt, data = mtcars)
+```
+
+</div>
+
+* Check the model assumptions by residual analysis.
+
+<div class="ans">
+
+```{r}
+par(mfrow = c(1,2)) #This creates a layout for plots, one row and two columns
+plot(cars1, which = c(1,2)) #Only the two first residual plots
+```
+
+</div>
+
+* Give a summary of the results and compute the ANOVA-table.
+
+<div class="ans">
+
+```{r}
+summary(cars1)
+anova(cars1)
+```
+
+</div>
+
+* Give a short report on the results.
+
+<div class="ans">
+
+Both `cyl` and `wt` appears to be highly significant predictors for `mpg`. The estimated effects are negative implying that the mileage decreases as both weight and cylinder numbers increase, which is a reasonable result. The $R^2$ is `r round(summary(cars1)$r.squared,3)`, hence, about `r round(summary(cars1)$r.squared*100,0)`% of the variability in mileage is explained by the linear relationship with `cyl` and `wt`. The residual plot of fitted values versus residuals gives an indication of a non-linear relationship, which may be a result of non-linear dependencies or missing explanatory variable(s). The normal probability plot is more or less OK.
+
+</div>
+
+### Ex-2: Indicator variable
+
+* The `am` variable is an indicator variable for transmission system of the cars, 0=automatic, 1=manual. Run the following model in RStudio:
+
+```{r}
+cars2 <- lm(mpg ~ cyl + wt*am, data = mtcars)
+```
+
+Write up the assumed model which has been run here. Also write up the estimated models for
+automatic and manual transmission, respectively.
+
+<div class="ans">
+
+The model is:
+
+$$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_2\cdot x_3 + \epsilon$$
+
+where $y$=`mpg`, $x_1$=`cyl`, $x_2$=`wt`, $x_3$=`am` and $\epsilon \sim N(0, \sigma^2)$.
+The fitted model from RStudio is:
+
+```{r}
+summary(cars2)
+```
+
+For automatic transmission (`am`=$x_3$=0) we have the estimated model:
+
+$$\hat{y} = 34.28 - 1.18x_1 - 2.37x_2$$
+
+For manual transmission (`am`=$x_3$=1) we have
+$$\hat{y} = 34.28 - 1.18x_1 - 2.37x_2 + 11.94\cdot 1 - 4.20x_2\cdot 1$$
+$$= 46.22 - 1.18x_1 - 6.57x_2$$
+
+We observe that the negative effect of weight on mileage is larger for manual transmission than for automatic. 
+
+</div>
+
+### Ex-3: Comparing models - Partial F-test
+
+* From the p-values we observe that transmission gives a significant addition to the intercept 
+and to the effect of weight, respectively. These p-values correspond to testing each effect GIVEN that all other variables are included in the model. 
+Sometimes we would rather like to test several effects jointly. For instance, should we
+add both transmission (`am`) AND the interaction betwen transmission and weight (`wt:am`) to the model? This is a joint test of the significance of transmission in the model.
+To accomplish this we may compare the fits of `cars2` (a full model) with `cars1` (a reduced model)
+since the difference between these models are exactly the transmission effects. This is called
+a partial F-test (Fisher test) were we test whether the SSE has decreased significantly as we
+go from the reduced model to the full model. The partial F-test may be run in RStudio by:
+
+```{r}
+anova(cars1, cars2)
+```
+
+From the output we see that the test statistic is an F-statistic. Is there a significant effect
+of transmission do you think?
+
+<div class="ans">
+
+A lengthy answer:
+We are here really testing the hypotheses:
+
+$$H_0: \beta_3 = \beta_4 = 0$$ versus the alternative that at least one of them is different from zero.
+
+We reject the null-hypothesis at test-level $\alpha$ if 
+
+$$F = \frac{(SSE_\text{red.mod}-SSE_\text{full.mod})/r}{MSE_\text{full.mod}}$$
+is larger than $F_{\alpha, r, n-p}$, where $r$ is the difference in the degrees of freedom for SSE for the two models (here $r=2$), and $n-p$ are the degrees of freedom for SSE of the full model (here $n-p=27$).
+
+From the output we have (note RSS = SSE):
+$$F = \frac{(191.17 - 138.51)/2}{138.51/27} = 5.13$$
+
+We reject at level $\alpha=0.05$ if this observed F is larger than $F_{0.05, 2, 27}$.
+At this point we could look this up in a Fisher-table, or alternatively compute this
+quantile of the Fisher distribution by:
+
+```{r}
+qf(0.05, 2, 27, lower.tail = FALSE)
+```
+
+See `?FDist` for help-file for the Fisher distribution.
+
+We reject the null-hypothesis.
+
+Alternatively we reject since the p-value from the output is smaller than 0.05.
+
+</div>
+
+* Perform a residual analysis of the `cars2` model.
+
+<div class="ans">
+
+```{r}
+par(mfrow = c(1,2)) 
+plot(cars2, which = c(1,2)) 
+```
+
+The linearity has improved, but maybe there is an increasing variance with increasing fitted value (estimated mileage). The normality looks good.
+
+</div>
+
+### Ex-4: Influential measurements
+
+* Use the `influence.measures()` function to compute the Cook's distances and the leverage (hat) values for all observations accoring to the `cars2` model. Are there any influential observations
+according to these measures?
+
+<div class="ans">
+
+```{r}
+summary(influence.measures(cars2))
+```
+
+Four observations are flagged by R, but none according to Cook's distance or leverage (hat).
+
+</div>
+
+
+### Ex-5: Model selection
+
+* Fit a third multiple linear regression model with mpg (Miles/Gallon) as response variable
+and `cyl`, `disp`, `hp`, `drat`, `wt` and `qsec` as predictor variables. Call the model object "`cars3`".
+Report a summary of the analysis.
+
+<div class="ans">
+
+```{r}
+cars3 <- lm(mpg ~ cyl + disp + hp + drat + wt + qsec, data = mtcars)
+summary(cars3)
+```
+
+Apparently only wt is significant, but having many variables in a model may lead to inflated Std. Errors of the estimates due to correlation between predictors, and problems finding truly significant variables.
+
+</div>
+
+*  We would like to check various sub-models of this model by combining different variables. Install and load the '`mixlm`' package. The package contains a function called `best.subsets()` which can help us find a good model.
+
+Run
+
+```{r,eval=FALSE}
+best.subsets(cars3)
+```
+
+<div class="ans">
+
+```{r}
+best.subsets(cars3)
+```
+
+</div>
+
+The function reports by default the 5 best models for each model size (number of predictors). The model size is given in the first column. Column two is the rank within model size, then comes a column for each variable with a star indicating that a given variable is part of the model. Finally comes the residual sum of squares (RSS or SSE), $R^2$, $R^2$-adjusted and finally a diagnostic called Mallow's Cp.
+Which sub-model would you say is the best fitting model according to the $R^2$-adjusted?
+
+<div class="ans">
+
+A couple of models are quite similar, but the largest $R^2$-adjusted is obtained with a model with predictors `cyl`, `hp` and `wt`. This is also a quite simple model with
+few predictors. We should always strive for simple models and choose the simpler model in cases where the fit appears to be more or less equal for several models.
+
+</div>
+
+
+### Ex-6: Model validation
+
+On Fronter you find a file called "`CV.R`" containing two functions `CV()` and `Kfold()`.
+Download this file and open it in RStudio and press the "source" button up to the right in the script window. This will run the file and create these functions.
+
+
+A fitted model should ideally be validated on a test set of new and un-touched data.
+We could predict the new samples using our best choice model and evaluate the prediction performance. If the model predicts well, we probably have a good model!
+
+If we don't have a test set, we may perform Cross-validation. The most common version is the Leave-One-Out Cross-validation where we successively remove one observation from the data and fit the model to the remaining observations. The fitted model is used to predict the left out observation. After fitting a model, the left out observation is put back, and another is left out. In ttoal we then fit $n$ models, and perform $n$ predictions.
+
+* Use the `CV()` function to perform a Leave-One-Out CV using the `cars2` model fit by:
+
+```{r}
+res <- CV(cars2)
+```
+
+<div class="ans">
+
+```{r}
+print(res)
+```
+
+</div>
+
+The `CV()` returns a list with three elements, the predictions, the Mean Square Error of Prediction and and $R^2$-predicted. 
+
+*Make a plot of the observed mpg versus the cross-validation predictions. 
+
+<div class="ans">
+
+```{r}
+plot(mtcars$mpg, res$pred, xlab = "Observed", ylab = "Predicted")
+```
+
+</div>
+
+* Is the best model from the previous exercise, identified by the `best.subsets()`, a better model in terms of prediction error (MSEP)? The MSEP is defined by:
+
+$$\text{MSEP} = \frac{1}{n}\sum_{i=1}^{n}\left(y_i - \hat{y}_{(i)}\right)^2$$
+
+where $\hat{y}_{(i)}$ is the prediction of $y_i$ using a model where observation $i$ was left out from the model estimation. A small value implies better prediction.
+
+<div class="ans">
+
+```{r}
+cars4 <- lm(mpg ~ cyl + hp + wt, data = mtcars)
+CV(cars4)
+```
+
+No, this model does not predict better than cars2.
+
+</div>
+
+* Leave-One-out CV is known to have large uncertainty, and using a K-fold CV
+is an alternative. Then the data are divided into K subsets (folds) of approximately equal sizes, and a leave-one-fold-out CV is performed instead. A K=10 is often recommended. Here, since n=32 a K=8 is better, since this gives subsets of equal sizes. Create K=8 random folds by
+
+```{r}
+myfolds <- Kfold(n = 32, K = 8, random = TRUE)
+```
+
+<div class="ans">
+
+```{r}
+print(myfolds)
+```
+
+Since the folds are sampled randomly, we get r different folds each time we run `Kfold()`.
+
+</div>
+
+As you see, myfolds is a list of 8 random subsets of observation numbers.
+
+Re-run the validation of cars2 by
+
+```{r}
+CV(cars2, folds = myfolds)
+```
+
+Note that the result now will vary if you repeat the creation of random K-folds for the cross-validation. Try to make a new myfolds and run the CV again. 

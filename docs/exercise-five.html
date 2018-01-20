@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Applied Methods in Statistics</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Applied Methods in Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
+  <meta name="github-repo" content="therimalaya/stat340" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Applied Methods in Statistics" />
+  
+  <meta name="twitter:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
+  
+
+<meta name="author" content="Solve Sæbø">
+
+
+<meta name="date" content="2017-01-01">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="exercise-four.html">
+<link rel="next" href="multivariate-analysis.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Applied Methods in Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a><ul>
+<li class="chapter" data-level="" data-path="reference-books.html"><a href="reference-books.html"><i class="fa fa-check"></i>Reference Books</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a><ul>
+<li class="chapter" data-level="" data-path="create-new-project.html"><a href="create-new-project.html"><i class="fa fa-check"></i>Create New Project</a></li>
+<li class="chapter" data-level="" data-path="exercise-1-data-import.html"><a href="exercise-1-data-import.html"><i class="fa fa-check"></i>Exercise 1: Data Import</a></li>
+<li class="chapter" data-level="" data-path="exercise-2-export-data-to-a-file.html"><a href="exercise-2-export-data-to-a-file.html"><i class="fa fa-check"></i>Exercise 2 - Export data to a file</a></li>
+<li class="chapter" data-level="" data-path="exercise-3-exploring-the-data.html"><a href="exercise-3-exploring-the-data.html"><i class="fa fa-check"></i>Exercise 3 - Exploring the data</a></li>
+<li class="chapter" data-level="" data-path="exercise-4-subsets-of-data-and-logical-operators.html"><a href="exercise-4-subsets-of-data-and-logical-operators.html"><i class="fa fa-check"></i>Exercise 4 - Subsets of data and logical operators</a></li>
+<li class="chapter" data-level="" data-path="exercise-5-graphics.html"><a href="exercise-5-graphics.html"><i class="fa fa-check"></i>Exercise 5 - Graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i>Regression Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exercise-1.html"><a href="exercise-1.html"><i class="fa fa-check"></i>Exercise 1</a></li>
+<li class="chapter" data-level="" data-path="exercise-2.html"><a href="exercise-2.html"><i class="fa fa-check"></i>Exercise 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html"><i class="fa fa-check"></i>Analysis of variance</a><ul>
+<li class="chapter" data-level="" data-path="exercise-four.html"><a href="exercise-four.html"><i class="fa fa-check"></i>Exercise Four</a></li>
+<li class="chapter" data-level="" data-path="exercise-five.html"><a href="exercise-five.html"><i class="fa fa-check"></i>Exercise Five</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multivariate-analysis.html"><a href="multivariate-analysis.html"><i class="fa fa-check"></i>Multivariate Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exercise-6.html"><a href="exercise-6.html"><i class="fa fa-check"></i>Exercise 6</a></li>
+<li class="chapter" data-level="" data-path="exercise-7.html"><a href="exercise-7.html"><i class="fa fa-check"></i>Exercise 7</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i>Generalized Linear Model</a><ul>
+<li class="chapter" data-level="" data-path="exercise-7-1.html"><a href="exercise-7-1.html"><i class="fa fa-check"></i>Exercise 7</a></li>
+<li class="chapter" data-level="" data-path="exercise-8.html"><a href="exercise-8.html"><i class="fa fa-check"></i>Exercise 8</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mixed-effect-model.html"><a href="mixed-effect-model.html"><i class="fa fa-check"></i>Mixed Effect Model</a><ul>
+<li class="chapter" data-level="" data-path="exercise-9.html"><a href="exercise-9.html"><i class="fa fa-check"></i>Exercise 9</a></li>
+<li class="chapter" data-level="" data-path="exercise-10.html"><a href="exercise-10.html"><i class="fa fa-check"></i>Exercise 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="group-exercises.html"><a href="group-exercises.html"><i class="fa fa-check"></i>Group Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exercise-one.html"><a href="exercise-one.html"><i class="fa fa-check"></i>Exercise One</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a name="title" href="javascript:void(0)"><b>Lecturer:</b></a><ul>
+<li><a href="https://www.nmbu.no/ans/solve.saebo" target="blank">Solve Sæbø</a></li></ul></li>
+<li><a name="title" href="javascript:void(0)"><b>Assistent Teachers:</b></a><ul>
+<li><a href="https://www.nmbu.no/ans/raju.rimal" target="blank">Raju Rimal</a></li></ul></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Methods in Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-five" class="section level2">
+<h2>Exercise Five</h2>
+<div id="ex-1-data-from-the-nsr-education-test-revisited" class="section level3">
+<h3>Ex-1: Data from the NSR education test, revisited</h3>
+<p>Follow up Ex-2 from last week by performing a Tukey test for all pair wise comparisons with overall (family-wise) error rate 5%. Give a summary of the results.</p>
+<div class="ans">
+<pre><code>Anova Table (Type III tests)
+
+Response: Science
+             Sum Sq   Df  F value                Pr(&gt;F)    
+(Intercept)  1600.5    1 1557.591 &lt; 0.00000000000000022 ***
+Age           224.8    4   54.698 &lt; 0.00000000000000022 ***
+Residuals   10270.5 9995                                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>
+     Simultaneous Confidence Intervals and Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: lm(formula = Science ~ Age, data = NSRdata)
+
+Quantile = 2.7283 
+Minimum significant difference = 0.1567
+95% confidence level
+ 
+Linear Hypotheses:
+         Lower   Center    Upper  Std.Err t value                P(&gt;t)    
+1-13   0.04545  0.20212  0.35879  0.05742   3.520              0.00397 ** 
+1-16  -0.01827  0.13839  0.29506  0.05742   2.410              0.11263    
+1-19   0.10789  0.26456  0.42123  0.05742   4.607          0.000040626 ***
+1-30  -0.34661 -0.18994 -0.03327  0.05742  -3.308              0.00838 ** 
+13-16 -0.22040 -0.06373  0.09294  0.05742  -1.110              0.80148    
+13-19 -0.09423  0.06244  0.21911  0.05742   1.087              0.81318    
+13-30 -0.54873 -0.39206 -0.23540  0.05742  -6.828 &lt; 0.0000000000000002 ***
+16-19 -0.03050  0.12617  0.28284  0.05742   2.197              0.18077    
+16-30 -0.48500 -0.32834 -0.17167  0.05742  -5.718          0.000000111 ***
+19-30 -0.61117 -0.45450 -0.29783  0.05742  -7.915 &lt; 0.0000000000000002 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+(Adjusted p values reported -- single-step method)
+
+
+WARNING: Unbalanced data may lead to poor estimates</code></pre>
+<p>The anova table indicates a clear significance of Age-group with regard to the interest level to Science subjects. hence, at least two age-groups are have significantly different expected means. We can use the Tukey test to identify pairwise differences.</p>
+<p>The Tukey output provides differences in mean (column “center”) between all pairs of groups, and at the top of output the minimum difference yielding a significant difference in means is given to be 0.1567. That is, all age-groups with a difference in averages of more than 0.1567 are significantly different, according to Tukey. From the p-values we observe that 6 out of 10 pairs are significantly different, and the largest difference is found between age groups 30+ and 19-29.</p>
+<pre><code>Tukey&#39;s HSD
+Alpha: 0.05
+
+       Mean G1 G2 G3
+30 3.333151  A      
+1  3.143210     B   
+16 3.004815     B  C
+13 2.941086        C
+19 2.878647        C</code></pre>
+<p>The compact letter display gives a grouping of the similar levels, and there are three groups of levels that are internaly non-significantly different. 30+ is different from all other levels, whereas 1-12 and 16-19 are similar and 16-19, 13-15 and 19-29 are also similar.</p>
+</div>
+</div>
+<div id="ex-2" class="section level3">
+<h3>Ex-2:</h3>
+<p>In <code>barley.rdata</code> are results from an experiment where the response is yield of barley pr 1000 square meter, and the factors sorts of barley, soil types, types of fertilizers. In addition was the experiment done in two different geographical areas (sites).</p>
+<ul>
+<li>Assume a two factor model including the main effects of <code>sort</code> and <code>soil</code> and their interaction. State the model and explain all parameters under a sum-to-zero parametrization.</li>
+</ul>
+<div class="ans">
+<p>The model can be written as:</p>
+<p><span class="math display">\[ y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}\]</span></p>
+<p>where, <span class="math inline">\(\epsilon \sim N(0, \sigma^2)\)</span></p>
+<p>The parametrization restrictions for “sum-to-zero”&quot; are:</p>
+<p><span class="math display">\[
+\begin{aligned} 
+\sum_i{\alpha_i} = 0, &amp; \sum_j{\beta_j} = 0, &amp; 
+\sum_{i}{(\alpha\beta)_{ij}} = 0  \text{ and }
+\sum_{j}{(\alpha\beta)_{ij}} = 0
+\end{aligned}
+\]</span></p>
+</div>
+<ul>
+<li>Fit the model in R and estimate all parameters</li>
+</ul>
+<div class="ans">
+<pre><code>                Estimate Std. Error   t value
+(Intercept)     380.9375   10.14459 37.550810
+sort(1)         -23.6250   10.14459 -2.328828
+soil(1)         -43.1250   10.14459 -4.251035
+sort(1):soil(1)  13.8125   10.14459  1.361563
+                                         Pr(&gt;|t|)
+(Intercept)     0.0000000000000000000000001697412
+sort(1)         0.0273106534545246339151791659106
+soil(1)         0.0002136381228279022985450108507
+sort(1):soil(1) 0.1841919639706707523263418124770</code></pre>
+<pre><code>[1] 3293.205</code></pre>
+<p>From the model summaries we find the estimated parameters to be:</p>
+<ol style="list-style-type: decimal">
+<li>The estimated overall mean yield: <span class="math inline">\(\hat{\mu} = 380.94\)</span></li>
+<li>The estimated effects of sort 1 and 2: <span class="math inline">\(\hat{\alpha}_1=\)</span> -23.625, <span class="math inline">\(\hat{\alpha}_2 = -\hat{\alpha}_1 =\)</span> 23.625</li>
+<li>The estimated effects of soil 1 and 2: <span class="math inline">\(\hat{\beta}_1=\)</span> -43.125, <span class="math inline">\(\hat{\beta}_2 = -\hat{\beta}_1 =\)</span> 43.125</li>
+<li>The estimated interaction effects of sort and soil: <span class="math inline">\(\hat{\alpha\beta}_{11}=\)</span> 13.8125, <span class="math inline">\(\hat{\alpha\beta}_{12}=-\hat{\alpha\beta}_{11}\)</span> -13.8125, <span class="math inline">\(\hat{\alpha\beta}_{21}=-\hat{\alpha\beta}_{11}\)</span> -13.8125, <span class="math inline">\(\hat{\alpha\beta}_{22}=-\hat{\alpha\beta}_{21}=-\hat{\alpha\beta}_{12}=\)</span> 13.8125</li>
+<li>The estimated within <code>sort:soil</code> levels unexplained variability: <span class="math inline">\(\hat{\sigma}^2=MSE=\)</span> 3293.21</li>
+</ol>
+</div>
+<ul>
+<li>Make an interaction plot and try to conclude about the presence of interaction from the plot. How would you explain interaction effect in this example for a person with experience in agriculture, but minimal statistical experience?</li>
+</ul>
+<div class="ans">
+<p><img src="STAT340-2017_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+From the plot, it seems that a farmer can expect an increase in yield when using sort 2 instead of sort 1 for both types of soil, and there may be a higher gain of sort 2 over sort 1 for soil-type 2 than for soil type 1. If this is so, there is a so-called interaction effect of sort and soil on yield.
+</div>
+<ul>
+<li>Perform a hypothesis test for the interaction effect. Conclusion?</li>
+</ul>
+<div class="ans">
+<pre><code>Anova Table (Type III tests)
+
+Response: Yield
+             Sum Sq Df   F value                Pr(&gt;F)    
+(Intercept) 4643628  1 1410.0633 &lt; 0.00000000000000022 ***
+sort          17861  1    5.4234             0.0273107 *  
+soil          59513  1   18.0713             0.0002136 ***
+sort:soil      6105  1    1.8539             0.1841920    
+Residuals     92210 28                                    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The interaction between <code>soil</code> and <code>sort</code> is insignificant (high p-value). This result indicates that the slight non-parallel tendency of the lines in the interaction plot may be due to random errors. More data would be needed to verify any interaction effect.</p>
+</div>
+<ul>
+<li>Fit a four factor model with sort, soil, fert and site as factors and with all possible 2-factor, 3-factor and 4-factor interactions. Use <code>Anova()</code> from the car-package with argument <code>type=&quot;III&quot;</code> to produce an ANOVA table. Type III means that all factors are tested as if they were the last factor to be added to the model. Are there any higher order significant effects? Compare the R-squared and the adjusted R-squared values. What can you conclude from these?</li>
+</ul>
+<div class="ans">
+<pre><code>Anova Table (Type III tests)
+
+Response: Yield
+                     Sum Sq Df   F value                Pr(&gt;F)    
+(Intercept)         4643628  1 4503.1850 &lt; 0.00000000000000022 ***
+sort                  17861  1   17.3203             0.0007350 ***
+soil                  59512  1   57.7126           0.000001077 ***
+fert                   2813  1    2.7274             0.1181247    
+site                   1458  1    1.4139             0.2517578    
+sort:soil              6105  1    5.9205             0.0270667 *  
+sort:fert              2080  1    2.0172             0.1747174    
+soil:fert             33930  1   32.9039           0.000030638 ***
+sort:site             23220  1   22.5178             0.0002195 ***
+soil:site               595  1    0.5771             0.4584890    
+fert:site               105  1    0.1019             0.7536381    
+sort:soil:fert         2245  1    2.1766             0.1595290    
+sort:soil:site         1405  1    1.3620             0.2602870    
+sort:fert:site         7442  1    7.2169             0.0162162 *  
+soil:fert:site           12  1    0.0121             0.9136995    
+sort:soil:fert:site     406  1    0.3938             0.5391407    
+Residuals             16499 16                                    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>[1] 0.9060891</code></pre>
+<pre><code>[1] 0.8180477</code></pre>
+<p>There is only one interaction effect significant at 5% levels, namely the <code>sort:fert:site</code> interaction. However, the least squares estimator is prone to inflated variance estimates and difficulties in finding significance when the number of variables <code>k</code> rises compared to the number of observations <code>N</code> and if variables are highy correlated. To many variables to estimate from a limited number of observations leaves few degrees of freedom to SSE, and tests with low power. Lack of significance may be an over-fitting problem. By removing some of the least significant variables, the problem is reduced, and a reduced model with significant effects may be identified.</p>
+<p>The large difference between <span class="math inline">\(R^2\)</span> and <span class="math inline">\(R_{adj}^2\)</span> is also an indication of an over-fitted model.</p>
+</div>
+<ul>
+<li>Fit also a reduced model without site, but all other effects up to 3rd order interactions. Perform a partial F-test with the <code>anova()</code> function to test whether site (and all its interactions with the others) should be excluded from the model (See also Exercise set 3 and Ex-3).</li>
+</ul>
+<div class="ans">
+<pre><code>Analysis of Variance Table
+
+Model 1: Yield ~ sort * soil * fert * site
+Model 2: Yield ~ sort * soil * fert
+  Res.Df   RSS Df Sum of Sq      F   Pr(&gt;F)   
+1     16 16499                                
+2     24 51142 -8    -34644 4.1995 0.007068 **
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The <code>anova</code> result for partial F-test shows that site is needed to a certain degree in the model. The low p-value reject the hypothesis that there is no effect of <code>site</code> on <code>Yield</code>.</p>
+</div>
+<ul>
+<li>In the <code>mixlm</code>-package there are convenient functions for performing automatic model selection by either <code>backward()</code> elimination of factors from a “full-model, by <code>forward()</code> addition of factors from a minimal model with only intercept, or a combined <code>stepwise()</code> function which combines both forward and backward addition/elimination.</li>
+</ul>
+<p>For the backward function the least significant factor is removed from the model in each step if the p-value is larger than testlevel <code>alpha</code>. If all factors are significant at any step, the procedure stops. The elimination obeys the so-called marginality principle (hierarchy of factors) which states that any lower order effect or interaction should not be removed from the model if it is part of a higher order significant interaction. This is a good principle for practical data analysis.</p>
+<p>Try to run the <code>backward()</code> function on the model object you created above with all four factors and interactions. Use <code>alpha=0.05</code> as test level. Use the Step-information from the output to explain which factors being excluded at each step. What is the final reduced model?</p>
+<div class="ans">
+<pre><code>Backward elimination, alpha-to-remove: 0.05
+
+Full model: Yield ~ sort * soil * fert * site
+&lt;environment: 0x7fb20182cf78&gt;
+
+                    Step   RSS    AIC  R2pred     Cp F value Pr(&gt;F)
+sort:soil:fert:site    1 16905 230.63 0.65906 14.394  0.3938 0.5391
+soil:fert:site         2 16918 228.65 0.69566 12.406  0.0126 0.9120
+sort:soil:site         3 18322 229.20 0.70418 11.768  1.4944 0.2373
+soil:site              4 18917 228.23 0.72435 10.345  0.6171 0.4418
+sort:soil:fert         5 21162 229.81 0.72031 10.522  2.3730 0.1391</code></pre>
+<p>In the first step, the 4th order interaction is removed. In 2nd, 3rd and 4th step some 3rd order and a 2nd order interactions are removed. After removing interaction between <code>sort</code>,<code>soil</code> and <code>site</code> in the 5th step, the resulting model is,</p>
+<pre><code>Yield ~ sort + soil + fert + site + sort:soil + sort:fert + soil:fert + 
+    sort:site + fert:site + sort:fert:site</code></pre>
+</div>
+<ul>
+<li>Fit the reduced model and perform a model check using residual analysis.</li>
+</ul>
+<div class="ans">
+<p>The <code>backward</code> function has fitted the reduced model (her named <code>mod4</code>):</p>
+<p><img src="STAT340-2017_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<p>The residual plots give no evidence of any problems with the model assumptions.</p>
+</div>
+<ul>
+<li>Make an interaction effects plot using the following code:</li>
+</ul>
+<div class="ans">
+<p><img src="STAT340-2017_files/figure-html/effectPlot-1.png" width="672" /></p>
+</div>
+<p>Try to explain the plot. Why do you think the interaction between sort, fertilizer and site was significant?</p>
+<div class="ans">
+<p>The plot shows that, when changing sort from 1 to 2, a farmer can expect different change in average Yield for <code>site:1</code> and <code>site:2</code> and the difference is not same when using <code>fertilizer:1</code> and <code>fertilizer:2</code>.</p>
+</div>
+
+</div>
+</div>
+<!-- </div> -->
+<script>
+ans_btn_html = '<a class = "btn-ans"><span class="label label-success no-print">&lt;ANS/&gt;</span></a>';
+  showAns_btn = '<a class="showAns-btn btn pull-right js-toolbar-action">Show Answers</a>';
+  hideAns_btn = '<a class="hideAns-btn btn pull-right js-toolbar-action" style="display:none;">Hide Answers</a>';
+  
+  // Adding Extra Menus in Navigation
+  
+  // Adding button on before each answer:::
+  $(".ans").before(ans_btn_html);
+  $('.btn-ans').each(function(){
+    $(this).next('.ans').andSelf().wrapAll('<div class="wrap-ans"/>');
+  });
+  $('.btn-ans').click(function(){
+    $(this).siblings('.ans').toggle(400);
+  });
+  
+if ($(".ans").length > 0){
+    $('.book-header').prepend(showAns_btn, hideAns_btn);
+    $('.showAns-btn').show();
+    $('.showAns-btn').click(function(){
+      $('.btn-ans').hide(400);
+      $('.ans').show(400);
+      $('.hideAns-btn').show();
+      $(this).hide();
+      $('.hideAns-btn').click(function(){
+        $('.btn-ans').show(400);
+        $('.ans').hide(400);
+        $('.showAns-btn').show();
+        $(this).hide();
+      });
+    });
+  }
+
+var chap = "week-two"
+if(window.location.href.indexOf(chap) != -1){
+  var now = new Date();
+  var release = new Date("August 21, 2016");
+  if(now < release){
+    $(".ans, .btn-ans, .showAns-btn, .hideAns-btn").hide()
+  }
+}
+
+$('.ans p:has(img)').css('text-align', 'center');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82812028-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exercise-four.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multivariate-analysis.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["STAT340-2017.pdf", "STAT340-2017.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
