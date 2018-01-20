@@ -15,7 +15,6 @@ pre code {
 .title, .author, .date{
   text-align: center;
   font-style: normal;
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
   padding-bottom: -50pt;
 }
 .ans{
