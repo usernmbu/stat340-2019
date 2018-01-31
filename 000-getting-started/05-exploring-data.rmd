@@ -1,0 +1,110 @@
+## Exercise 5: Exploring the data
+
+### Structure of an R-object
+The first command you need to learn is `str` function in order to explore any object in R. Lets apply this to our `bodydata`,
+
+```{r str-bodydata}
+str(bodydata)
+```
+
+This output shows us that `bodydata` is a `data.frame` with `r nrow(bodydata)` rows and `r ncol(bodydata)` numeric variables - `r names(bodydata)`.
+
+### Accessing elements from R-objects
+Different [data structure](#03-data-structure-in-r) have different way of accessing elements from them. 
+
+#### Extracting elements from `vector`, `matrix` and `array`
+For vector, matrix and arraywe can use `[` for accessing their elements. Lets create a vector, a matrix and an array as follows,
+
+```{r}
+a_vector <- c("one", "two", "three", "four", "five")
+a_matrix <- matrix(1:24, nrow = 3, ncol = 8)
+an_array <- array(1:24, dim = c(2, 3, 4))
+```
+
+**Extracting element at position 3 to 5 in `a_vector`**
+: `a_vector[3:5]` with give <code>`r a_vector[3:5]`</code>, the elements at postion index 3, 4, and 5. In R, position index starts from 1.
+
+**Extracting element in rows 2, 3 and columns 2, 4, 6, 8 from `a_matrix`**
+: This is a two dimensional structure, we give row-index and column-index inside `[` operator separated by comma as,
+```{r}
+a_matrix[c(2, 3), c(2, 4, 6, 8)]
+```
+We can also write this as,
+```{r}
+a_matrix[2:3, seq(from = 2, to = 8, by = 2)]
+```
+Here `seq(from = 2, to = 8, by = 2)` create sequence even integer from 2 to 8 which is used as column index for extracting elements from `a_matrix`.
+
+**Extracting first element of `an_array`:**
+Here `an_array` is an array structure of dimension three. So, we have to use three index vector inside `[` operator in order to extract element from it. For instance `an_array[1, 1, 1]` gives `r an_array[1, 1, 1]` as its first element of the array.
+
+In all these structures we can only supply index of one or more dimension. For example,
+`a_matrix[1:2,]` where we have only mentioned the row index, will give elements in _first_ and _second_ row from all columns. i.e.
+```{r}
+a_matrix[1:2, ]
+```
+
+#### Extracting elements from `data.frame` and `list`
+Lets create a `data.frame` and a `list` as,
+```{r}
+a_dataframe <- data.frame(
+  fertilizer = c("Low", "Low", "High", "High"),
+  yield = c(12.5, 13.1, 15.3, 16.2)
+)
+a_list <- list(
+  facebook = data.frame(
+    name = c("Gareth", "Raju", "Marek", "Franchisco"),
+    has_profile = c(TRUE, TRUE, FALSE, TRUE)
+  ),
+  twitter = c("@gareth", "@raju", "@marek", "franchisco")
+)
+```
+
+**Extracting third and fourth row of `fertilizer` from `a_dataframe`**
+: Same as extracting elements as matrix as discussed above we can use row and column index as `a_dataframe[3:4, 1]`. We have used `1` in place of column index since `fertilizer` is in first column. We can also use name instead as `a_dataframe[3:4, "fertilizer"]`.
+```{r}
+a_dataframe[3:4, "fertilizer"]
+```
+
+**Extracting first element of `a_list`**
+: We can use `[[` for extracting elements from `a_list`. For example `a_list[[1]]` will give the first element of the list. Here in our list we have two elements with names `facebook` and `twitter`. So, we can also use their names as `a_list[["facebook"]]` which is not possible if they do not have any name.
+```{r}
+a_list[["facebook"]]
+```
+
+We can also use `$` operator to extract elements from named list and a data frame. For example, `bodydata$Weight` extracts `Weight` variable from `bodydata` dataset.
+
+### View Data in RStudio
+Newer version of RStudio support viewing data in different structures. To view `bodydata` we have imported in [Exercise 2: Importing data in R], we can use `View(bodydata)`. If you have not imported the, you need to follow the exercise and import the data first. We can also click the data in "Environment" tab to view it.
+
+```{r, echo = FALSE, fig.cap="View dataset using command and by clicking the data in Environment tab"}
+knitr::include_graphics("gif/View.gif")
+```
+
+### Summary of data
+
+We can compute basic descriptive summary statistics using `summary` function as,
+
+```{r}
+summary(bodydata)
+```
+
+### Dimension of data
+The number of elements in a data structure like vector and list we can use `length` function. For example: if we extract `Weight` variable from `bodydata` we will get a numeric vector. The length of this vector is,
+
+```{r, eval = FALSE}
+length(bodydata$Weight)
+```
+
+A multi-dimensional data structure like matrix, array and data frame has dimension. We can use `dim` function to find the dimension.
+
+```{r}
+dim(bodydata)
+```
+
+Here, the first and second item refers to the number of rows and number of columns of bodydata. Similarly, we can use `nrow(bodydata)` and `ncol(bodydata)`to obtain these number individually.
+
+### Lets Practice
+1) Take a look at the top 5 rows of `bodydata`
+2) Take a look at the top 5 rows of `Height` and `Circumference` variables of `bodydata`
+3) Apply `summary` function on `Age` variable of `bodydata`
