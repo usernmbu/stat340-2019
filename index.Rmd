@@ -31,7 +31,7 @@ for (pkg in pkgs)
 
 Exercises in this site is relevant for Stat340 course which discusses some of the applied topics in statistics. For the exercises, we will use open source R statistical software along with RStudio, an integrated development environment for R. We advise student to install the latest version of R and RStudio on their laptop computer. In addition, we will use few packages in R which we will discuss during the exercise period. Students are highly encouraged to complete these exercises on their own and also participate in Group Exercises. Follow the link below to install R and RStudio.
 
-### [Install R](https://cran.uib.no) and [Install RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+**[Install R](https://cran.uib.no) and [Install RStudio](https://www.rstudio.com/products/rstudio/download/#download)**
 
 **See:** [Lecture and Exercise Plan] and [Reference Books]
 
