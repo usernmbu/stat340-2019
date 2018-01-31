@@ -1,0 +1,16 @@
+## Exercise 3: Exporting data to a file
+To export an r-object to a file, `write.table` function is used. For example, we can export the `bodydata` table we just imported as a text file named `bodydata-export.txt` as,
+
+```{r, eval = FALSE, echo = TRUE}
+write.table(bodydata, file = "_data/bodydata-export.txt", 
+            row.names = FALSE, quote = FALSE)
+```
+
+We can also use `write.csv` function to export the data in `csv` format. The `txt` and `csv` file format only holds data in tabular structures. Sometimes we need to save other R-objects such as fitted models or list for which we can use `Rdata` format. We can save our `bodydata` objects in `Rdata` format as,
+
+```{r, eval = FALSE, echo = TRUE}
+save(bodydata, file = "_data/bodydata-export.rdata")
+```
+
+This will export bodydata object to a file named `bodydata-export.rdata` in `_data` folder in your project directory.
+
