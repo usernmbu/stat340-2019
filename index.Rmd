@@ -1,71 +1,87 @@
---- 
+---
 title: "Applied Methods in Statistics"
-author: "Thore Egeland"
-date: "`r format(Sys.Date(), '%Y')`"
+author: "Thore Egeland and Raju Rimal"
+date: "`r paste('Year:', format(Sys.Date(), '%Y'))`"
 site: bookdown::bookdown_site
-output: 
+output:
   bookdown::gitbook:
     split_by: section+number
     config:
-      toc: 
+      toc:
         collapse: section
 documentclass: book
 fontsize: '12pt'
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: therimalaya/stat340
+github-repo: mathatistics/stat340-2018-source
 description: "This contains the weekly exercises related to Applied Methods in Statistics (STAT340)"
 ---
 ```{r include = FALSE}
 knitr::opts_chunk$set(echo = FALSE,
                       comment = NULL)
-knitr::opts_knit$set(root.dir = "_data")
 options(scipen = 999)
-pkgs <- c("mixlm")
-for (pkg in pkgs) 
+pkgs <- c("mixlm", "tidyverse")
+for (pkg in pkgs)
   suppressPackageStartupMessages(require(pkg, character.only = TRUE))
 ```
 
 
 # Practical Information
 
+Exercises in this site is relevant for Stat340 course which discusses some of the applied topics in statistics. For the exercises, we will use open source R statistical software along with RStudio, an integrated development environment for R. We advise student to install the latest version of R and RStudio on their laptop computer. In addition, we will use few packages in R which we will discuss during the exercise period. Students are highly encouraged to complete these exercises on their own and also participate in Group Exercises. Follow the link below to install R and RStudio.
+
+### [Install R](https://cran.uib.no) and [Install RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+
+**See:** [Lecture and Exercise Plan] and [Reference Books]
+
+
+## Lecture and Exercise Plan
+
 ```{r, echo = FALSE}
-tocTbl <- dplyr::data_frame(
+tocTbl <- tibble(
+  Week = c("Week 6 (Feb. 05)",
+           "Week 7 (Feb. 12)",
+           "Week 8 - 9 (Feb. 19, Feb. 26)",
+           "Week 10 - 11 (Mar. 5, Mar. 12)",
+           "Week 12 (Mar. 19)",
+           "Week 14 (Apr. 2)",
+           "Week 15 - 16 (Apr. 9, Apr. 16)",
+           "Week 17 (Apr. 23)"
+           ),
   Topics = c("R and R Studio",
              "Regression Analysis",
              "Analysis of Variance",
-             "Multivariate Statistics",
-             "Generalized Linear Model",
-             "Mixed Effect Models")
+             "Multivariate Statistics (PCA, PCR)",
+             "Cluster Analysis",
+             "Discriminant Analysis (LDA, QDA)",
+             "Generalized Linear Models",
+             "Random Effects Models"),
+  Exercises = list("Exercise 1",
+                   "Exercise 2",
+                   "Exercise 3-4",
+                   "Exercise 5-6",
+                   "Exercise 7",
+                   "Exercise 8",
+                   "Exercise 9-10",
+                   "Exercise 11"
+                   )
 )
-tocTbl$Exercises <- 
-  list("Exercise 1", 
-       c("Exercise 2", "Exercise 3"),
-       c("Exercise 4", "Exercise 5"),
-       c("Exercise 6", "Exercise 7"),
-       c("Exercise 8 & 9", "Exercise 10"),
-       c("Exercise 11", "Exercise 12"))
 knitr::kable(tocTbl)
 ```
 
-### Reference Books
+**See:** [Practical Information] | [Reference Books]
+
+## Reference Books
 
 ```{r, echo = FALSE}
 library(htmltools)
-div(class = "container-fluid",
-     div(class = "row",
-         div(class = "col-xs-6 pull-right",
-             tags$figure(
-               img(src = "images/Book1Cover.jpg", width = 300)
-             )),
-         div(class = "col-xs-6 pull-left",
-             tags$figure(
-               img(src = "images/Book2Cover.jpg", width = 268)
-             ))
-     ))
+div(
+  id = "book",
+  img(src = "images/Book1Cover.jpg"),
+  img(src = "images/Book2Cover.jpg")
+)
 ```
-
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
@@ -73,3 +89,5 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 ```
+
+**See:** [Practical Information] | [Lecture and Exercise Plan]

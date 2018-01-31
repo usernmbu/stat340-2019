@@ -1,0 +1,32 @@
+# Getting Started
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = eval, comment = NULL)
+eval <- TRUE
+ans <- TRUE
+```
+
+We will use a dataset containing body measures of about 400 persons as an example set to practice our RStudio skills.
+
+## Exercise 1: Create New Project
+Creating a project allows us to organize the files and related materials during our study. File => New Project opens a window to create new project. It will be easier to access all the resources, if all the scripts and datasets are within a main folder, i.e. the project folder.
+
+The examples in this exercise uses the project folder as the main folder. Although it is not necessary, but throughout the exercises we will use `_data` folder as a folder containing all the data that we are using in the course.
+
+```{r, echo = FALSE, eval = knitr:::is_latex_output(), purl = FALSE, fig.cap="Creating Project in Rstudio"}
+library(htmltools)
+div(
+  id = "project-screenshot",
+  img(src = "images/NewProject-1.png"),
+  img(src = "images/NewProject-2.png"),
+  img(src = "images/NewProject-3.png"),
+  img(src = "images/NewProject-4.png")
+)
+```
+
+
+```{r create-project-gif, out.width = "100%", eval = !knitr::is_latex_output(), fig.cap="Creating Project in Rstudio"}
+knitr::include_graphics("gif/Create-Project-Final.gif")
+```
+
+

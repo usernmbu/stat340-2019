@@ -1,0 +1,86 @@
+## Exercise 7: Graphics
+
+#### Plot the heights versus the weights for all observations in bodydata.
+
+```{r, echo=ans, eval=ans}
+with(bodydata, plot(x = Height, y = Weight))
+```
+
+### Spice up the plot
+Check out the presentation for lesson 1 to see how to spice up the plot
+
+#### Explore the `?par` help file
+
+Use the `isBoth` variable to create a color vector
+
+```{r}
+mycolors <- ifelse((isHeavy & isTall), "blue", "red")
+```
+
+Here, `isHeady & isTall` returns a logical vector. The `ifelse` function returns `blue` if `TRUE`and `red` if `FALSE` for each elements of the logical vector. The colors are then used in the plot so that all the Heavy and Tall person will be colored "blue" and rest as "red".
+
+Use "`mycolors`" in the `col` argument of the plot function to mark the tall and heavy individuals
+
+#### Plot all variables against each other
+
+```{r, echo=ans, eval=ans}
+pairs(bodydata, col = mycolors)
+```
+```{r, echo=!ans, eval=!ans}
+pairs(bodydata)
+```
+
+#### Which variables seem to be most correlated to each other?
+Here, `Weight` and `Circumference` seems to have highest correlation.
+
+#### Which variables are least correlated to each other?
+`Age` and `Height` variables seems to have least correlation.
+
+Check by,
+
+```{r}
+cor(bodydata)
+```
+
+This returns the correlation matrix for the variables, and the guess made earlier true. Further, check out the help file for pairs, and the examples at the end. Try to make a pairs plot with scatter plots with smoothed lines in the lower left triangle, histograms on the diagonal, and correlation numbers in the upper right triangle.
+
+Lets first create a function which create histogram. The function will later be used in the `pairs` function to create its diagonal plots.
+
+```{r}
+panel.hist <- function(x, ...) {
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(usr[1:2], 0, 1.5) )
+    h <- hist(x, plot = FALSE)
+    breaks <- h$breaks; nB <- length(breaks)
+    y <- h$counts; y <- y/max(y)
+    rect(breaks[-nB], 0, breaks[-1], y, col = "cyan", ...)
+}
+```
+
+Now, create a function that will display correlation on `pairs` plot.
+
+```{r}
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(0, 1, 0, 1))
+    r <- abs(cor(x, y))
+    txt <- format(c(r, 0.123456789), digits = digits)[1]
+    txt <- paste0(prefix, txt)
+    if (missing(cex.cor)) cex.cor <- 0.8 / strwidth(txt)
+    text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+```
+
+Now, the above functions are implemented on the `pairs` plot,
+
+```{r}
+pairs(bodydata,
+      lower.panel = panel.smooth, 
+      upper.panel = panel.cor,
+      diag.panel = panel.hist)
+```
+
+Here the `panel.smooth` deals with the smooth line on the lower panel of `pairs` plot.
+
+**Note::** Chapter 5 of the R book contains numerous examples of graphics.
+**Note::** For those interested in playing around with plots in R checkout: http://r4ds.had.co.nz/data-visualisation.html

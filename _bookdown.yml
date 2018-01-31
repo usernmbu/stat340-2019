@@ -1,9 +1,15 @@
-book_filename: "STAT340-2017"
+book_filename: "STAT340-2018"
 output_dir: docs
 chapter_name: ""
 rmd_files: [
   "index.Rmd",
-  # "getting-ready.rmd",
+  "000-getting-started/01-create-project.rmd",
+  "000-getting-started/02-import-data.rmd",
+  "000-getting-started/03-export-data.rmd",
+  "000-getting-started/04-data-structure-in-r.rmd",
+  "000-getting-started/05-exploring-data.rmd",
+  "000-getting-started/06-subsetting-data.rmd",
+  "000-getting-started/07-graphics.rmd",
   # "001-regression-analysis/ex-01.rmd",
   # "001-regression-analysis/ex-02.rmd",
   # "002-analysis-of-variance/ex-03.rmd",

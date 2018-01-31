@@ -3,8 +3,9 @@ bookdown::gitbook:
     after_body: '_footer.html'
   css: style.css
   number_sections: no
-  toc_depth: 2
+  toc_depth: 3
   config:
+    download: ["pdf"]
     toc:
       before: |
         <li><a href="./">Applied Methods in Statistics</a></li>

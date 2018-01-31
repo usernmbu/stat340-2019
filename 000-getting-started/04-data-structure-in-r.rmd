@@ -1,0 +1,72 @@
+## Exercise 4: Data Structure in R
+
+The dataset we imported in [Exercise 2: Importing data in R] is a data frame. DataFrame is a structure that R uses to keep the data in that particular format. If you do `class(bodydata)` for the data we have imported before, we can see `data.frame` as its class. There are other data structures in R. Some basic structure that R uses are discussed below:
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Vector
+A vector is a one-dimensional object where you can store elements of different modes such as "logical" (TRUE or FALSE), "integer", "numeric", "character" etc. All elements of a vector must be of same mode. For example,
+
+```{r}
+x <- c(TRUE, FALSE, FALSE, TRUE, TRUE)
+y <- c("TRUE", "FALSE", "Not Sure")
+z <- c(2, 3, 5, 6, 10)
+```
+
+Here, `x`, `y` and `z` are of class `r class(x)`, `r class(y)` and `r class(z)` respectively. Although in vector `y` we have `TRUE` and `FALSE` they are in `character` format. The function `c` is used to define a vector. However functions that are used to create sequences also gives us a vector. For example,
+
+```{r}
+(a_sequence <- seq(from = 0, to = 10, by = 2))
+(b_sequence <- 1:10)
+```
+
+Here both `a_sequence` and `b_sequence` are vector. Give special attention to the way we have created the sequence of numbers. It will be useful in many situations in future exercises.
+
+### Matrix
+A matrix is a two dimensional structure with row and column. As this is an extension of vector structure, matrix must have elements of same mode as in a vector. For example:
+
+```{r}
+(a_matrix <- matrix(1:25, nrow = 5, ncol = 5))
+(b_matrix <- diag(1:5))
+```
+
+Here, `a_matrix` is created from a vector of sequence of 1 to 25 in 5 rows and 5 columns. We can also define a diagonal matrix as `b_matrix` with numbers from 1 to 5 in its diagonal.
+
+### Array
+An array is an extension of Matrix structure in three or more dimension. We can define an array as,
+
+```{r}
+(an_array <- array(1:24, dim = c(2, 4, 3)))
+```
+
+### List
+All the above structure we discussed require that the the elements in them to be of same mode such as `numeric`, `character` and `logical`. Sometimes it is necessary to keep objects of different modes in same place. List is a structure that helps in such situation. A list can contain `list`, `matrix`, `vector`, `numeric` or any other data structure as its elements. For example:
+
+```{r}
+a_list <- list(
+  a_matrix = matrix(1:6, nrow = 2, ncol = 3),
+  a_vector = 2:7,
+  a_list = list(a = 1, b = 3:6),
+  a_logical = c(TRUE, FALSE, TRUE, NA)
+)
+a_list
+```
+
+In above example, `a_list` contains a matrix, a numeric vector, a list and a logical vector.
+
+### Data Frame
+Data Frame is a list kept in tabular structure. Every column of a data frame has a name assigned to it. The `bodydata` dataset we have imported is an example of data frame. Data frame is the most used data structure to keep data in tabular format. Lets create a data frame:
+
+```{r}
+a_dataframe <- data.frame(
+  character = c("a", "b", "c"),
+  numeric = 1:3,
+  logical = c(TRUE, FALSE, NA)
+)
+a_dataframe
+```
+
+Every column of a data.frame is a vector. Different columns of a data frame can contain element of different modes. For example: the first column can be a character vector while the second column can be a numeric vector as in the example above.

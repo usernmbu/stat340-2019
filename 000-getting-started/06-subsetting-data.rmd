@@ -1,0 +1,133 @@
+## Exercise 6: Subsets of data and logical operators
+
+### Logical vector and index vector
+A lot of times we want to get a subset of data filtering rows or columns of a dataframe. For which we can perform logical test and get `TRUE` or `FALSE` as result. This vector of logical can then be used to subset the observations from a dataframe.
+
+For example, Lets extract observation from `bodydata` with Weight greater than 80. You might be wondering why following code does not work,
+
+```{r, error = TRUE, class.output="red"}
+isHeavy <- Weight > 80
+```
+
+But remember that, the variable `Weight` is a part of `bodydata`. We have to extract `Weight` from the `bodydata` first. In R, `with` and `within` function helps you in this respect. In the following code, `with` function goes inside `bodydata` and execute the expression `Weight > 80`.
+
+```{r}
+isHeavy <- with(bodydata, Weight > 80)
+```
+
+Here the logical vector `isHeavy` is computed by performing a logical operation on `Weight` variable within `bodydata`. The same operation can be done as,
+
+```{r}
+isHeavy <- bodydata$Weight > 80
+```
+
+**Take a look at this variable, what is it?**
+:
+```{r}
+head(isHeavy)
+```
+
+Yes, it is a vector of `TRUE` and `FALSE` with same length as `Weight`. Here the condition has compared each element of `Weight` results `TRUE` if  it is greater than 80 and `FALSE` if it is less than 80.
+
+**Identify the elements**
+:   We can identify which observations that are heavy by the `which()` function
+    ```{r}
+    HeavyId <- which(isHeavy)
+    ```
+    This will return a vector of row index for the observations that are heavy, i.e. greater than 80. So how many are heavy? To find the size of a vector we can use `length` function.
+    ```{r}
+    length(HeavyId)
+    ```
+    Here, `r length(HeavyId)` observations have Weight larger than 80.
+
+#### Exercise
+1) Identify who are taller than 180 and save this logical vector as an object called `isTall`.
+    
+    <details class="answer">
+    <summary>`r if(knitr:::is_html_output()) paste("_Answer_")`</summary>
+    
+    ```{r, echo = TRUE}
+    isTall <- with(bodydata, Height > 180) 
+    ```
+        
+    </details>
+
+2) How many observations have height taller than 180?
+    
+    <details class="answer">
+    <summary>`r if(knitr:::is_html_output()) paste("_Answer_")`</summary>
+    
+    ```{r}
+    TallId <- which(isTall)
+    length(TallId)
+    ```
+    
+    </details>
+    
+3) How many observations are both tall and heavy?
+Here, you can use `length` function as above to find how many person are taller than 180.
+    
+    <details class="answer">
+    <summary>`r if(knitr:::is_html_output()) paste("_Answer_")`</summary>
+    ```{r}
+    isBoth <- isHeavy * isTall
+    ```
+    
+    **How is this computation done?**
+    : Here `isHeavy` and `isTall` contains `TRUE` and `FALSE`. The multiplication of logical operator results a logical vector with `TRUE` only if both the vectors are `TRUE` else `FALSE`.
+    
+    **Alternatively**
+    :
+    ```{r}
+    isBoth <- which(isHeavy & isTall)
+    ```
+    
+    The `&` operator result `TRUE` if both `isHeavy` and `isTall` are `TRUE` else, `FALSE` which is same as previous.
+    </details>
+
+### Subsetting data frame
+#### Example 1
+Lets create a subset of the data called `bodydataTallAndHeavy` containing only the observations for tall and heavy persons as defined by isBoth.
+
+```{r}
+bodydataTallAndHeavy <- bodydata[isBoth, ]
+```
+
+For other logical tests see help file `?Comparison`
+
+#### Example 2
+Lets create a random subset of 50 observations. For this we first sample 50 row index randomly from all rows in `bodydata`. The `sample` function is used for the purpose. In the following code, `nrow(bodydata)` return the number of rows in `bodydata`. The `sample` function takes two argument `x` which can be a vector or a integer and `size` which is the size of the sample to be drawn. 
+
+```{r}
+idx <- sample(x = nrow(bodydata), size = 50)
+```
+
+Here, 50 rows are sampled from the total number of rows and the index of the selected rows are saved on vector `idx`.
+
+Using this vector we can select the observations in `bodydata` to create a new data set called `bodydataRandom` as,
+    
+```{r}
+bodydataRandom <- bodydata[idx, ]
+```
+
+Here is the first five rows of `bodydataRandom` dataset.
+```{r}
+head(bodydataRandom, n = 5)
+```
+
+
+### Exercise
+Create a subset of dataset `bodydata` including the observation with `Age` larger an 55 and `Circumference` larger than 80. Save this dataset named `subdata`.
+
+<details class="answer">
+<summary>`r if(knitr:::is_html_output()) paste("_Answer_")`</summary>
+
+```{r}
+idx <- with(bodydata, Age > 55 & Circumference > 80)
+subdata <- bodydata[idx, ]
+subdata
+```
+
+</details>
+
+For those who are interested in playing more with data, have a look at http://r4ds.had.co.nz/transform.html
