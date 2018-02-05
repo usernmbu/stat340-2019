@@ -12,7 +12,7 @@ bodydata <- read.table("_data/bodydata.txt", header = TRUE, sep = "\t", dec = ",
 Here the argument `header` is `TRUE` if the data has header in its first row. The argument `sep` takes `\t`, `,` or `;` based on if the columns in the text data are tab-separated, comma-separated or separated by semi-colons. If the decimal values in the data are represented by `,`, the `dec` argument takes the value `,`. For further help see: `?read.table`
 
 
-```{r import-text-gif, out.width = "100%", eval = !knitr::is_latex_output(), fig.cap="Import text data"}
+```{r import-text-gif, out.width = "100%", eval = !knitr:::is_latex_output(), fig.cap="Import text data"}
 knitr::include_graphics("gif/Import-Text.gif")
 ```
 
@@ -33,7 +33,7 @@ bodydata <- read_excel("_data/bodydata.xlsx", sheet = 1)
 For further help and arguments on this function load the library as `library(readxl)` and see: `?read_excel` or `?read_xlsx`.
 
 
-```{r import-excel-gif, out.width = "100%", eval = !knitr::is_latex_output(), fig.cap="Import data from Microsoft Excel"}
+```{r import-excel-gif, out.width = "100%", eval = !knitr:::is_latex_output(), fig.cap="Import data from Microsoft Excel"}
 knitr::include_graphics("gif/Import-Excel.gif")
 ```
 
@@ -46,7 +46,7 @@ load("_data/bodydata.Rdata")
 ```
 
 
-```{r import-rdata-gif, out.width = "100%", eval = !knitr::is_latex_output(), fig.cap="Import data in Rdata format"}
+```{r import-rdata-gif, out.width = "100%", eval = !knitr:::is_latex_output(), fig.cap="Import data in Rdata format"}
 knitr::include_graphics("gif/Import-Rdata.gif")
 ```
 
@@ -66,7 +66,7 @@ bodydata <- read.table(file = pipe("pbpaste"), header = TRUE)
 This allows us to get the data from anywhere just after they are copied.
 
 
-```{r import-clipboard-gif, out.width = "100%", eval = !knitr::is_latex_output()}
+```{r import-clipboard-gif, out.width = "100%", eval = !knitr:::is_latex_output()}
 knitr::include_graphics("gif/Import-Clipboard.gif")
 ```
 
