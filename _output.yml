@@ -5,7 +5,7 @@ bookdown::gitbook:
   number_sections: no
   toc_depth: 3
   config:
-    download: ["pdf"]
+    download: ["pdf", "epub"]
     toc:
       before: |
         <li><a href="./">Applied Methods in Statistics</a></li>

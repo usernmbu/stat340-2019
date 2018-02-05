@@ -10,6 +10,8 @@ output:
       toc:
         collapse: section
 documentclass: book
+linestretch: 1.25
+papersize: 'a4paper'
 fontsize: '12pt'
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -38,36 +40,47 @@ Exercises in this site is relevant for Stat340 course which discusses some of th
 
 ## Lecture and Exercise Plan
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
 tocTbl <- tibble(
   Week = c("Week 6 (Feb. 05)",
            "Week 7 (Feb. 12)",
-           "Week 8 - 9 (Feb. 19, Feb. 26)",
-           "Week 10 - 11 (Mar. 5, Mar. 12)",
+           "Week 8 (Feb. 19)",
+           "Week 9 (Feb. 26)",
+           "Week 10 (Mar. 05)",
+           "Week 11 (Mar. 12)",
            "Week 12 (Mar. 19)",
-           "Week 14 (Apr. 2)",
-           "Week 15 - 16 (Apr. 9, Apr. 16)",
+           "Week 14 - 15 (Apr. 2, Apr. 9)",
+           "Week 16 (Apr. 16)",
            "Week 17 (Apr. 23)"
            ),
-  Topics = c("R and R Studio",
+  Topics = c("Overview, R and R Studio",
              "Regression Analysis",
              "Analysis of Variance",
+             "Principal Component Analysis",
              "Multivariate Statistics (PCA, PCR)",
              "Cluster Analysis",
-             "Discriminant Analysis (LDA, QDA)",
+             "Classification",
              "Generalized Linear Models",
-             "Random Effects Models"),
-  Exercises = list("Exercise 1",
+             "Random Effects Models",
+             "Mixed Effects Models"),
+  Exercises = list("Getting Started",
+                   "Exercise 1",
                    "Exercise 2",
-                   "Exercise 3-4",
-                   "Exercise 5-6",
-                   "Exercise 7",
-                   "Exercise 8",
-                   "Exercise 9-10",
-                   "Exercise 11"
+                   "Exercise 3",
+                   "Exercise 4",
+                   "Exercise 5",
+                   "Exercise 6",
+                   "Exercise 7-8",
+                   "Exercise 9",
+                   "Exercise 10"
                    )
 )
-knitr::kable(tocTbl)
+knitr::kable(
+  tocTbl, booktabs = TRUE, 
+  format = ifelse(knitr::is_latex_output(), "latex", "html")) %>% 
+  kableExtra::kable_styling(
+    bootstrap_options = "striped",
+    full_width = TRUE)
 ```
 
 **See:** [Practical Information] | [Reference Books]
