@@ -77,7 +77,7 @@ We can also use `$` operator to extract elements from named list and a data fram
 ### View Data in RStudio
 Newer version of RStudio support viewing data in different structures. To view `bodydata` we have imported in [Exercise 2: Importing data in R], we can use `View(bodydata)`. If you have not imported the, you need to follow the exercise and import the data first. We can also click the data in "Environment" tab to view it.
 
-```{r, echo = FALSE, fig.cap="View dataset using command and by clicking the data in Environment tab"}
+```{r, echo = FALSE, fig.cap="View dataset using command and by clicking the data in Environment tab", eval = !knitr:::is_latex_output()}
 knitr::include_graphics("gif/View.gif")
 ```
 
