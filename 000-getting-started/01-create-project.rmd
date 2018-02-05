@@ -20,7 +20,7 @@ library(car)
 
 Following screenshot help you to install package using RStudio IDE,
 
-```{r install-load-package, out.width = "100%", eval = !knitr:::is_latex_output(), fig.cap="Creating Project in Rstudio"}
+```{r install-load-package, out.width = "100%", eval = !knitr:::is_latex_output(), fig.cap="Installing and Loading Package from RStudio"}
 knitr::include_graphics("gif/install-load-package.gif")
 ```
 
