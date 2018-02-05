@@ -8,13 +8,13 @@ ans <- TRUE
 
 In this secion, we will dive into R and RStudio and get used to with it to some extent. We will continue learning about R and RStudio as we go on. R is an open source programming language basically used in data analysis. In R there are many packages that are created for specific purposes and they have made R rich and powerful. In this course, apart from default R package (that is installed and already loaded), we will use few other packages which we will install and load as we go through our exercises. We can use following command to install a package. Below, a `car` package is used as an example:
 
-```{r, eval = FALSE}
+```{r, echo = TRUE, eval = FALSE}
 install.packages("car")
 ```
 
 To load the package we use `library` function as,
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, echo = TRUE}
 library(car)
 ```
 
