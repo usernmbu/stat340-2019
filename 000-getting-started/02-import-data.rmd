@@ -6,7 +6,7 @@ The usual data sources can be a text file in `txt` or `csv` format or spreadshee
 Base R-package has `read.table` and `read.csv` for importing a text or comma separated file (csv) files. Download `bodydata.txt` and to import it in R as,
 
 ```{r, echo = TRUE}
-bodydata <- read.table("_data/bodydata.txt", header = TRUE, sep = "\t", dec = ",")
+bodydata <- read.table("_data/bodydata.txt", header = TRUE)
 ```
 
 Here the argument `header` is `TRUE` if the data has header in its first row. The argument `sep` takes `\t`, `,` or `;` based on if the columns in the text data are tab-separated, comma-separated or separated by semi-colons. If the decimal values in the data are represented by `,`, the `dec` argument takes the value `,`. For further help see: `?read.table`
