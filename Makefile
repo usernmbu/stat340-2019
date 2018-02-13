@@ -12,4 +12,4 @@ serve:
 	browser-sync start --server --files 'docs/**/*' --startPath 'docs'
 
 deploy:
-	cd docs & git add . & git commit -am "site updated" & git push
+	cd docs & git add . & git commit -am "site updated" & git push master origin
