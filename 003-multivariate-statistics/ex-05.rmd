@@ -1,32 +1,30 @@
-# Multivariate Analysis
-
-## Exercise 6
+# Multivariate Analysis (Principal Component Analysis)
 
 ```{r, echo = F, message=FALSE}
-load("trackfieldrecords.rdata")
+load("_data/trackfieldrecords.rdata")
 library(mixlm)
 ```
 
-### Ex-1: Track and Field data
+## Track and Field data
 
 Load the `trackfieldrecords.rdata` file with the objects `runMen` and `runWomen`containing national records (a few years ago...) for several track and field events like 100m, 200m and so on up to marathon. 
 
-* Explore the data for both men and women using the `pairs()` - plotting function (you must exclude the Nation variable since this is non-numeric). Which events appear to be most correlated with each other? Check by using the `cor()` - function.
+- Explore the data for both men and women using the `pairs()` - plotting function (you must exclude the Nation variable since this is non-numeric). Which events appear to be most correlated with each other? Check by using the `cor()` - function.
 
 <div class="ans">
 
-##### `runMen`
+**For dataset: `runMen`**
 
-```{r}
+```{r, fig.asp=0.9, out.width='100%'}
 pairs(runMen[,-9])
 cor(runMen[,-9])
 ```
 
 Mens running 5000m have the highest correlation (`r max(cor(runMen[,-9])[cor(runMen[,-9])<1])`) with the mens running 10000m.
 
-##### `runWomen`
+**For dataset: `runWomen`**
 
-```{r}
+```{r, fig.asp=0.9, out.width='100%'}
 pairs(runWomen[,-8])
 cor(runWomen[,-8])
 ```
@@ -35,7 +33,7 @@ Womens running 3000m and 1500m have highest correlation (`r max(cor(runWomen[,-8
 
 </div>
 
-* Run the following command and inspect the results: 
+- Run the following command and inspect the results: 
 
 ```{r, eval=FALSE}
 cor(runWomen[,-8], runMen[,-9])
@@ -45,7 +43,7 @@ If you were going to "predict" a nation's record for women's M3000, which record
 
 <div class="ans">
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=TRUE, echo=TRUE}
 cor(runWomen[,-8], runMen[,-9])
 ```
 
@@ -53,9 +51,7 @@ Men's M1500 shows the highest corrlation to women's M3000 and appears to be the 
 
 </div>
 
-* Run a PCA (with scale=FALSE) on the men's data and print out a summary and the weights (loadings) for the two first PC's.
-  How many components is needed to explain at least 99% of the variation in the data?
-  Try to give an interpretation of PC1, and explain why so few components explains so much of the total variability.
+- Run a PCA (with scale=FALSE) on the men's data and print out a summary and the weights (loadings) for the two first PC's. How many components is needed to explain at least 99% of the variation in the data? Try to give an interpretation of PC1, and explain why so few components explains so much of the total variability.
 
 <div class="ans">
 
@@ -72,7 +68,7 @@ PC1 is located in the direction of larget variability, and due to the large scal
 
 </div>
 
-* Re-run the PCA with option `scale=TRUE` in `prcomp()`. How many variables are needed to explain 99% of the variation in this case? How much is explained by the two first components?
+- Re-run the PCA with option `scale=TRUE` in `prcomp()`. How many variables are needed to explain 99% of the variation in this case? How much is explained by the two first components?
   How would you interprete the loadings of PC1, PC2 and PC3?
 
 <div class="ans">
@@ -92,7 +88,7 @@ Make a biplot with the first two components. You may use the argument "xlabs" in
 
 <div class="ans">
 
-```{r}
+```{r, fig.asp = 0.8, out.width='100%'}
 biplot(pr, xlabs = runMen$Nation)
 ```
 
@@ -101,7 +97,7 @@ Along PC2 (vertically) we find those with relatively poor times on long distance
 
 </div>
 
-* Let's try to predict the 3000M national records for women using the men's data. First use a least squares approach using the men's variables directly as predictor for women's M3000. To accomplish this use `runWomen$M3000` as response in `lm()`. Are there any significant variables? What is the $R^2$ and the adjusted $R^2$ values?
+- Let's try to predict the 3000M national records for women using the men's data. First use a least squares approach using the men's variables directly as predictor for women's M3000. To accomplish this use `runWomen$M3000` as response in `lm()`. Are there any significant variables? What is the $R^2$ and the adjusted $R^2$ values?
 
 <div class="ans">
 
@@ -115,7 +111,7 @@ Two variables are significant at 5% level in this fitted model, M800 and M400. T
 
 </div>
 
-Either perform a manual elimination of insignificant variables, or run `backward()` from the mixlm-package to find a reduced model with only significant effects (5% testlevel). Which variables do you end up having in your model?
+- Either perform a manual elimination of insignificant variables, or run `backward()` from the mixlm-package to find a reduced model with only significant effects (5% testlevel). Which variables do you end up having in your model?
 
 <div class="ans">
 
@@ -128,7 +124,7 @@ In addition to M400 and M800 I find M1500 to be highly significant after removin
 
 </div>
 
-* Fit another model using all principal component scores from the men's data as predictors for women's M3000. The scores are stored in the principal component object as element names `x`.
+- Fit another model using all principal component scores from the men's data as predictors for women's M3000. The scores are stored in the principal component object as element names `x`.
   Which components are significant at a 5% test level? Compare the $R^2$ values with those from the full model using all original variables as predictors.
 
 <div class="ans">
@@ -146,8 +142,7 @@ Components 1,2 and 4 are highly significant, the others not. The $R^2$ values ar
 </div>
 
 
-* Perfom a model reduction also for the PCR-model by excluding Principal components until you have only PC's significant at 5% test level. Compare the estimated regression coefficients between the full and the reduced PCR-models. Why do you think the effects don't change
-  for the variables retained in the model?
+- Perfom a model reduction also for the PCR-model by excluding Principal components until you have only PC's significant at 5% test level. Compare the estimated regression coefficients between the full and the reduced PCR-models. Why do you think the effects don't change for the variables retained in the model?
 
 <div class="ans">
 
@@ -160,7 +155,7 @@ The reduced model has only PC1, PC2 and PC4 as predictors, and the $R^2$ is almo
 
 </div>
 
-* For special interested: Use the estimated effects (alphas from the lecture) from the reduced PCR-model to compute PCR-estimated regression coefficients (betas in the lecture) for the original variables back back-rotation. Compare the estimated regression coefficients from the PCR-approach with Least squares estimates using original (BUT SCALED) variables.
+- For special interested: Use the estimated effects (alphas from the lecture) from the reduced PCR-model to compute PCR-estimated regression coefficients (betas in the lecture) for the original variables back back-rotation. Compare the estimated regression coefficients from the PCR-approach with Least squares estimates using original (BUT SCALED) variables.
 
 <div class="ans">
 

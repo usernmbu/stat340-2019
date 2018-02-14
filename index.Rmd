@@ -57,7 +57,7 @@ tocTbl <- tibble(
              "Regression Analysis",
              "Analysis of Variance",
              "Principal Component Analysis",
-             "Multivariate Statistics (PCA, PCR)",
+             "Multivariate Statistics (PCR, PLS)",
              "Cluster Analysis",
              "Classification",
              "Generalized Linear Models",
