@@ -1,20 +1,9 @@
-## Exercise Five
-
-```{r, echo = FALSE, message=FALSE}
-library(mixlm)
-library(car)
-library(effects)
-```
-
-### Ex-1: Data from the NSR education test, revisited
-
-Follow up Ex-2 from last week by performing a Tukey test for all pair wise comparisons with overall 
+- Follow up the previous exercise by performing a Tukey test for all pair wise comparisons with overall 
 (family-wise) error rate 5%. Give a summary of the results.
 
 <div class="ans">
 
 ```{r}
-load("nsr.rdata")
 NSRmod <- lm(Science ~ Age, data = NSRdata)
 Anova(NSRmod, type = "III")
 pt <- simple.glht(NSRmod, "Age", corr = c("Tukey"),level = 0.95)
@@ -34,11 +23,11 @@ The compact letter display gives a grouping of the similar levels, and there are
 
 </div>
 
-### Ex-2: 
+## Barley Data
 
 In `barley.rdata` are results from an experiment where the response is yield of barley pr 1000 square meter, and the factors sorts of barley, soil types, types of fertilizers. In addition was the experiment done in two different geographical areas (sites). 
 
-* Assume a two factor model including the main effects of `sort` and `soil` and their interaction. State the model and explain all parameters under a sum-to-zero parametrization.
+- Assume a two factor model including the main effects of `sort` and `soil` and their interaction. State the model and explain all parameters under a sum-to-zero parametrization.
 
 <div class="ans">
 
@@ -60,12 +49,11 @@ $$
 
 </div>
 
-* Fit the model in R and estimate all parameters
+- Fit the model in R and estimate all parameters
 
 <div class="ans">
 
 ```{r}
-load("barley.rdata")
 options(contrasts = c("contr.sum", "contr.poly"))
 mod1 <- lm(Yield ~ sort * soil, data = Barley)
 summod1 <- summary(mod1)
@@ -85,18 +73,17 @@ $\hat{\alpha\beta}_{22}=-\hat{\alpha\beta}_{21}=-\hat{\alpha\beta}_{12}=$ `r coe
 
 </div>
 
-* Make an interaction plot and try to conclude about the presence of interaction from the plot. How would you explain interaction effect in this example for a person with experience in agriculture, but minimal statistical experience? 
+- Make an interaction plot and try to conclude about the presence of interaction from the plot. How would you explain interaction effect in this example for a person with experience in agriculture, but minimal statistical experience? 
 
 <div class="ans">
 
-```{r}
-library(effects)
+```{r, fig.asp=0.6, out.width='100%'}
 plot(allEffects(mod1,confidence.level = .95))
 ```
 
 From the plot, it seems that a farmer can expect an increase in yield when using sort 2 instead of sort 1 for both types of soil, and there may be a higher gain of sort 2 over sort 1 for soil-type 2 than for soil type 1. If this is so, there is a so-called interaction effect of sort and soil on yield. </div>
 
-* Perform a hypothesis test for the interaction effect. Conclusion?
+- Perform a hypothesis test for the interaction effect. Conclusion?
 
 <div class="ans">
 
@@ -109,7 +96,7 @@ The interaction between `soil` and `sort` is insignificant (high p-value). This 
 </div>
 
 
-* Fit a four factor model with sort, soil, fert and site as factors and with all possible 2-factor, 3-factor and 4-factor interactions. Use `Anova()` from the car-package with argument `type="III"` to produce an ANOVA table. Type III means that
+- Fit a four factor model with sort, soil, fert and site as factors and with all possible 2-factor, 3-factor and 4-factor interactions. Use `Anova()` from the car-package with argument `type="III"` to produce an ANOVA table. Type III means that
 all factors are tested as if they were the last factor to be added to the model.
 Are there any higher order significant effects? Compare the R-squared and the adjusted R-squared values. What can you conclude from these?
 
@@ -129,7 +116,7 @@ The large difference between $R^2$ and $R_{adj}^2$ is also an indication of an o
 
 </div>
 
-* Fit also a reduced model without site, but all other effects up to 3rd order
+- Fit also a reduced model without site, but all other effects up to 3rd order
 interactions. Perform a partial F-test with the `anova()` function to test whether site (and all its interactions with the others) should be excluded from the model (See also Exercise set 3 and Ex-3).
 
 <div class="ans">
@@ -143,7 +130,7 @@ The `anova` result for partial F-test shows that site is needed to a certain deg
 
 </div>
  
-* In the `mixlm`-package there are convenient functions for performing automatic model selection by either `backward()` elimination of factors from a "full-model, by
+- In the `mixlm`-package there are convenient functions for performing automatic model selection by either `backward()` elimination of factors from a "full-model, by
 `forward()` addition of factors from a minimal model with only intercept, or a combined `stepwise()` function which combines both forward and backward addition/elimination.
 
 For the backward function the least significant factor is removed from the model in each step if the p-value is larger than testlevel `alpha`. If all factors are significant at any step, the procedure stops. The elimination obeys the so-called marginality principle (hierarchy of factors) which states that any lower order effect or interaction should not be removed from the model if it is part of a higher order significant interaction. This is a good principle for practical data analysis.
@@ -164,13 +151,13 @@ mod4$call$formula
 
 </div>
  
-* Fit the reduced model and perform a model check using residual analysis.
+- Fit the reduced model and perform a model check using residual analysis.
 
 <div class="ans">
 
 The `backward` function has fitted the reduced model (her named `mod4`):
 
-```{r, fig.height=7}
+```{r, out.width='100%', fig.asp = 0.8}
 mod4 <- lm(Yield ~ sort + soil + fert + site + sort:soil + 
      sort:fert + soil:fert + sort:site + fert:site + sort:fert:site, 
      data = Barley)
@@ -183,16 +170,16 @@ The residual plots give no evidence of any problems with the model assumptions.
 
 </div>
  
-* Make an interaction effects plot using the following code:
+- Make an interaction effects plot using the following code:
 
-```{r effectPlot, eval = F}
+```{r effectPlot, eval = FALSE}
 eff <- allEffects(mod4, confidence.level = .95)
 plot(eff[3])
 ```
 
 <div class="ans">
 
-```{r effectPlot, eval = T, fig.height=6.5, echo = F}
+```{r effectPlot, eval = T, fig.asp = 0.7, out.width = '100%', echo = TRUE}
 ```
 
 </div>

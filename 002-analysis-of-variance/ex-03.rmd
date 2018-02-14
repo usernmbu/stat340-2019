@@ -1,13 +1,22 @@
 # Analysis of variance
 
-## Exercise Four
+**We will use following datasets for this exercise:**
 
-```{r, echo = F, message=FALSE}
-load("city.rdata")
-library(mixlm)
+```{r, message=FALSE}
+load("_data/city.rdata")
+load("_data/nsr.rdata")
+load("_data/barley.rdata")
 ```
 
-### Ex-1: Chlorine levels in cities
+**R-package we will use in this exercises**
+
+```{r, message=FALSE, warning=FALSE}
+# load the library
+library(mixlm)
+library(effects)
+```
+
+## Chlorine levels in cities
 
 Independent measurements of chlorine (ppm parts per million) were taken from 3
 large cities:
@@ -16,17 +25,15 @@ large cities:
 city
 ```
 
-* Load the city.rdata which is available on Fronter.
+- Load the city.rdata which is available on Fronter.
 
-Before analyzing the data it is best to "stack" the data into two columns, 
-a response column "y" and a city factor column "city". By
-using the `stack()` function in R you can restructure the city data by
+Before analyzing the data it is best to "stack" the data into two columns,  a response column `y` and a city factor column `city`. By using the `stack()` function in R you can restructure the city data by
 
 ```{r}
 citydata <- stack(city)
 ```
 
-* Use the `colnames()` function to rename the variables as "y" and "city".
+- Use the `colnames()` function to rename the variables as `y` and `city`.
 
 <div class="ans">
 
@@ -36,7 +43,7 @@ colnames(citydata) <- c("y", "city")
 
 </div>
 
-* Assume an ANOVA-model with chlorine as response and city as a factor. What assumptions do you make?
+- Assume an ANOVA-model with chlorine as response and city as a factor. What assumptions do you make?
 
 <div class="ans">
 
@@ -48,44 +55,44 @@ where the error terms are assumed independent and identically distributed $\epsi
 
 </div>
 
-* Make a box-plot of the data. Describe the variabilities between cities and within cities.
+- Make a box-plot of the data. Describe the variabilities between cities and within cities.
 
 <div class="ans">
 
-```{r}
-plot(y~city, data=citydata)
+```{r, out.width="60%"}
+plot(y ~ city, data = citydata)
 ```
 
 City 1 seems to have both the lowest average chlorine levels and the smallest variability in the measurements. Cities 2 and 3 are quite similar with both higher means and variability. 
 
 </div>
 
-* Fit the model and performa a residual analysis. Comment on the model fit.
+- Fit the model and performa a residual analysis. Comment on the model fit.
 
 <div class="ans">
 
-```{r}
+```{r, out.width='100%', fig.asp = 0.6}
 options(contrasts=c("contr.treatment", "contr.poly"))
-citymod1 <- lm(y~city, data=citydata)
-par(mfrow=c(1,2))
-plot(citymod1, which=c(1,2))
+citymod1 <- lm(y ~ city, data = citydata)
+par(mfrow = c(1, 2))
+plot(citymod1, which = c(1, 2))
 ```
 
 The residual analysis reveals two problems: 1) Non-constant variability, which was also observed in the boxplot, and 2) A skeewed and non-normal distribution for the residuals with a heavy tail to the right.
 
 </div>
 
-* Make a log-transformation of $y$ to create the variable `logy`, and add the new variable to your data set by:
+- Make a log-transformation of $y$ to create the variable `logy`, and add the new variable to your data set by:
 
 ```{r}
 citydata$logy <- log(citydata$y)
 ```
 
-* Fit a new model with `logy` as response and check the model fit again.
+- Fit a new model with `logy` as response and check the model fit again.
 
 <div class="ans">
 
-```{r}
+```{r, out.width = '100%', fig.asp = 0.6}
 citymod2 <- lm(logy~city, data = citydata)
 par(mfrow = c(1,2))
 plot(citymod2, which = c(1,2))
@@ -95,14 +102,13 @@ Both problems from the previous model appear to be corrected. We continue with t
 
 </div>
 
-* Estimate all model parameters from the latter model. Explain what the parameters measure given the paramtrization of your choice (See lecture notes from Feb 16th on parametrizations).
+- Estimate all model parameters from the latter model. Explain what the parameters measure given the paramtrization of your choice (See lecture notes from Feb 16th on parametrizations).
 
 <div class="ans">
 
 The ANOVA analysis using contr.treatment parametrization:
 
 ```{r}
-library(car)
 summary(citymod2)
 Anova(citymod2)
 coefs <- citymod2$coefficients
@@ -138,26 +144,25 @@ For test-level $\alpha=0.05$ we reject the null-hypothesis if $F>F_{\alpha, 2, 5
 
 </div>
 
-### Ex-2: Data from the NSR education test
+## Data from the NSR education test
 
 The Norwegian Centre for Science Recruitment (NSR) has an online "education test" where youths may answer a questionnaire to check their so-called cognitive types, their science interest, their preferred learning methods and their interest to various science subjects. The test suggests different ares within the STEM (Science, Technology, Engineering and Mathematics) within which the youth may find suitable work. 
 
 We have an excerpt of these data which can be downloaded from Fronter as the `nsr.rdata` file. The data.frame `NSRdata` contains two variables, Science and Age:
 
 ```{r}
-load("nsr.rdata")
 head(NSRdata,5)
 ```
 
-"Science" is an average liking score (scale 1-6) to various STEM-subjects, and "Age" is a factor indicating different age-groups:
+`Science` is an average liking score (scale 1-6) to various STEM-subjects, and `Age` is a factor indicating different age-groups:
 
-* 1: 1-12 yrs
-* 13: 13-15 yrs
-* 16: 16-19 yrs
-* 19: 19-29 yrs
-* 30: 30 + yrs
+a) 1: 1-12 yrs
+b) 13: 13-15 yrs
+c) 16: 16-19 yrs
+d) 19: 19-29 yrs
+e) 30: 30 + yrs
 
-* Perform an analysis of the NSR data to check whether Age influences the liking to STEM subjects. State the model, fit the model, check model assumptions, test hypotheses, and give model critique. Write a short summary of the results.
+- Perform an analysis of the NSR data to check whether Age influences the liking to STEM subjects. State the model, fit the model, check model assumptions, test hypotheses, and give model critique. Write a short summary of the results.
 
 
 <div class="ans">

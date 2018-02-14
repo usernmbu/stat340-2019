@@ -4,7 +4,6 @@ gitbook:
 pdf:
 	Rscript -e "bookdown::render_book('.', output_format = 'bookdown::pdf_book')"
 
-
 epub:
 	Rscript -e "bookdown::render_book('.', output_format = 'bookdown::epub_book')"
 
