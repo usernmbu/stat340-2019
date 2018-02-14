@@ -1,0 +1,16 @@
+base
+mixlm
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+htmltools
+readxl
+gdtools
+scatterplot3d
+pls

@@ -1,20 +1,25 @@
-## Exercise 7
+# Multivariate Analysis (PCR, PLS)
 
-```{r, echo = F, message=FALSE}
-load("maldidata.rdata")
-library(pls)
+In this exercise we will study a data set used in the [paper](http://www.sciencedirect.com/science/article/pii/S0169743909001476) by Liland et al (2009) (`http://www.sciencedirect.com/science/article/pii/S0169743909001476`) were PLS-regression was used to predict the percentage of cow-milk in mixtures of cow, goat and ewe milk.
+
+```{r, message=FALSE}
+load("_data/maldidata.rdata")
 ```
-
-### Ex-1: Prediction of cow milk percentage
-
-In this exercise we will study a data set used in the [paper](http://www.sciencedirect.com/science/article/pii/S0169743909001476) by Liland et al (2009)
-(`http://www.sciencedirect.com/science/article/pii/S0169743909001476`) were PLS-regression was used to predict the percentage of cow-milk in mixtures of cow, goat and ewe milk.
 
 An excerpt from the paper explains why this is interesting:
 
 > "Quality assurance is an important issue in modern food production. The products are expected to have the right taste, smell, texture and appearance. In addition they should be safe, wholesome, authentic and have a composition that complies with regulations. As a practical example this paper will analyse data simulating milk adulteration. In real life such adulteration could occur where one type of milk is replaced by, or mixed with, another deliberately, by accident or because of failing routines.
 
 > There are several reasons why detection of the concentrations of cow, goat and ewe milk is of importance. Pure products of goat milk may be used as a supplement of milk for humans who are born with allergic reactions towards cow milk. Some mixed milk products are produced with regard to specifications which specify the mixture of milk from cow, goat and/or ewe. Professionals and consumers want to control the origin of milk in order to be sure that they get products following specifications and labelling. Farmers producing more than one type of milk might be tempted to add cow milk to goat or ewe milk as this would result in higher quantities of the better paid milk variants"
+
+For the exercise we will need `pls` package.
+
+```{r, message=FALSE, warning=FALSE}
+library(pls)
+```
+
+
+## Prediction of cow milk percentage
 
 In the data file "`maldidata.rdata`" you find four objects:
 
@@ -23,38 +28,34 @@ In the data file "`maldidata.rdata`" you find four objects:
 * `Ytest` : Cow-milk percentages for 45 extra test samples
 * `Xtest` : The `MALDI-TOF` values for the test samples.
 
-You may plot the spectra in `X` by:
-
-##### One-by-One:
+You may plot the spectra in `X` one-by-one as,:
 
 ```{r}
-obs <- 1  #Observation (row) number
-plot(X[,obs],type = "l")
+plot(X[, 1], type = "l")
 ```
 
-##### or all together (takes a moment to plot):
+We can also plot all the spectra together, takes more time:
 
 ```{r}
-Xturned <- t(X)
-matplot(Xturned, type = "l", col = "black")
+matplot(t(X), type = "l", col = "black")
 ```
 
 The peaks show molecule sizes that are abundant in the sample.
 
-a. First run a PCA on `X`. How many components are needed to explain 80% and 90% of the variability in `X`?
+- First run a PCA on `X`. How many components are needed to explain 80% and 90% of the variability in `X`?
 
 <div class="ans">
 
 ```{r}
 pr <- prcomp(X)
-summary(pr)
+summary(pr)$importance[, 1:14]
 ```
 
-We need 5 components to explain 80% and 36 to explain 90%. Hopefully we do not need to use all X-information to predict `Y`.
+We need 5 components to explain 80% and 36 to explain 90% (check yourself). Hopefully we do not need to use all X-information to predict `Y`.
 
 </div>
 
-b. Compute the correlations between $Y$ and the principal components. How can you use this get an idea of how many components PLS-regression will require to make a good model for cow-milk prediction?
+- Compute the correlations between $Y$ and the principal components. How can you use this get an idea of how many components PLS-regression will require to make a good model for cow-milk prediction?
 
 <div class="ans">
 
@@ -66,33 +67,33 @@ Components 1, 2, 4 and perhaps 8 are moderately to highly correlated with `Y`. S
 
 </div>
 
-c. Fit a PLS-regression model using `Y` as response and `X` as predictor (You may simply write `Y ~ X` as your model call in `plsr`. Also use `ncomp=10` as extra argument to only fit 1 to 10 components). Use the `scoreplot()` function to make a scoreplot. Check the help-file for this function to see how you can chose the component numbers to plot, and how you can put labels to your observations. Plot component 1 against 2 and put observation numbers 1:180 as labels. If the noise level of the measurements is low, the replicates should group in clusters of size four (obs 1,2,3 and 4 are from the same mixture, and so on). Do you see any tendency to this?
+- Fit a PLS-regression model using `Y` as response and `X` as predictor (You may simply write `Y ~ X` as your model call in `plsr`. Also use `ncomp=10` as extra argument to only fit 1 to 10 components). Use the `scoreplot()` function to make a scoreplot. Check the help-file for this function to see how you can chose the component numbers to plot, and how you can put labels to your observations. Plot component 1 against 2 and put observation numbers 1:180 as labels. If the noise level of the measurements is low, the replicates should group in clusters of size four (obs 1,2,3 and 4 are from the same mixture, and so on). Do you see any tendency to this?
 
 <div class="ans">
 
-```{r}
+```{r, fig.asp=0.7, out.width='100%', fig.size = 8}
 plsmod <- plsr(Y ~ X, ncomp = 10)
-scoreplot(plsmod, comps = c(1,2), labels = 1:180)
+scoreplot(plsmod, comps = c(1,2), labels = 'names', pch = 0.7)
 ```
 
 We observe that there are clusters of observations and that there is a tendency of successive numbers to be close in the scoreplot. Cluster sizes are difficult to determine.
 
 </div>
 
-d. Perform hierarchical clustering of the samples using the 3 first PLS-component scores as input variables. Try both "complete" and "average" agglomeration method and make a dendrogram. Are the replicate clusters more apparent in the dendrogram than in the scoreplot? Is there any samples that are very different from all others?
+- Perform hierarchical clustering of the samples using the 3 first PLS-component scores as input variables. Try both "complete" and "average" agglomeration method and make a dendrogram. Are the replicate clusters more apparent in the dendrogram than in the scoreplot? Is there any samples that are very different from all others?
 
 <div class="ans">
 
-```{r}
+```{r, fig.asp = 0.8, out.width='100%', fig.size = 12}
 clust1 <- hclust(dist(plsmod$scores[,1:3]), method = "complete")
-plot(clust1, cex = 0.75)
+plot(clust1, cex = 0.5)
 ```
 
 From the dendrogram we observe several clusters of size four, and some of three with successive observation numbers. This implies that the replicates are more similar to each other than samples from different milk samples. Sample 159 seems to be an outlier, very different from all others.
 
 </div>
 
-e. Use K-means clustering with K=45 on the three first PLS-component scores. How do the replicates cluster?
+- Use K-means clustering with K=45 on the three first PLS-component scores. How do the replicates cluster?
 
 <div class="ans">
 
@@ -112,7 +113,7 @@ data which makes similar milk mixtures hard to distinguish.
 
 </div>
 
-f. We will use cross-validation to estimate the expected prediction error of PLSR and to choose the appropriate number of components. Instead of using Leave-One-Out Cross-validation we will exclude all four replicates in a "Leave-Four-Out" type of Cross-validation. Why is this smart?
+- We will use cross-validation to estimate the expected prediction error of PLSR and to choose the appropriate number of components. Instead of using Leave-One-Out Cross-validation we will exclude all four replicates in a "Leave-Four-Out" type of Cross-validation. Why is this smart?
 
 <div class="ans">
 
@@ -120,17 +121,18 @@ Since the replicates are from the same mixture, they are not independent. If we 
 
 </div>
 
-g. Refit the plsmodel from exercise c. but add the arguments `validation="CV"`, `segments=45` and `segment.type="consecutive"` in the plsr-model call. This sets up the "Leave-Four-Out" CV to be performed.
+- Refit the plsmodel from exercise c. but add the arguments `validation="CV"`, `segments=45` and `segment.type="consecutive"` in the plsr-model call. This sets up the "Leave-Four-Out" CV to be performed.
 
 <div class="ans">
 
 ```{r, cache=TRUE}
-plsmod <- plsr(Y ~ X, ncomp = 10, validation = "CV", segments = 45, segment.type = "consecutive")
+plsmod <- plsr(Y ~ X, ncomp = 10, validation = "CV", 
+               segments = 45, segment.type = "consecutive")
 ```
 
 </div>
 
-h. The sum of squared prediction errors (PRESS) for different number of components is given in the `validation$PRESS` element of the fitted pls-model. The null-model PRESS (prediction using the mean-response) is given in the `validation$PRESS0` element. You find the MSEP-values (Mean Squared Error of Prediction) by dividing the PRESS by the number of observations (N=180).
+- The sum of squared prediction errors (PRESS) for different number of components is given in the `validation$PRESS` element of the fitted pls-model. The null-model PRESS (prediction using the mean-response) is given in the `validation$PRESS0` element. You find the MSEP-values (Mean Squared Error of Prediction) by dividing the PRESS by the number of observations (N=180).
 Make a prediction error plot of MSEP with 0 to 10 components. How many components do you think gives satisfying prediction of cow-milk content in new mixtures? Remember that simple models are often better than complex.
 
 <div class="ans">
@@ -144,7 +146,7 @@ The prediction error is heavily reduced as we introduce components 1 and 2, but 
 
 </div>
 
-i. Predict the cow-milk content of the test samples using `Xtest` as newdata in the `predict`-function and use the number of components you found as best from the previous exercise. Save the predictions into an object called `pred`.
+- Predict the cow-milk content of the test samples using `Xtest` as newdata in the `predict`-function and use the number of components you found as best from the previous exercise. Save the predictions into an object called `pred`.
 (See `?predict.mvr` for the help-file to predict for pls-objects.). The predict-function returns an array of dimension [45,1,1] of predictions. You can extract all predictions by `pred[,1,1]`.
 
 <div class="ans">
@@ -163,7 +165,7 @@ MSEPfunc <- function(y, yhat){
 }
 ```
 
-j. Use `MSEPfunc()` to compute the MSEP-value for the test-predictions using `Ytest` and the predicted values as inputs. Did the cross-validation under-estimate the prediction error?
+- Use `MSEPfunc()` to compute the MSEP-value for the test-predictions using `Ytest` and the predicted values as inputs. Did the cross-validation under-estimate the prediction error?
 
 <div class="ans">
 
@@ -176,7 +178,7 @@ but the order of magnitude is the same.
 
 </div>
 
-k. EXTRA for those interested. Redo the exercises g. and h. with Leave-One-Out CV. (See also lecture notes Lesson 7.) Compare the MSEP-values you find with the previous CV-routine.
+- EXTRA for those interested. Redo the exercises g. and h. with Leave-One-Out CV. (See also lecture notes Lesson 7.) Compare the MSEP-values you find with the previous CV-routine.
 
 <div class="ans">
 

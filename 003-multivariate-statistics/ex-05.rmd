@@ -1,4 +1,4 @@
-# Principal Component Analysis
+# Multivariate Analysis (PCA)
 
 **We will use `trackfieldrecord.rdata` in this exercise**
 
