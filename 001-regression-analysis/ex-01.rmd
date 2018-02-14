@@ -1,27 +1,29 @@
 # Regression Analysis
 
-## Exercise 1
+In this exercise we will use `birth.rdata` and `bodydata.rdata` datasets. We can load those data as below:
 
-```{r, echo = F}
-load("birth.rdata")
-load("bodydata.rdata")
+```{r, echo = T}
+load("_data/birth.rdata")
+load("_data/bodydata.rdata")
+load("_data/mtcars.rdata")
 ```
 
-### Ex-1: Least Sqaures App
+
+## Least Sqaures App
 Play around with the least squares app on Play around with the least squares app on [http://solve.shinyapps.io/LeastSquaresApp](http://solve.shinyapps.io/LeastSquaresApp)
 
-* Use `N=10`
-* Try to adjust manually the intercept and the slope to minimize the sum of squared errors, `K`.
-* Display the least square estimate to see how close you were.
-* Display the true model. Were you close?
+1. Use `N=10`
+2. Try to adjust manually the intercept and the slope to minimize the sum of squared errors, `K`.
+3. Display the least square estimate to see how close you were.
+4. Display the true model. Were you close?
 
 Once Again, 
 
-* Increase to `N=100`
-* Repeat the procedure.
-* Are you closer to the true model now?
+1. Increase to `N=100`
+2. Repeat the procedure.
+3. Are you closer to the true model now?
 
-### Ex-2: Birth data
+## Dataset: birth 
 The dataset `birth` records 189 birth weights from Massachusetts, USA, and some additional variables. The variables are,
 
 | Var   |            Description                                          |
@@ -34,139 +36,153 @@ The dataset `birth` records 189 birth weights from Massachusetts, USA, and some 
 
 The data appears in fronter as `birth.rdata`. Download the data into your STAT340 course folder and load the data set in RStudio.
 
-#### First, let's get an overview of the data
 
-##### Take a look at the top 10 rows of the data using the `head()` function
-<div class="ans">
+### <i class="fa fa-edit"></i> Overview of data 
+
+- Take a look at the top 10 rows of the data using the `head()` function
+
+<div class = 'ans'>
+
 ```{r}
 head(birth)
 ```
+
 </div>
 
-##### Use the `summary()` function to get a short summary of the variables.
+- Use the `summary()` function to get a short summary of the variables.
+
 <div class = 'ans'>
+
 ```{r}
 summary(birth)
 ```
+
 </div>
 
-##### What is the proportion of smoking mothers in the data set?
+
+- What is the proportion of smoking mothers in the data set?
+
 <div class = 'ans'>
 The proportion of smoking mother is `r round(prop.table(table(birth[,'SMK']))["YES"], 2)`
 </div>
-##### What is the average age of a mother giving birth?
+
+- What is the average age of a mother giving birth?
+
 <div class = 'ans'>
 The average age of mother giving birth is `r round(mean(birth[,'AGE']), 1)` years.
 </div>
 
-##### Attach the data by
-```{r}
-attach(birth)
-```
-##### Try
-```{r, eval = FALSE}
-by(data = BWT, INDICES = SMK, FUN = mean)
-```
-What did you get?
+- What is the average birth weight of children from non-smoking and smoking mothers?
 
 <div class = "ans">
-```{r, echo = FALSE}
-by(data = BWT, INDICES = SMK, FUN = mean)
+
+```{r}
+tapply(birth$BWT, INDEX = birth$SMK, FUN = mean)
 ```
+
 The function returns the mean birth weight for children of non-smoking and smoking mothers.
+
 </div>
 
-
-The `sd()` function computes the sample standard deviation of a vector of observations. Modify the last command to compute variances of birth weights within each smoke group.
+- What is the standard deviation of birth weight of children from non-smoking and smoking mothers?
 
 <div class = "ans">
+
 ```{r}
-by(data = BWT, INDICES = SMK, FUN = sd)
+tapply(birth$BWT, INDEX = birth$SMK, FUN = sd)
 ```
+
+The `sd()` function computes the sample standard deviation of a vector of observations.
+
 </div>
 
-### Linear Regression
+### <i class="fa fa-book"></i> Linear Regression
+
 Run a simple linear regression model with BWT as response and LWT as predictor, like this,
-```{r, eval = FALSE}
-birth1 <- lm(BWT ~ LWT, data = birth)
-summary(birth1)
-```
-<div class = "ans">
-```{r, echo = FALSE}
-birth1 <- lm(BWT ~ LWT, data = birth)
-summary(birth1)
-```
-</div>
 
-#### Test the significance of LWT on BWT with a 5% test level and at a 1% level.
-<div class = "ans">
+```{r, eval = TRUE}
+birth1 <- lm(BWT ~ LWT, data = birth)
+summary(birth1)
+```
+
 Here, the regression model is,
 
 $$\text{BWT} = \beta_0 + \beta_1 \text{LWT} + \epsilon$$
 
 where $\epsilon \sim N(0, \sigma^2)$
-</div>
 
-##### What is the hypothesis you are testing?
+
+#### <i class="fa fa-edit"></i> Test the significance of LWT on BWT with a 5% test level and at a 1% level 
+
+**What is the hypothesis you are testing?**
+
 <div class = "ans">
 The hypothesis for testing the significance of LWT on BWT is,
 $$ H_0: \beta_1 = 0 \text{ vs } H_1: \beta_1 \ne 0$$
 </div>
 
-##### What is the conclusion?
+- What is the conclusion?
+
 <div class = "ans">
 The $p$-value corresponding to $\beta_1$ is less than 0.05 but greater than 0.01. So, at 5% test level, LWT is significant while at 1% test level, it is not significant.
 </div>
 
-#### Find the R-squared. Do you think the model fits the data well?
-The r-squared ($R^2$) for the model is `r round(summary(birth1)[[8]], 2)`, this shows that only `r round(summary(birth1)[[8]], 2)*100`% of variation present in birth weight (BWT) is explained by weight of mother (LWD). Here, the model fits the data poorely.
+- Find the R-squared. Do you think the model fits the data well?
 
-#### Scatter Plot
-Make a scatter plot using the `plot()` function of LWT on the horizontal axis and BWT on the vertical axis. You may add the fitted linear model to your plot afterwards by applying the `abline()` function:
-```{r, eval = FALSE}
-abline(birth1)
-```
+<div class = 'ans'>
+The r-squared ($R^2$) for the model is `r round(summary(birth1)[[8]], 2)`, this shows that only `r round(summary(birth1)[[8]], 2)*100`% of variation present in birth weight (BWT) is explained by weight of mother (LWD). Here, the model fits the data poorely.
+</div>
+
+#### <i class="fa fa-edit"></i> Scatter Plot 
+
+- Make a scatter plot of LWT vs BWT
+
 <div class = "ans">
 The scatter plot of LWT and BWT is,
 ```{r}
-plot(x = LWT, y = BWT)
+plot(x = birth$LWT, y = birth$BWT)
 abline(birth1)
 ```
 </div>
 
-##### Make a comment to the plot in light of the output of your analyses.
+- Make a comment to the plot in light of the output of your analyses.
+
 <div class = "ans">
-* The intercept for the regression line is `r round(coef(birth1)[1], 2)` and the slope is `r round(coef(birth1)[2], 2)`. 
-* The data-points are scattered around the regression line where BWT vary most
-* Since the data-points are scattered much, the model could only explain small variation present in BWT with LWT.
+1. The intercept for the regression line is `r round(coef(birth1)[1], 2)` and the slope is `r round(coef(birth1)[2], 2)`. 
+2. The data-points are scattered around the regression line where BWT vary most
+3. Since the data-points are scattered much, the model could only explain small variation present in BWT with LWT.
 </div>
 
-#### Confidence Intervals
-##### Find 95% confidence intervals for the regression coefficients of the `birth1` model
+#### <i class="fa fa-edit"></i> Confidence Intervals 
+
+- Find 95% confidence intervals for the regression coefficients of the `birth1` model
+
 <div class = "ans">
 ```{r}
 confint(birth1)
 ```
 </div>
 
-##### Also find 99% confidence intervals
+- Also find 99% confidence intervals
+
 <div class = "ans">
 ```{r}
 confint(birth1, level = 0.99)
 ```
 </div>
 
-##### Comment on the intervals
+- Comment on the intervals
+
 <div class = "ans">
-* It is 95% certain that the interval (`r round(confint(birth1, "LWT"), 3)`) covers the true $\beta_1$. Similary, it is 99% certain that the interval (`r round(confint(birth1, "LWT", level = 0.99), 3)`) covers the true $\beta_1$.
-* The 99% confidence is larger than 95% confidence. In other words, being more certain about the true value needs larger confidence interval.
-* Moreover, the 95% does not include zero while 99% interval includes zero. This is equivalent with the result that $\beta_1$ cofficient is significant at a 5% test level, but not significant at a 1% test level.
+1. It is 95% certain that the interval (`r round(confint(birth1, "LWT"), 3)`) covers the true $\beta_1$. Similary, it is 99% certain that the interval (`r round(confint(birth1, "LWT", level = 0.99), 3)`) covers the true $\beta_1$.
+2. The 99% confidence is larger than 95% confidence. In other words, being more certain about the true value needs larger confidence interval.
+3. Moreover, the 95% does not include zero while 99% interval includes zero. This is equivalent with the result that $\beta_1$ cofficient is significant at a 5% test level, but not significant at a 1% test level.
 </div>
 
-#### Identify observations for catagories
-You can identify the observation numbers of the smokers by:
+### <i class="fa fa-book"></i> Regression with categories
+Here we will fit a separate regression for smoking and non-smoking groups. You can identify the observation numbers of the smokers by:
 ```{r}
-smokeYes <- which(SMK == "YES")
+smokeYes <- which(birth$SMK == "YES")
 ```
 Fit the same model as `birth1`, but separate models for non-smokers and smokers, and call the models `birth2` and `birth3`. (Hint: select observations by the subset argument in the `lm`-function using the `smokeYes` variable.)
 <div class = "ans">
@@ -176,21 +192,25 @@ birth3 <- lm(BWT ~ LWT, data = birth, subset = smokeYes)
 ```
 </div>
 
-##### Fitted lines for catagories
-Use the `abline()` function to add the two fitted lines to the same plot, but use <font color = "red">"red"</font> and <font color = "blue">"blue"</font> as colors.
+##### <i class="fa fa-edit"></i> Interpreate these models
+
+- Make a scatter plot of LWT vs BWT and add two fitted lines form the model fitted above.
+
 <div class = "ans">
 ```{r}
-plot(x = LWT, y = BWT)
+plot(x = birth$LWT, y = birth$BWT)
 abline(birth2, col = "red")
 abline(birth3, col = "blue")
 ```
 </div>
-##### Comment on the plot
+
+- Comment on the plot
+
 <div class="ans">
 Fitted lines for both non-smokers and smokers seems very similar, but it is difficult to tell whether they are significantly different. We will later se how we can model both mother-groups simultaneously and be able to test this difference.
 </div>
 
-##### Is LWT significant at a 5% level on BWT for the smokers?
+- Is LWT significant at a 5% level on BWT for the smokers?
 
 <div class="ans">
 ```{r}
@@ -205,21 +225,26 @@ From the summary of model `birth3` above, p-value corresponding to LWT is higher
 
 Assume a model with both LWT and AGE as predictors for BWT using all observations.
 
-##### Write up the model and the model assumptions.
+- Write up the model and the model assumptions.
+
 <div class="ans">
 $$\text{BWT} = \beta_0 + \beta_1 \text{LWT} + \beta_2 \text{AGE} + \epsilon$$
 
-###### Assumptions:
+**Assumptions:**
+
 The error term $\epsilon$ follows $N(0, \sigma^2) \; iid$, i.e error terms are independently normally distributed with mean 0 and constant variance $\sigma^2$.
 </div>
-##### What is the interpretation of the regression coefficients?
+
+- What is the interpretation of the regression coefficients?
+
 <div class="ans">
-* $\beta_1$ gives the expected amount of change in BWT for unit change in LWT when AGE is held constant, i.e. if LWT increases by 1 pound, BWT will increase by $\beta_1$ grams for people of the same AGE.
-* $\beta_2$ gives the expected amount of change in BWT (in grams) if AGE increase by 1 year and LWT is held constant.
+1. $\beta_1$ gives the expected amount of change in BWT for unit change in LWT when AGE is held constant, i.e. if LWT increases by 1 pound, BWT will increase by $\beta_1$ grams for people of the same AGE.
+2. $\beta_2$ gives the expected amount of change in BWT (in grams) if AGE increase by 1 year and LWT is held constant.
 </div>
 
 
-##### Fit the model in RStudio, call it `birth4` and comment on the results.
+Fit the model in RStudio, call it `birth4` and comment on the results.
+
 <div class="ans">
 ```{r}
 birth4 <- lm(BWT ~ LWT + AGE, data = birth)
@@ -229,39 +254,67 @@ summary(birth4)
 The summary output shows that LWT is significant at 5% level of significance but not at 1%. AGE has very high p-value and thus is not significant, i.e. there is not any linear relationship of AGE with BWT. The explained variation is still very low with an $R^2=0.038$.
 </div>
 
-### Optional:
-Look at the presentation file Regression.Rmd from lecture 2 and produce for the `birth4-model` a similar 3D-plot as on page 15. You may need to install the R-packages: `rgl`, `nlme`, `mgcv` and `car` first.
+#### <i class="fa fa-pencil-square"></i> Optional:
+Look at the presentation file Regression.Rmd from lecture 2 and produce for the `birth4-model` a similar 3D-plot as on page 15. You may need to install the R-packages: `rgl`, `nlme`, `mgcv` and `car` first. Use the figure to get an understanding of the effects of LWT and AGE on BWT.
 
-<div class="ans">
-```{r, eval = FALSE}
-library(rgl)
-library(nlme)
-library(mgcv)
-library(car)
-scatter3d(BWT ~ LWT+AGE, data = birth, fit = "linear", residuals = TRUE)
+##### A 3D plot
+
+```{r, eval = TRUE, fig.asp=0.7, out.width="100%"}
+library(scatterplot3d)
+with(birth, {
+  # Start Plot
+  plot3d <- scatterplot3d(LWT, AGE, BWT, type = "p", highlight.3d = TRUE, 
+                          mar = c(3, 3, 2, 3), pch = 19, cex.symbols = 0.5, 
+                          main = "Residuals and fitted plane for model: birth4",
+                          angle = 45, box = FALSE)
+  # Add fitted plane for model birth4
+  plot3d$plane3d(birth4, col = "grey50", lty.box = "solid", polygon_args = list(bg = "lightgrey"))
+  # True Values
+  true <- plot3d$xyz.convert(LWT, AGE, BWT)
+  # Predicted Values
+  fitted <- plot3d$xyz.convert(LWT, AGE, fitted(birth4))
+  # Is the residuals negative?
+  neg_res <- 1 + (resid(birth4) > 0)
+  # Add segment for the residuals
+  segments(true$x, true$y, fitted$x, fitted$y, col = c("blue", "red")[neg_res])
+})
 ```
-![Scatter3D](images/scatter3d.png)
-</div>
+<!-- ![Scatter3D](images/scatter3d.png) -->
+
+##### An interactive 3D plot
+```{r, eval = FALSE}
+library(car)
+scatter3d(BWT ~ LWT + AGE, data = birth, axis.ticks = TRUE, revolutions = 1)
+```
+
+**For grouped: Smoking vs Non-Smoking:**
+
+```{r, eval = FALSE}
+car::scatter3d(BWT ~ LWT + AGE, data = birth, axis.ticks = TRUE, 
+               revolutions = 1, groups = birth$SMK)
+```
+
 
 ##### Interpretation
-What is the interpretation of the estimated regression coefficients for LWT and AGE in this model?
+
+- What is the interpretation of the estimated regression coefficients for LWT and AGE in this model?
+
 <div class="ans">
+
 From the summary output of `birth4` model, the $\beta$ coefficient for LWT is `r round(coef(birth4)["LWT"], 3)` and AGE is `r round(coef(birth4)["AGE"], 3)`. This shows that, if weight of mother (LWT) increases by 1 pound, the birth weight (BWT) is estimated to increase by `r round(coef(birth4)["LWT"], 3)` grams if AGE is held constant. Similary, if the age of a mother (AGE) increases by 1 year, the birth weight (BWT) is estimated to increase by `r round(coef(birth4)["AGE"], 3)` grams, if LWT is held constant. The regression coefficients are therefore equal to the slopes of the gridlines of the surface in the figure. 
+
 </div> 
 
-##### Use the 3D figure to get an understanding of these effects.
 
-
-### Ex-3: Bodydata
-
-##### Create a training data set called bodytrain containing the first 20 observations only, by:
+## Dataset: bodydata
+### <i class="fa fa-book"></i> Training Samples
+Create a training data set called bodytrain containing the first 20 observations only, by:
 
 ```{r}
 bodytrain <- bodydata[1:20,]
 ```
 
-##### Confer Table 9.3 about R formulas whenever needed.
-
+### <i class="fa fa-edit"></i> Fitting Model
 Fit one at a time three simple regression models with Weight as response and each of Height, Age and Circumference as predictors, name the models `Model1`, `Model2` and `Model3`, respectively. Use the `summary()` function on each model to print out a summary of the fitted models. Use the first 20 observations as your training data.
 
 <div class="ans">
@@ -272,7 +325,10 @@ model3 <- lm(Weight ~ Circumference, data = bodytrain)
 ```
 </div>
 
-##### Test whether the three predictors are significant. Use a 5% test level.
+### <i class="fa fa-edit"></i> Understanding the fitted Model
+
+- Test whether the three predictors are significant. Use a 5% test level.
+
 <div class="ans">
 The summary result for `model1` is,
 ```{r}
@@ -292,29 +348,31 @@ Here, at 5% test level, Circumference is significant (p-value for circumference 
 </div>
 
 
-##### Which model gives a better linear fit in terms of R-squared?
+- Which model gives a better linear fit in terms of R-squared?
+
 <div class="ans">
 The model with `Circumference` as predictor has highest $R^2$ among the models. This model explains `r round(summary(model3)[[8]]*100, 2)` percent of variation present in the response `Weight`.
 </div>
 
-##### Compute the correlation matrix of the bodydtrain data by:
+Compute the correlation matrix of the bodydtrain data by:
 ```{r}
 cormat <- cor(bodytrain)
 ```
 
-##### You can square the correlations by: 
+You can square the correlations by:
 ```{r}
 cormat ^ 2
 ```
 
-##### Compare the squared correlations under the `Weight` column with the R-squared values from the three models. 
+- Compare the squared correlations under the `Weight` column with the R-squared values from the three models.
+
 <div class="ans">
 The square of correlation between each predictor variable with response is equals to the $R^2$ obtained in `model1`, `model2` and `model3`. However, this only applies to simple regression with one predictor.
 </div>
 
 If we "predict" the same observations as was used to fit the model, we get the so-called fitted values. These can be retrieved from the `model1` by `model1$fitted.values`
 
-##### Compute the squared correlations between the `weights` of `bodytrain` and the fitted values of `model1`.
+- Compute the squared correlations between the `weights` of `bodytrain` and the fitted values of `model1`.
 
 <div class="ans">
 ```{r}
@@ -324,12 +382,14 @@ cors ^ 2
 </div>
 
 
-##### Compare with the R-squared of `model1`
+- Compare with the R-squared of `model1`
+
 <div class="ans">
 The square of correlation between the fitted values from a model with the response is equal to the $R^2$ obtained from the model. This is a result which extends to multiple regression.
 </div>
 
-##### For each model locate and compare the estimates for the error variance, $\sigma^2$.
+- For each model locate and compare the estimates for the error variance, $\sigma^2$.
+
 <div class="ans">
 By applying the anova() function to each model object we obtain the analysis of variance tables containing the MSE, i.e. the Mean Sum of Squares of the Error (Residuals), which is the estimator for the error variance.
 ```{r}
@@ -340,15 +400,16 @@ anova(model3)
 </div>
 
 
-##### Which model has the smallest error variance estimate?
+- Which model has the smallest error variance estimate?
+
 <div class="ans">
 Model 3 has the smallest error variance estimate.
 We can also obtain the error variance estimate using the "Residual standard error" from the summary output since, $MSE = s^2$.
 </div>
 
-### Multiple Linear Regression and Prediction
+### <i class="fa fa-edit"></i> Multiple Linear Regression and Prediction
 
-##### Fit a model 4 with both `Height` and `Circumference` as predictors.
+- Fit a model 4 with both `Height` and `Circumference` as predictors.
 
 <div class="ans">
 ```{r}
@@ -357,23 +418,24 @@ summary(model4)
 ```
 </div>
 
+- Get test observations for prediction: (_Make a test data set called bodytest containing observations `21:40` (Hint: Check how we made `bodytrain` above)_)
 
-##### Make a test data set called bodytest containing observations `21:40` (Hint: Check how we made `bodytrain` above)
 <div class="ans">
 ```{r}
 bodytest <- bodydata[21:40, ]
 ```
 </div>
 
+- Use `model4` to predict the Weights of the testdata.
 
-##### Use `model4` to predict the Weights of the testdata.
 <div class="ans">
 ```{r}
 pred <- predict(model4, newdata = bodytest)
 ```
 </div>
 
-##### Make a scatter plot of the actually observed weights of the test data and the predicted weights. 
+- Make a scatter plot of the actually observed weights of the test data and the predicted weights. 
+
 <div class="ans">
 ```{r}
 plot(bodytest[ , 1], pred)
@@ -381,22 +443,24 @@ plot(bodytest[ , 1], pred)
 </div>
 
 
-##### Compute the squared correlation between the actually observed Weights and the predicted weights.
+- Compute the squared correlation between the actually observed Weights and the predicted weights.
 
 ```{r}
 cor(pred, bodytest[ , 1]) ^ 2
 ```
 What you get here is a so-called "prediction R-squared" of this model.
 
-##### Compare with the R-squared of `model4`
+- Compare with the R-squared of `model4`
+
 <div class="ans">
 The prediction R-squared is close to the R-squared of model4 (0.679) which indicates that the results from model4 generalize well to new observations.
 </div>
 
-### Ex-4: Extra on R-squared
+### <i class="fa fa-book"></i> Extra on R-squared
 In statistics we aim at finding models which fit the data well. However, the R-squared may easily lead to overfitting of models, that is by including too many variables.
 
-##### Fit a model with all three predictors to the bodytrain data:
+- Fit a model with all three predictors to the bodytrain data:
+
 ```{r}
 model5 <- lm(Weight ~ Height + Circumference + Age, data = bodytrain)
 summary(model5)
@@ -406,7 +470,8 @@ summary(model5)
 set.seed(999)
 ```
 
-##### Lets add some randomly generated junk from a normal distribution
+- Lets add some randomly generated junk from a normal distribution
+
 ```{r}
 Junk1 <- rnorm(n = 20, mean = 0, sd = 10)
 Junk2 <- rnorm(20, 0, 10)
@@ -416,14 +481,19 @@ model6 <- lm(Weight ~ Height + Circumference + Age +
 summary(model6)
 ```
 
-##### Compare models 5 and 6. What happens to the R-squared? Compare also the adjusted R-squared values for models 5 and 6. 
+
+##### <i class="fa fa-edit"></i> Exercises
+
+- Compare models 5 and 6. What happens to the R-squared? (_Compare also the adjusted R-squared values for models 5 and 6._)
+
 <div class="ans">
 The results will vary from time to time since we sample random junk, but in general
 we will observe that R-squared increase, whereas the adjuste R-squared decrease as we add
 more junk variables.
 </div>
 
-##### Try to add 3 more junk variables, `Junk4`, `Junk5` and `Junk6`.
+- Try to add 3 more junk variables, `Junk4`, `Junk5` and `Junk6`.
+
 <div class="ans">
 ```{r}
 Junk4 <- rnorm(n = 20, mean = 0, sd = 10)
@@ -435,9 +505,8 @@ summary(model6)
 ```
 </div>
 
-##### Observe the R-squared values.
+- Observe the R-squared values (_What is the lesson to be learned here?_)
 
-##### What is the lesson to be learned here?
 <div class="ans">
 Adding variables and only observing R-squared may be misleading. We should at least also keep in mind that a simple  model is better. Hence, if adding more variables does not increase R-squared very much, we should keep the simpler model. If in addition the difference between the R-squared and the adjusted R-squared starts to get large, it is a clear indicator of overfitting.
 </div>
