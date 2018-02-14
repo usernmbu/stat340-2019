@@ -1,9 +1,17 @@
-# Multivariate Analysis (Principal Component Analysis)
+# Principal Component Analysis
 
-```{r, echo = F, message=FALSE}
+**We will use `trackfieldrecord.rdata` in this exercise**
+
+```{r, message=FALSE, warning=FALSE}
 load("_data/trackfieldrecords.rdata")
+```
+
+**We need to load following R package**
+
+```{r}
 library(mixlm)
 ```
+
 
 ## Track and Field data
 
@@ -16,7 +24,7 @@ Load the `trackfieldrecords.rdata` file with the objects `runMen` and `runWomen`
 **For dataset: `runMen`**
 
 ```{r, fig.asp=0.9, out.width='100%'}
-pairs(runMen[,-9])
+pairs(runMen[,-9], cex = 0.7)
 cor(runMen[,-9])
 ```
 
@@ -25,7 +33,7 @@ Mens running 5000m have the highest correlation (`r max(cor(runMen[,-9])[cor(run
 **For dataset: `runWomen`**
 
 ```{r, fig.asp=0.9, out.width='100%'}
-pairs(runWomen[,-8])
+pairs(runWomen[,-8], cex = 0.7)
 cor(runWomen[,-8])
 ```
 
@@ -89,7 +97,7 @@ Make a biplot with the first two components. You may use the argument "xlabs" in
 <div class="ans">
 
 ```{r, fig.asp = 0.8, out.width='100%'}
-biplot(pr, xlabs = runMen$Nation)
+biplot(pr, xlabs = runMen$Nation, cex = 0.7)
 ```
 
 On the first axis (PC1) we observe that Cook's Islands and West Samoa have the largest weights, and they therefore have on average poor (long time) national records for all distance. At the other end we find USA and others with on average good national records.
@@ -102,7 +110,8 @@ Along PC2 (vertically) we find those with relatively poor times on long distance
 <div class="ans">
 
 ```{r}
-lmmod <- lm(runWomen$M3000 ~ M100 + M200 + M400 + M800 + M1500 + M5000 + M10K + M42K, data = runMen)
+lmmod <- lm(runWomen$M3000 ~ M100 + M200 + M400 + M800 + M1500 + 
+              M5000 + M10K + M42K, data = runMen)
 summary(lmmod)$r.squared
 summary(lmmod)$adj.r.squared
 ```
@@ -132,7 +141,8 @@ In addition to M400 and M800 I find M1500 to be highly significant after removin
 ```{r}
 #You need to transform the scores into a data.frame first
 PCdata <- as.data.frame(pr$x)
-pcrmod <- lm(runWomen$M3000 ~ PC1 + PC2 + PC3 + PC4 + PC5 + PC6 + PC7 + PC8, data = PCdata)
+pcrmod <- lm(runWomen$M3000 ~ PC1 + PC2 + PC3 + PC4 + PC5 + 
+               PC6 + PC7 + PC8, data = PCdata)
 
 summary(pcrmod)
 ```
@@ -166,7 +176,8 @@ PCRest <- pr$rotation[,c(1,2,4)] %*% (coef(pcr.red.mod)[-1])
 
 #Scaling the original variables and re-running the least squares model:
 runMen.scaled <- as.data.frame(scale(runMen[,-9]))
-lmmod2 <- lm(runWomen$M3000 ~ M100 + M200 + M400 + M800 + M1500 + M5000 + M10K + M42K, data = runMen.scaled)
+lmmod2 <- lm(runWomen$M3000 ~ M100 + M200 + M400 + M800 + M1500 + 
+               M5000 + M10K + M42K, data = runMen.scaled)
 
 #Estimates without intercept.
 Estimates <- cbind(coef(lmmod2)[-1],PCRest)
