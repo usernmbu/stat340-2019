@@ -25,7 +25,7 @@ large cities:
 city
 ```
 
-- Load the city.rdata which is available on Fronter.
+- Load the `city.rdata` which is available on Canvas.
 
 Before analyzing the data it is best to "stack" the data into two columns,  a response column `y` and a city factor column `city`. By using the `stack()` function in R you can restructure the city data by
 
@@ -67,7 +67,7 @@ City 1 seems to have both the lowest average chlorine levels and the smallest va
 
 </div>
 
-- Fit the model and performa a residual analysis. Comment on the model fit.
+- Fit the model and perform a residual analysis. Comment on the model fit.
 
 <div class="ans">
 
@@ -102,7 +102,7 @@ Both problems from the previous model appear to be corrected. We continue with t
 
 </div>
 
-- Estimate all model parameters from the latter model. Explain what the parameters measure given the paramtrization of your choice (See lecture notes from Feb 16th on parametrizations).
+- Estimate all model parameters from the latter model. Explain what the parameters measure given the parameterization of your choice (See lecture notes for parameterization).
 
 <div class="ans">
 
@@ -148,7 +148,7 @@ For test-level $\alpha=0.05$ we reject the null-hypothesis if $F>F_{\alpha, 2, 5
 
 The Norwegian Centre for Science Recruitment (NSR) has an online "education test" where youths may answer a questionnaire to check their so-called cognitive types, their science interest, their preferred learning methods and their interest to various science subjects. The test suggests different ares within the STEM (Science, Technology, Engineering and Mathematics) within which the youth may find suitable work. 
 
-We have an excerpt of these data which can be downloaded from Fronter as the `nsr.rdata` file. The data.frame `NSRdata` contains two variables, Science and Age:
+We have an excerpt of these data which can be downloaded from Canvas as the `nsr.rdata` file. The data.frame `NSRdata` contains two variables, Science and Age:
 
 ```{r}
 head(NSRdata,5)

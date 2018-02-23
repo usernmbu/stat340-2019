@@ -42,7 +42,7 @@ knitr::include_graphics("gif/Import-Excel.gif")
 One can save data, models and other R-objects in `rdata` or `rds` format. In order to load `rdata`, we can use `load` function. Download `bodydata.rdata` from canvas and load it to R.
 
 ```{r echo = TRUE}
-load("_data/bodydata.Rdata")
+load("_data/bodydata.rdata")
 ```
 
 

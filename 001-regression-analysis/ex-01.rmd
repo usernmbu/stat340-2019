@@ -44,7 +44,7 @@ The data appears in fronter as `birth.rdata`. Download the data into your STAT34
 <div class = 'ans'>
 
 ```{r}
-head(birth)
+head(birth, n = 10)
 ```
 
 </div>
