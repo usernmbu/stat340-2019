@@ -14,7 +14,7 @@ rmd_files: [
   "001-regression-analysis/ex-02.rmd",
   "002-analysis-of-variance/ex-03.rmd",
   "002-analysis-of-variance/ex-04.rmd",
-  # "003-multivariate-statistics/ex-05.rmd",
+  "003-multivariate-statistics/ex-05.rmd",
   # "003-multivariate-statistics/ex-06.rmd",
   # "004-generalized-linear-model/ex-07.rmd",
   # "004-generalized-linear-model/ex-08.rmd",
