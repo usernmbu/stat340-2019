@@ -34,11 +34,12 @@ You may plot the spectra in `X` one-by-one as,:
 plot(X[, 1], type = "l")
 ```
 
-We can also plot all the spectra together, takes more time:
+We can also plot multiple (all) spectra together, takes more time.
 
 ```{r}
-matplot(t(X), type = "l", col = "black")
+matplot(X[, 1:5], type = "l", lty = 1, col = "black")
 ```
+
 
 The peaks show molecule sizes that are abundant in the sample.
 
@@ -60,7 +61,7 @@ We need 5 components to explain 80% and 36 to explain 90% (check yourself). Hope
 <div class="ans">
 
 ```{r}
-cor(Y,pr$x)
+cor(Y, pr$x)
 ```
 
 Components 1, 2, 4 and perhaps 8 are moderately to highly correlated with `Y`. Supposedly 3 to 4 components will be necessary for PLSR.

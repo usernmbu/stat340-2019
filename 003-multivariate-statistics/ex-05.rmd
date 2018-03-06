@@ -112,8 +112,8 @@ Along PC2 (vertically) we find those with relatively poor times on long distance
 ```{r}
 lmmod <- lm(runWomen$M3000 ~ M100 + M200 + M400 + M800 + M1500 + 
               M5000 + M10K + M42K, data = runMen)
-summary(lmmod)$r.squared
-summary(lmmod)$adj.r.squared
+(lm_sumry <- summary(lmmod))
+lm_sumry[c("r.squared", "adj.r.squared")]
 ```
 
 Two variables are significant at 5% level in this fitted model, M800 and M400. The $R^2$-values indicate more than 80% explained variance. There is a slight difference between the adjusted and the non-adjusted $R^2$ indicating that there may be too many variables included in the model.
