@@ -16,7 +16,7 @@ rmd_files: [
   "002-analysis-of-variance/ex-04.rmd",
   "003-multivariate-statistics/ex-05.rmd",
   "003-multivariate-statistics/ex-06.rmd",
-  # "004-generalized-linear-model/ex-07.rmd",
+  "004-clustering-and-classification/ex-07.rmd",
   # "004-generalized-linear-model/ex-08.rmd",
   # "005-mixed-effect-model/ex-09.rmd",
   # "005-mixed-effect-model/ex-10.rmd",

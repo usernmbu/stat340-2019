@@ -14,3 +14,6 @@ readxl
 gdtools
 scatterplot3d
 pls
+RevoUtils
+carData
+effects

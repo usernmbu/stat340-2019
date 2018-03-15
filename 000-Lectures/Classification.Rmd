@@ -2,18 +2,25 @@
 title: "Discrimination and classification"
 author: "Thore Egeland/ Raju Rimal"
 date: '2018'
-dev: svglite
 output:
-  ioslides_presentation: 
-    widescreen: true
-    smaller: false
+  ioslides_presentation:
     css: _css/styles.css
-    logo: _images/logo.png
-    fig_width: 7
     fig_height: 4.5
     fig_retina: 2
-editor_options: 
+    fig_width: 7
+    logo: _images/logo.png
+    smaller: no
+    widescreen: yes
+  beamer_presentation:
+    colortheme: beaver
+    fonttheme: default
+    includes:
+      in_header: _header.tex
+    theme: Boadilla
+editor_options:
   chunk_output_type: console
+dev: svglite
+classoption: aspectratio=169
 ---
 
 ```{r, include = FALSE}
@@ -21,12 +28,13 @@ Sys.setenv(RGL_USE_NULL = TRUE)
 library(knitr)
 library(rgl)
 knit_hooks$set(webgl = hook_webgl)
-opts_chunk$set(comment = NA, fig.align = 'center')
+opts_chunk$set(comment = NA, fig.align = 'center', 
+               echo = TRUE, out.width = '90%')
+is_latex <- knitr::is_latex_output()
 ```
 
-
 ## Separating and predicting
-
+  
 ### Discrimination
   + Separating objects in an existing data set
   + Find which variables that best separate the $g$ groups
@@ -39,9 +47,17 @@ opts_chunk$set(comment = NA, fig.align = 'center')
 
 ## Example 1: Iris Dataset {.columns-2}
 
-```{r, out.width="98%", echo = FALSE}
+\begincols
+\begincol{.48\textwidth}
+
+```{r, echo = FALSE}
 knitr::include_graphics("_images/iris.png")
 ```
+
+\endcol
+\begincol{.48\textwidth}
+
+<div style="break-before: column;"></div>
 
 This famous (Fisher's or Anderson's) iris data set gives the measurements in centimeters of the variables:
 
@@ -50,9 +66,12 @@ This famous (Fisher's or Anderson's) iris data set gives the measurements in cen
 - Petal Length (`X3`)
 - Sepal Width (`X4`)
 
+\endcol
+\endcols
+
 ## Example 1: Iris Dataset
 
-```{r, echo=TRUE, message=FALSE}
+```{r, message=FALSE}
 load("_data/iris.train.Rdata")
 head(iris.train)
 ```
@@ -63,17 +82,25 @@ head(iris.train)
 
 ## Iris Dataset: Pairs plot
 
-```{r, echo=TRUE, out.width='75%', fig.align='center'}
+```{r, fig.align='center', out.width=ifelse(is_latex, '50%', '70%'), fig.size = 7}
 pairs(iris.train[, -5], bg = iris.train[, "Species"], pch = 21)
 ```
 
 ## Example 2: Lizards {.columns-2}
 
-```{r, echo=TRUE, out.width='100%', fig.asp=0.8, fig.width=4.5}
+\begincols
+\begincol{.48\textwidth}
+
+```{r, out.width='90%', fig.asp=0.8, fig.width=4.5}
 load("_data/Lizard.Rdata")
 pairs(Lizard[, -4], bg = Lizard$Sex, 
       pch = 21, cex = 1.5)
 ```
+
+\endcol
+\begincol{.48\textwidth}
+
+<div style="break-before: column;"></div>
 
 | variable | Description                       |
 |----------|-----------------------------------|
@@ -86,26 +113,44 @@ pairs(Lizard[, -4], bg = Lizard$Sex,
 - In addition to sex we have measured $k = 3$ more variables on lizards as above. 
 - Can we discriminate Sex on the basis of the body measures?
 
+\endcol
+\endcols
+
 ## Example 2: Lizards {.columns-2}
 
+\begincols
+\begincol{.58\textwidth}
 
 ```{r 3dplot, echo=FALSE, webgl=TRUE, out.width='100%', fig.width = 5, fig.asp = 1}
-with(Lizard, {
-  rgl::plot3d(SVL, Mass, HLS, size = 2.5, type = "s",
-              box = FALSE, axes = FALSE, ylab = "",
-              col = c("red", "blue")[as.factor(Sex)])
-  grid3d(c("x", "y+", "z"))
-  mtext3d(text = 'Mass', edge = 'y+-', line = 2)
-  axes3d(c('x', 'y+-', 'z'))
-})
+if (is_latex) {
+  with(Lizard, {
+    scatterplot3d::scatterplot3d(
+      SVL, Mass, HLS, bg = c("red", "blue")[Sex], 
+      pch = 21, angle = 30, lty.hide = 2, 
+      col.axis = "grey80", cex.symbols = 2)
+  })
+} else {
+  with(Lizard, {
+    rgl::plot3d(SVL, Mass, HLS, size = 2.5, type = "s",
+                box = FALSE, axes = FALSE, ylab = "",
+                col = c("red", "blue")[as.factor(Sex)])
+    grid3d(c("x", "y+", "z"))
+    mtext3d(text = 'Mass', edge = 'y+-', line = 2)
+    axes3d(c('x', 'y+-', 'z'))
+  })
+}
 ```
 
-### Lizard Dataset
+\endcol
+\begincol{.38\textwidth}
+
+<div style="break-before: column;"></div>
+
+<h3>Lizard Dataset</h3>
 
 ```{r}
 head(Lizard)
 ```
-
 
 ```{r, echo = FALSE, message=FALSE, warning=FALSE, eval = FALSE}
 Lizard$Sex <- ifelse(Lizard$Sex == "m", "Male", "Female")
@@ -125,43 +170,77 @@ plotly::plot_ly(Lizard, x = ~SVL, y = ~HLS, z  = ~Mass, size = I(10)) %>%
   config(showLink = FALSE)
 ```
 
+\endcol
+\endcols
+
 ## Finding decision regions {.columns-2}
 
 In descriminant analysis we search for decision regions for the $g$ known groups (classes).
 
 Regions $R_1, R_2, \ldots, R_g$
 
-### Univariate Descrimination
+\begincols
+\begincol{.55\textwidth}
+
+<h3>Univariate Descrimination</h3>
 
 ```{r, out.width='100%', echo = FALSE}
 knitr::include_graphics("_images/Lizards1.png")
 ```
 
-### Bivariate discrimination
+\endcol
+\begincol{.25\textwidth}
 
-```{r, out.width='60%', echo=FALSE}
+<div style="break-before: column;"></div>
+
+<h3>Bivariate discrimination</h3>
+
+```{r, out.width=ifelse(is_latex, '100%', '60%'), echo=FALSE}
 knitr::include_graphics("_images/Lizards2.png")
 ```
+
+\endcol
+\endcols
 
 Using HLS and Mass as predictors $(k=2)$, we have used a linear decision border. This may also be non-linear.
 
 ## Finding decision regions {.columns-2}
 
+\begincols
+\begincol{.58\textwidth}
+
 ```{r, echo = FALSE, webgl=TRUE, out.width='80%', fig.width = 5, fig.asp = 1}
-with(Lizard, {
-  rgl::plot3d(SVL, Mass, HLS, size = 2.5, type = "s",
-              box = FALSE, axes = FALSE, ylab = "",
-              col = c("red", "blue")[as.factor(Sex)])
-  grid3d(c("x", "y+", "z"))
-  mtext3d(text = 'Mass', edge = 'y+-', line = 2)
-  axes3d(c('x', 'y+-', 'z'))
-})
+if (is_latex) {
+  with(Lizard, {
+    scatterplot3d::scatterplot3d(
+      SVL, Mass, HLS, bg = c("red", "blue")[Sex], 
+      pch = 21, angle = 30, lty.hide = 2, 
+      col.axis = "grey80", cex.symbols = 2)
+  })
+} else {
+  with(Lizard, {
+    rgl::plot3d(SVL, Mass, HLS, size = 2.5, type = "s",
+                box = FALSE, axes = FALSE, ylab = "",
+                col = c("red", "blue")[as.factor(Sex)])
+    grid3d(c("x", "y+", "z"))
+    mtext3d(text = 'Mass', edge = 'y+-', line = 2)
+    axes3d(c('x', 'y+-', 'z'))
+  })
+}
 ```
 
-### Tri-variate discrimination
+\endcol
+\begincol{.38\textwidth}
+
+<div style="break-before: column;"></div>
+
+<h3>Tri-variate discrimination</h3>
 
 - Using all variables $(k=3)$,  
 - A linear discriminator is a flat plane in the 3D-space
+
+\endcol
+\endcols
 
 ## Most probable group
 
@@ -220,12 +299,14 @@ $$\frac{f_1(x_1^*)p_1}{f_2(x_1^*)p_2}\geq 1$$
 knitr::include_graphics("_images/Lizards4.png")
 ```
 
-
 ## Linear Discreminent Analysis (LDA) in R {.columns-2}
+
+\begincols
+\begincol{.48\textwidth}
 
 The fit is presented as a _confusion matrix_ and _accuracy_ of classification
 
-```{r, echo=TRUE, message=FALSE}
+```{r, message=FALSE}
 library(MASS)
 DAModel.1 <- lda(
   formula = Sex ~ HLS, 
@@ -235,16 +316,23 @@ pred_mdl <- predict(DAModel.1)
 ```
 
 ```{r, echo = FALSE}
-head(Lizard)
+head(Lizard, n = ifelse(is_latex, 4, 6))
 ```
+
+\endcol
+\begincol{.48\textwidth}
+
+<div style="break-before: column;"></div>
 
 R also returns the predicted classes (fitted) and $P(c_i|x_1^*)$ also known as the _posterior_ probability.
 
-```{r, echo = TRUE}
+```{r}
 head(pred_mdl$posterior, 4)
 head(pred_mdl$class)
 ```
 
+\endcol
+\endcols
 
 ## Confusion Matrix and classification error {.columns-2}
 
@@ -282,27 +370,40 @@ print.confusion <- function(obj) {
 }
 ```
 
+\begincols[t]
+\begincol{.48\textwidth}
+
 From the observed and predicted class of category `Sex`, we can construct a confusion matrix and calculate classification error. Remember the classification rule is, $$f_1(x_1^*)p_1 \geq f_2(x_1^*)p_2$$
 
-### Confusion Matrix
+<hr/>
+
+<h3>Can you answer?</h3>
+
+- Can it classify with same accuracy for new observation?
+- Since this also depends on prior probability, how will it classify with different priors.
+
+<div style="break-before: column;"></div>
+
+\endcol
+\begincol{.48\textwidth}
+
+<h3>Confusion Matrix</h3>
 
 ```{r, message=FALSE, warning=FALSE}
 confusion(Lizard$Sex, pred_mdl$class)
 ```
 
-### Accuracy
+
+<h3>Accuracy</h3>
 
 ```{r, echo = FALSE}
 conf_mat <- confusion(Lizard$Sex, pred_mdl$class)
 attr(conf_mat, "accuracy")()
 ```
 
-<hr/>
 
-### Can you answer?
-
-- Can it classify with same accuracy for new observation?
-- Since this also depends on prior probability, how will it classify with different priors.
+\endcol
+\endcols
 
 
 ## Using different priors
@@ -315,7 +416,11 @@ knitr::include_graphics('_images/Lizards5.png')
 
 ## LDA in R using different priors {.columns-2}
 
-```{r, echo=TRUE}
+\begincols[t]
+\begincol{.48\linewidth}
+
+
+```{r}
 DAModel.2 <- lda(
   formula = Sex ~ HLS, 
   data = Lizard, 
@@ -329,10 +434,14 @@ conf_mat <- confusion(Lizard$Sex, pred_mdl$class)
 attr(conf_mat, "accuracy")()
 ```
 
+\endcol
+\begincol{.48\linewidth}
 
-### The default choice prior
+<div style="break-before: column;"></div>
 
-In R the default choice of prior is "empirical"" which means that the priors are
+<h3>The default choice prior</h3>
+
+In R the default choice of prior is "empirical" which means that the priors are
 set equal to the group proportions in the data set
 
 Hence, if there are $n_i$ observations in group $i$ and $N = \sum_{i=1}^g n_i$ is the total observation number, then
@@ -340,23 +449,45 @@ Hence, if there are $n_i$ observations in group $i$ and $N = \sum_{i=1}^g n_i$ i
 $$\hat{p}_i = \frac{n_i}{N}$$
 This may be reasonable if one assumes that the sample sizes reflect population sizes.
 
+\endcol
+\endcols
+
 ## Bivariate LDA {.columns-2}
+
+\begincols
+\begincol{.48\textwidth}
 
 ```{r, echo = FALSE, out.width='100%'}
 knitr::include_graphics("_images/Lizards6.png")
 ```
 
+\endcol
+\begincol{.48\textwidth}
+
+<div style="break-before: column;"></div>
+
 ```{r, echo = FALSE, out.width='100%'}
 knitr::include_graphics("_images/Lizards7.png")
 ```
 
+\endcol
+\endcols
+
 ## Quadratic discriminant analysis (QDA) {.columns-2}
 
-### A Bivariate QDA - Decision regions
+\begincols[t]
+\begincol{.48\textwidth}
+
+<h3>A Bivariate QDA - Decision regions</h3>
 
 ```{r, echo = FALSE, out.width='100%'}
 knitr::include_graphics("_images/Lizards8.png")
 ```
+
+\endcol
+\begincol{.48\textwidth}
+
+<div style="break-before: column;"></div>
 
 
 QDA differs from LDA in two ways:
@@ -364,9 +495,11 @@ QDA differs from LDA in two ways:
 1. Class specific variances
 2. Non-linear decision borders
 
-### QDA in R 
+\noindent\rule{\textwidth}{1pt}
 
-```{r}
+<h3>\textbf{QDA in R}</h3>
+
+```{r, echo = TRUE}
 library(MASS)
 QDA_model <- qda(
   formula = Sex ~ HLS, 
@@ -375,7 +508,13 @@ QDA_model <- qda(
 pred_mdl <- predict(QDA_model)
 ```
 
+\endcol
+\endcols
+
 ## Model selection/evaluation {.columns-2}
+
+\begincols
+\begincol{.48\textwidth}
 
 * We often want to compare the performance of different classifiers.
 
@@ -385,9 +524,14 @@ pred_mdl <- predict(QDA_model)
 
 * From the error rate, we can also compute the classification accuracy
 
-### Apparent Error Rate (APER)
+\endcol
+\begincol{.48\textwidth}
+
+<h3>Apparent Error Rate (APER)</h3>
 
 Consider the confusion matrix as,
+
+<div style="break-before: column;"></div>
 
 ```{r, echo = FALSE}
 library(kableExtra)
@@ -396,14 +540,13 @@ cf <- data.frame(
     Female = c("$n_m/f$", "$n_f/f$", "$n_f$")
 )
 rownames(cf) <- c("Male", "Female", "Total")
-knitr::kable(cf, format = 'html') %>% 
+knitr::kable(cf, format = ifelse(is_latex, 'latex', 'html'), escape = F) %>% 
   group_rows(group_label = "Predicted", 
                          start_row = 1, end_row = 3) %>% 
   add_header_above(c(" ", "True" = 2)) %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 ```
 
-So, we can write APER as,
 
 $$
 \text{APER} = \frac{n_m/f + n_f/m}{n_m + n_f} = \frac{\text{Total Incorrect}}{\text{Total Observation}}
@@ -411,13 +554,19 @@ $$
 
 Classification accuracy will be $1 - \text{APER}$.
 
+\endcol
+\endcols
+
 ## Example with R: SVL as predictor {.columns-2}
 
 ```{r, include = FALSE}
 options(digits = 3)
 ```
 
-```{r, echo=TRUE}
+\begincols
+\begincol{.48\textwidth}
+
+```{r}
 DAModel.4 <- lda(
   formula = Sex ~ SVL, 
   data = Lizard, 
@@ -426,11 +575,16 @@ pred_mdl <- predict(DAModel.4)
 confusion(Lizard$Sex, pred_mdl$class)
 ```
 
-### Probabilities of misclassification - APER
+<div style="break-before: column;"></div>
+
+\endcol
+\begincol{.48\textwidth}
+
+<h3>Probabilities of misclassification - APER</h3>
+
 ```{r, echo = FALSE}
 conf <- confusion(Lizard$Sex, pred_mdl$class)
 ```
-
 
 $$
 \begin{aligned}
@@ -446,7 +600,13 @@ $$
 
 Accuracy = $1-\text{APER} = `r 1 - (conf["f", "m"] + conf["m", "f"])/(conf["Total", "m"] + conf["Total", "f"])`$
 
+\endcol
+\endcols
+
 ## Validation (Test-data or CV) {.columns-2}
+
+\begincols
+\begincol{.48\textwidth}
 
 ```{r, echo = FALSE, out.width='100%', message=FALSE, results='hide'}
 animation::saveGIF({
@@ -456,8 +616,14 @@ animation::saveGIF({
 ```
 
 ```{r, echo = FALSE, out.width='100%'}
-knitr::include_graphics("_images/cv.gif")
+fname <- if (is_latex) "_images/cv.png" else "_images/cv.gif"
+knitr::include_graphics(fname)
 ```
+
+<div style="break-before: column;"></div>
+
+\endcol
+\begincol{0.48\textwidth}
 
 * As for regression models the errors based on fitted values may reflect <span class="red2">over-fitting</span>
 
@@ -465,15 +631,21 @@ knitr::include_graphics("_images/cv.gif")
 
 * Alternatively we can perform cross-validation
 
-### Types of Cross-Validation
+<h3>Types of Cross-Validation</h3>
 
 * K-fold cross-validation and
+
 * Leave-one-out (LOO) Cross-validation
 
+\endcol
+\endcols
 
 ## LOO cross-validation: LDA with SVL as predictor {.columns-2}
 
-```{r, echo=TRUE}
+\begincols
+\begincol{0.48\textwidth}
+
+```{r}
 da_model <- lda(
   formula = Sex ~ SVL, 
   data = Lizard, 
@@ -483,17 +655,31 @@ da_model <- lda(
 confusion(Lizard$Sex, da_model$class)
 ```
 
+\endcol
+\begincol{.48\textwidth}
+
+<div style="break-before: column;"></div>
+
 Typically, as seen here, the accuracy goes down, and the APER increases when new samples are classified.
 
-### APER (Error rate)
+<h3>APER (Error rate)</h3>
+
 ```{r, echo = FALSE}
 cf_mat <- confusion(Lizard$Sex, da_model$class)
 attr(cf_mat, "error")()
 ```
 
-### Accuracy
+<h3>Accuracy</h3>
+
 ```{r, echo = FALSE}
 attr(cf_mat, "accuracy")()
 ```
 
-## {#final-slide}
+\endcol
+\endcols
+
+## Thank You {#final-slide .plain}
+```{r, out.width='100%', out.height='85%', echo = FALSE, eval = is_latex}
+knitr::include_graphics("_images/background.jpg")
+```
+
