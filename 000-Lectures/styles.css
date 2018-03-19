@@ -58,7 +58,7 @@ table.table.table-striped td{
 
 slide.current article#final-slide{
   background-color: white;
-  background: url('../_images/background.jpg') no-repeat center center fixed;
+  background: url('_images/background.jpg') no-repeat center center fixed;
   background-size: cover;
   position:absolute;
   top:-50px;
