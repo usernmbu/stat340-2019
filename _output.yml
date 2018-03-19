@@ -5,6 +5,7 @@ bookdown::gitbook:
     after_body: '_footer.html'
   css: style.css
   number_sections: no
+  self_content: no
   toc_depth: 3
   config:
     download: ["pdf", "epub"]
