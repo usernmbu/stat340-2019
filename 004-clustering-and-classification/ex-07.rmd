@@ -111,6 +111,7 @@ The model I found in f. gave a perfect classification, accuracy=1.0 and error=0.
 
 </div>
 
+<!--
 ## Logistic regression
 
 - a. We will consider the Species variable of the `iris.train.rdata` set as a binary response variable in these exercises. You may use the `Species` variable directly as response in the models. R will recode "versicolor" as 0 and "virginica" as 1. Hence, we will model the probability of a plant being "virginica" as a function of the predictor variable(s). Fit a logist regression model for Species using Petal.Length as predictor. Report the estimated coefficients of the linear predictor. Is the Petal.Length variable a significant predictor for the probability of "virginica" at 5% test level? What is the AIC-value?
@@ -190,3 +191,4 @@ confusion(iris.test$Species, predicted)
 With my chosen model I got one mis-classification and an error rate of 0.05.
 
 </div>
+-->

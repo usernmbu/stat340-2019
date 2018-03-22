@@ -103,11 +103,20 @@ pairs(Lizard[, -4], bg = Lizard$Sex,
 
 <div style="break-before: column;"></div>
 
-| variable | Description                       |
-|----------|-----------------------------------|
-| Mass     |Weight of lizard (in grams)        |
-| SVL      |Snout-vent length (in millimeters) |
-| HLS      |Hind limb span (in millimeters)    |
+
+```{r, echo = FALSE}
+dta <- data.frame(
+  variable = c("`Mass`", "`SVL`", "`HLS`"),
+  Description = c(
+    "Weight of Lizard (in grams)",
+    "Snout-vent length (in mm)",
+    "Hind limb span (in mm)"
+  )
+)
+knitr::kable(dta, format = ifelse(is_latex, "latex", "html"),
+             booktabs = TRUE) %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
 
 <br/>
 
@@ -541,7 +550,8 @@ cf <- data.frame(
     Female = c("$n_m/f$", "$n_f/f$", "$n_f$")
 )
 rownames(cf) <- c("Male", "Female", "Total")
-knitr::kable(cf, format = ifelse(is_latex, 'latex', 'html'), escape = F) %>% 
+knitr::kable(cf, format = ifelse(is_latex, 'latex', 'html'), 
+             escape = F, booktabs = TRUE) %>% 
   group_rows(group_label = "Predicted", 
                          start_row = 1, end_row = 3) %>% 
   add_header_above(c(" ", "True" = 2)) %>% 
