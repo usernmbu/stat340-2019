@@ -19,8 +19,8 @@ Consider the plant species count data used in [lecture of Generalized linear mod
 
 First we fit the model:
 
-```{r}
-#options(contrasts=c("contr.treatment","contr.poly"))
+```{r, echo = -1}
+options(contrasts=c("contr.treatment","contr.poly"))
 mod2.glm <- glm(Species ~ Biomass + pH, family = poisson, data = species)
 summod2 <- summary(mod2.glm)
 summod2$coefficients
