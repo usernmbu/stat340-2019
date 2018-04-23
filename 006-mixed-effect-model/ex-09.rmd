@@ -1,19 +1,19 @@
-# Mixed Effect Model
+# Random Effect Model
 
-## Exercise 9
+For this exercise, we are using `lme4` and `car` packages and `litter` data.
 
-```{r, echo = F, message=FALSE}
-library(mixlm)
+```{r, echo = T, message=FALSE}
+library(lme4)
 library(car)
-load("litter.rdata")
+load("_data/litter.rdata")
 ```
 
-### Ex-1: Litter sizes
+## Litter sizes
 
 A scientist working with animal breading did the following experiment: He took a random sample of 6 boars (male pigs), and a random sample of 5 swine (pig) farms. At each farm 12 sows (females) were randomly picked out, and each boar was mated with 2 sows. The response was number of piglets from each sow. The data may be found in the file `litter.Rdata`.
 
-a. Assume a random effects model using litter `Size`as a response ($y$) and `Farm` and `Boar` as random effects. Also include the interaction between the random effects in the  model. State the model and write up all the assumptions made for the model.
-
+- a. Assume a random effects model using litter `Size`as a response ($y$) and `Farm` and `Boar` as random effects. Also include the interaction between the random effects in the  model. State the model and write up all the assumptions made for the model.
+    
 <div class="ans">
 
 We assume the random effects model:
@@ -36,78 +36,91 @@ Further we assume that all random effects are independent of each other.
 
 </div>
 
-b. Express the total theoretical variance of $y_{ijk}$ (where $i=1,...,6$, $j=1,...,5$ and $k=1,2$) in terms of the variance components of all random effects in the model. It may be shown that the theoretical correlation between any two litter sizes from the same Boar and within the same Farm is
-$\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2$ where the variance components belong to the Herd-effect, the Boar-effect and their interaction, respectively. How can we express the correlation between such to observations?
+- b. Express the total theoretical variance of $y_{ijk}$ (where $i=1,...,6$, $j=1,...,5$ and $k=1,2$) in terms of the variance components of all random effects in the model. It may be shown that the theoretical correlation between any two litter sizes from the same Boar and within the same Farm is
+$\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2$ where the variance components belong to the Herd-effect, the Boar-effect and their interaction, respectively. How can we express the correlation between such two observations?
 
 <div class="ans">
 
-$Var(y_{ijk}) = var(\mu + \alpha_i + \beta_j + \alpha\beta_{ij} + \epsilon_{ijk}) = \sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2 + \sigma^2$
+$$\text{var}(y_{ijk}) = \text{var}(\mu + \alpha_i + \beta_j + \alpha\beta_{ij} + \epsilon_{ijk}) = \sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2 + \sigma^2$$
 
-This means that the correlation between the litter sizes of two sows (k and l) from the same farm and mated with the same boar is 
-$$cor(y_{ijk}, y_{ijl})=\frac{cov(y_{ijk}, y_{ijl})}{\sqrt(var(y_{ijk}))\sqrt(var(y_{ijl}))} = \frac{\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2}{\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2 + \sigma^2}$$
+This means that the correlation between the litter sizes of two sows ($k$ and $l$) from the same farm and mated with the same boar is 
+$$\text{cor}(y_{ijk}, y_{ijl})=\frac{\text{cov}(y_{ijk}, y_{ijl})}{\sqrt{\text{var}(y_{ijk})}\sqrt{\text{var}(y_{ijl})}} = \frac{\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2}{\sigma_{\alpha}^2 + \sigma_{\beta}^2 + \sigma_{\alpha\beta}^2 + \sigma^2}$$
 
 </div>
 
-c. Fit the model in R Studio. Estimate the mean litter size and predict the `Boar`effects. Find estimates for all variance components.
+- c. Fit the model and estimate the mean litter size and find estimates for all variance components.
 
 <div class="ans">
 
 ```{r}
-#library(car)   Run first time
-#library(mixlm)  Run first time
-mod <- lm(Size ~ r(Boar) + r(Farm) + r(Boar:Farm),data=litter)
+mod <- lmer(Size ~ 1 + (1|Boar) + (1|Farm) + (1|Boar:Farm), data = litter)
 summary(mod)
-Anova(mod, type="III")
+```
+```{r, echo = FALSE}
+vc <- as.data.frame(VarCorr(mod))[['vcov']]
+cf <- mod@beta
 ```
 
-Since `mixlm`uses the "sum-to-zero" parametrization we know that all estimated effect-levels will sum to zero within each random effect. Further we know that the "intercept" represents the overall mean in the population. We can therefore conclude that.
+The intercept term gives an estimate of the mean litter size in the population which is `r cf`. The variance component estimates are given in the random effects section of above output. We have the following estimates: 
 
-* The estimated mean litter size in the population is 9.17
-* The "predicted" effects of boars 1-5 are given under the "Estimate" from the summary. Hence, boar number 1 has a predicted random effect of -1.87, and so on. 
-* Boar number 6 will have predicted random effect equal to the negative sum of the predicted effects of the other boars. This gives a predicted value of 1.63. This is the largest positive boar effect. 
-* The variance component estimates are given in the Anova-output as "VC(SS)" (which means "Variance Components based on Sums of Squares"). We have the following estimates: 
+Farm variance: $\hat{\sigma}_{\alpha}^2 = `r vc[3]`$
 
-Farm variance: $\hat{\sigma}_{\alpha}^2 = 0.82$
+Boar variance: $\hat{\sigma}_{\beta}^2 = `r vc[2]`$
 
-Boar variance: $\hat{\sigma}_{\beta}^2 = 1.55$
+Farm:Boar variance: $\hat{\sigma}_{\alpha\beta}^2 = `r vc[1]`$
 
-Farm:Boar variance: $\hat{\sigma}_{\alpha\beta}^2 = 0.41$
-
-Error variance: $\hat{\sigma}^2 = 0.60$
+Error variance: $\hat{\sigma}^2 = `r vc[4]`$
 
 </div>
 
-d. Find the estimated correlation as derived in exercise b.
+- d. Find the estimated correlation as derived in exercise b.
 
 <div class="ans">
 
 Plugging these estimates into the formula found in exercise b. gives the estimated correlation:
 
-$$\hat{cor(y_{ijk}, y_{ijl})} = \frac{0.82 + 1.55 + 0.41}{0.82 + 1.55 + 0.41 + 0.60} = 0.82$$
+$$\widehat{\text{cor}(y_{ijk}, y_{ijl})} = \frac{`r vc[3]` + `r vc[2]` + `r vc[1]`}{`r vc[3]` + `r vc[2]` + `r vc[1]` + `r vc[4]`} = `r sum(vc[-4])/sum(vc)`$$
 
 </div>
 
-e. State the hypotheses for testing whether there is an interaction effect between Boar and Farm
+- e. State the hypotheses for testing whether there is an interaction effect between Boar and Farm
 and perform the test. What is the appropriate test statistic for this test, what is the observed test statistic and what is the p-value? How do you
 interprete the result in terms of boars and farms?
 
 <div class="ans">
 
-The Anova reports an F-test for the interaction effect with a p-value of 0.016. With a test level of 5% we therefore reject a null-hypothesis $H_0: \sigma_{\alpha\beta}^2 = 0$ in favour of $H_1: \sigma_{\alpha\beta}^2 > 0$ which implies that there are differences between the farm:boar interaction levels. From the list of Expected mean squares we see that if $\sigma_{\alpha\beta}^2$ coded by `(3)` is zero (Nullhypothesis is true), then the mean sum of squares for the error (Residuals) and for the interaction term are the same. Hence, the appropriate F-test statistic for the interaction term should use the Residual Mean Sum of Sqaures (MSE) as denominator (test error).
+Model without interaction effect,
 
-The observed value for this F-test statistic is reported to be 2.37.
+```{r}
+mod1 <- update(mod, . ~ . - (1|Boar:Farm))
+```
+
+Compare models with and without interaction using `anova` as,
+
+```{r}
+(anv <- anova(mod1, mod))
+```
+
+The Anova reports an Chisq based test for the interaction effect with a p-value of `r anv[["Pr(>Chisq)"]][2]`. With a test level of 5% we therefore reject a null-hypothesis $H_0: \sigma_{\alpha\beta}^2 = 0$ in favour of $H_1: \sigma_{\alpha\beta}^2 > 0$ which implies that there are differences between the farm:boar interaction levels. As the interaction effect is significant at 5% level, we can say that at this level there is signifant difference between Boars taken from a given random Farm.
 
 </div>
 
-f. Is there a difference between boars? If you were to choose one boar among the six, which boar should be chosen (if any) in a breeding programme with the aim of increasing litter sizes?
+- f. If you were to choose one boar among the six, which boar should be chosen (if any) in a breeding programme with the aim of increasing litter sizes?
 
 <div class="ans">
 
-As mentioned in a. boar 6 has the largest predicted effect of 1.63 and is the one that should be chosen. 
+We can obtain the coefficients corresponding to each boars as,
+
+```{r}
+coef(mod)[["Boar"]]
+```
+
+This suggests that `Boar6` has largest litter size.
+
 
 </div>
 
-g. Explain why boar should be treated as a random effect and not a fixed effect.
+- g. Explain why boar should be treated as a random effect and not a fixed effect.
 
 <div class="ans">
 
