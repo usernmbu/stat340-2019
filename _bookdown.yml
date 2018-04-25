@@ -19,6 +19,6 @@ rmd_files: [
   "004-clustering-and-classification/ex-07.rmd",
   "005-generalized-linear-model/ex-08.rmd",
   "006-mixed-effect-model/ex-09.rmd",
-  # "005-mixed-effect-model/ex-10.rmd",
+  "006-mixed-effect-model/ex-10.rmd",
   # "006-group-exercises/ex-01.rmd"
 ]

@@ -1,15 +1,15 @@
-## Exercise 10
+# Mixed Effect Model
 
 
-```{r, echo = F, message=FALSE}
-library(mixlm)
+```{r, echo = TRUE, message=FALSE}
 library(car)
-load('exer.rdata')
+library(nlme)
+load('_data/exer.rdata')
 ```
 
-### Ex-1: Exercises and diet - repeated measurements
+## Exercises and Diet
 
-The data and some examples are found at [statistics.ats.ucla.edu](http://statistics.ats.ucla.edu/stat/r/seminars/Repeated_Measures/repeated_measures.htm)
+The data and some examples are found at [statistics.ats.ucla.edu](https://stats.idre.ucla.edu/r/seminars/repeated-measures-analysis-with-r/)
 
 The data called exer, consists of people who were randomly assigned to two different diets: low-fat and not low-fat and three different types of exercise: at rest, walking leisurely and running. Their pulse rate was measured at three different time points during their assigned exercise: at 1 minute, 15 minutes and 30 minutes.
 
@@ -46,11 +46,7 @@ $$
 
 Where we assume that the errors are identically and independently distributed (iid) as: 
 
-$\epsilon_{ijkl} \sim N(0, \sigma^2)$ for all 
-
-  - $j = 1, 2$  (For Diet)
-  - $k = 1, 2, 3$ (For Exercise Type) and
-  - $l = 1, 2, 3$ (For individual time points)
+$\epsilon_{ijkl} \sim N(0, \sigma^2)$ for all $j = 1, 2$  (For Diet); $k = 1, 2, 3$ (For Exercise Type) and $l = 1, 2, 3$ (For individual time points)
 
 
 In orther words it is a linear model with main effects of time, diet and exercise type,
@@ -158,7 +154,6 @@ ggplot(mod1.fit, aes(time, pulse, fill = indiv)) + geom_point(shape = 21) + geom
 f. Another analysis was performed as shown below. Describe the difference between mod2 and mod1. Are there any extra parameters estimated? Why is mod2 probably a more reasonable model than mod1?
 
 ```{r}
-library(nlme)
 mod2 <- lme(pulse ~ (time + diet + exertype) ^ 2, random = ~1 | id, data = exer)
 summary(mod2)
 ```
