@@ -20,5 +20,6 @@ rmd_files: [
   "005-generalized-linear-model/ex-08.rmd",
   "006-mixed-effect-model/ex-09.rmd",
   "006-mixed-effect-model/ex-10.rmd",
-  # "006-group-exercises/ex-01.rmd"
+  "008-exam-problems/exam-questions.Rmd",
+  "008-exam-problems/exam-2017.Rmd",
 ]
