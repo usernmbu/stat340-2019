@@ -1,0 +1,140 @@
+## Exam 2017
+
+### Exercise 1
+
+A medical study was conducted to test the effectiveness of three drugs (A, B and C) on patients with one out of two diseases, depression (D) or schizophrenia (S). The experiments were conducted in two different and randomly chosen hospitals (1 and 2). In each hospital there were 3 replicates (patients) for every combination of drug and disease. An analysis was run in R Studio using the mixlm-package with “sum-to-zero” restrictions on the parameters. Use the output for “drugmod1” in Table 1 as far as you find it necessary to answer the questions a) -d). One value has been replaced by “?” in the output.
+
+a) State the model used in the analysis and give the model assumptions. 
+b) Find estimates for all model parameters. 
+c) Use the fitted model to predict the effectiveness for a new patient at hospital 1 who is to be treatedwith drug A for depression. What would the predicted effect be if this patient was to be treated at another randomly chosen hospital? 
+d) Give an interpretation of R2and compute its value.
+
+```r
+> head(drugdata, 5)
+```
+```
+  Effectiveness Drug Disease Hospital 
+1            14    A       D        1 
+2            10    A       D        1 
+3             6    A       D        1 
+4             8    A       S        1 
+5             4    A       S        1 
+```
+```r
+> drugmod1 <- lm(Effectiveness ~ Drug + Disease + r(Hospital),  data=drugdata) 
+> summary(drugmod1) 
+```
+```
+Call: 
+lm(formula = Effectiveness ~ Drug + Disease + r(Hospital),  data = drugdata) 
+
+Coefficients: 
+             Estimate Std. Error t value Pr(>|t|)     
+(Intercept)  8.27778    0.66708  12.409 1.46e-13 *** 
+Drug(A)     -0.02778    0.94339  -0.029   0.9767     
+Drug(B)     -2.19444    0.94339  -2.326   0.0267 *   
+Disease(D)   0.94444    0.66708   1.416   0.1668     
+Hospital(1) -1.38889    0.66708  -2.082   0.0457 *   
+
+s: 4.002 on 31 degrees of freedom 
+Multiple R-squared: ? 
+Adjusted R-squared: 0.2161  
+F-statistic: 3.412 on 4 and 31 DF,  p-value: 0.0201  
+```
+```r
+> Anova(drugmod1, type="III") 
+```
+```
+Analysis of variance (unrestricted model) 
+Response: Effectiveness 
+            Mean Sq Sum Sq Df F value Pr(>F) 
+Drug        58.53 117.06  2    3.65 0.0376 
+Disease     32.11  32.11  1    2.00 0.1668 
+Hospital    69.44  69.44  1    4.33 0.0457 
+Residuals   16.02 496.61 31       -      - 
+
+                  Err.term(s) Err.df VC(SS) 1 
+Drug              (4)     31  fixed 2 
+Disease           (4)     31  fixed 3 
+Hospital          (4)     31   2.97 4 
+Residuals           -      -  16.02 
+(VC = variance component) 
+```
+```r
+> summary(drugmod2) 
+```
+```
+
+Call:lm(formula = Effectiveness ~ Drug + Disease + Drug:Disease +  r(Hospital), data = drug) 
+
+Coefficients: 
+                    Estimate Std. Error t value Pr(>|t|)     
+(Intercept)         8.33333    0.44132  18.883  < 2e-16 *** 
+Drug(A)            -0.08333    0.62446  -0.133  0.89476     
+Drug(B)            -1.83333    0.62446  -2.936  0.00645 **  
+Disease(D)          0.77778    0.44156   1.761  0.08871 .   
+Hospital(1)        -1.33333    0.44156  -3.020  0.00524 **  
+Drug(A):Disease(D)  1.97222    0.62446   3.158  0.00369 **  
+Drug(B):Disease(D) -4.11111    0.62446  -6.583 3.26e-07 *** 
+
+s: 2.648 on 29 degrees of freedom 
+Multiple R-squared: 0.7001, 
+Adjusted R-squared: 0.638  
+F-statistic: 11.28 on 6 and 29 DF,  p-value: 1.727e-06 
+```
+```r
+> Anova(drugmod2, type="III") 
+```
+
+```
+Analysis of variance (unrestricted model) 
+Response: Effectiveness 
+
+               Mean Sq Sum Sq Df F value Pr(>F) 
+Drug           58.53 117.06  2    8.34 0.0014 
+Disease        32.11  32.11  1    4.57 0.0410 
+Hospital       69.44  69.44  1    9.89 0.0038 
+Drug:Disease  146.53 293.06  2   20.88 0.0000 
+Residuals       7.02 203.56 29       -      - 
+
+              Err.term(s) Err.df VC(SS) 1 
+Drug                 (5)     29  fixed 2 
+Disease              (5)     29  fixed 3 
+Hospital             (5)     29   3.47 4 
+Drug:Disease         (5)     29  fixed 5 
+Residuals              -      -   7.02 
+(VC = variance component)
+```
+
+```r
+> anova(drugmod1, drugmod2) 
+```
+
+```
+Analysis of Variance Table 
+
+Model 1: Effectiveness ~ Drug + Disease + Hospital 
+Model 2: Effectiveness ~ Drug + Disease + Hospital + Drug:Disease 
+
+  Res.Df    RSS Df Sum of Sq      F    Pr(>F)     
+1     31 496.61                                   
+2     29 203.33  2    293.28 20.914 2.381e-06 *** 
+```
+
+### Exersise 2
+
+n Figure 3 above you can see the frequencies of letters (plus space and special characters) in a single poem by William Shakespeare. You can see that he, for instance, uses the letters “e” and “t” a lot. Other poets may use the letters by other frequencies. We have gathered such frequency data from 23 poems in total; 8 by William Blake, 7 by T.S. Eliot and 8 by William Shakespeare. The letter frequencies are here considered as variables describing the poetry of these three poets. 
+
+In Table 3 the first 4 rows and the first 5 columns of the “poetry” data set are shown. In addition, a principal component analysis was conducted with a summary shown for the first 5 components. Loadings-and scores plots for PC1 vs PC2 are shown in Figure 4.
+
+a) Give a shortgeneral description of the method of Principal Component Analysis (PCA). You may use the poetry data example for illustration, if needed.
+b) We now turn to the PCA of the poetry data. What portion of the total variability in the po-etry data is captured jointly by the two first components? And how much is captured jointly by components 3 and 4?
+c) Based on Figure 4 give an interpretation of the two first principal components. Select two variables that you think would be good variables for discriminating between the three au-thors and explain why.
+
+### Exercise 3
+
+a) First, a linear discriminant analysis (LDA) was conductedusing PC1 and PC2 as predic-tors. Some output from R is given in the table below. Use the output to classify the six test samples to either Shakespeare, Eliot or Blake.  
+
+b) Write up a confusion matrix for the test classification with true author as rows andclassi-fied authors as columns. Compute the test error rate. An alternative analysis was conducted using a multinomial logistic regression model. The analysis and output is given below. 
+
+c) Define pBlake as the probability that a poem with observed scores PC1 and PC2 is written by William Blake. Write up an expression for the estimated pBlakebased on the output above. What is the posterior probability of a poem being written by Blake if the observed scores for both PC1 and PC2 are equal to 0?
