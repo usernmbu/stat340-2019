@@ -1,140 +1,151 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 ## Exam 2017
+
+```{r, message=FALSE, warning=FALSE, echo=-1}
+library(mixlm)
+library(nlme)
+load("_data/Pear2011.Rdata")
+load("_data/Pear.Rdata")
+load("_data/Reindeer.Rdata")
+```
+
 
 ### Exercise 1
 
-A medical study was conducted to test the effectiveness of three drugs (A, B and C) on patients with one out of two diseases, depression (D) or schizophrenia (S). The experiments were conducted in two different and randomly chosen hospitals (1 and 2). In each hospital there were 3 replicates (patients) for every combination of drug and disease. An analysis was run in R Studio using the mixlm-package with “sum-to-zero” restrictions on the parameters. Use the output for “drugmod1” in Table 1 as far as you find it necessary to answer the questions a) -d). One value has been replaced by “?” in the output.
+The quality of fruits are often judged by the index of refraction (REF) and measured by means of a refractometer.  The REF value is connected to the amount of sugar in a liquid solution. In an experiment at Bioforsk at Ås they were monitoring the REF’s in four types of pears. The data for the year 2011 containing 6 replicates for each sort of pear are given in Table 1a in the Appendix.
 
-a) State the model used in the analysis and give the model assumptions. 
-b) Find estimates for all model parameters. 
-c) Use the fitted model to predict the effectiveness for a new patient at hospital 1 who is to be treatedwith drug A for depression. What would the predicted effect be if this patient was to be treated at another randomly chosen hospital? 
-d) Give an interpretation of R2and compute its value.
+a) Define an ANOVA model suitable for analyzing these data in order to investigate the potential difference between the 4 sorts of pear with respect to the expected REF level. State the model assumptions and parameter restrictions (sum-to-zero) and interpret the model parameters.
 
-```r
-> head(drugdata, 5)
-```
-```
-  Effectiveness Drug Disease Hospital 
-1            14    A       D        1 
-2            10    A       D        1 
-3             6    A       D        1 
-4             8    A       S        1 
-5             4    A       S        1 
-```
-```r
-> drugmod1 <- lm(Effectiveness ~ Drug + Disease + r(Hospital),  data=drugdata) 
-> summary(drugmod1) 
-```
-```
-Call: 
-lm(formula = Effectiveness ~ Drug + Disease + r(Hospital),  data = drugdata) 
+b) Based on Table 1b in the Appendix give answers to the following questions: 
+    
+    1. What are the estimated values of all unknown model parameters? 
+    
+    2. Perform a hypothesis test for testing the significance of “sort” (Test level 5%). Interpret the results in light of the topic of the study. 
 
-Coefficients: 
-             Estimate Std. Error t value Pr(>|t|)     
-(Intercept)  8.27778    0.66708  12.409 1.46e-13 *** 
-Drug(A)     -0.02778    0.94339  -0.029   0.9767     
-Drug(B)     -2.19444    0.94339  -2.326   0.0267 *   
-Disease(D)   0.94444    0.66708   1.416   0.1668     
-Hospital(1) -1.38889    0.66708  -2.082   0.0457 *   
+c) Consider the output from the Tukey test given in Table 1c. If we test with an over-all error rate of 5%, which pear sorts are significantly different from each other with respect to their expected REF level? When and why may it be important to use Tukey tests instead of regular pairwise contrasts in ANOVA? 
 
-s: 4.002 on 31 degrees of freedom 
-Multiple R-squared: ? 
-Adjusted R-squared: 0.2161  
-F-statistic: 3.412 on 4 and 31 DF,  p-value: 0.0201  
-```
-```r
-> Anova(drugmod1, type="III") 
-```
-```
-Analysis of variance (unrestricted model) 
-Response: Effectiveness 
-            Mean Sq Sum Sq Df F value Pr(>F) 
-Drug        58.53 117.06  2    3.65 0.0376 
-Disease     32.11  32.11  1    2.00 0.1668 
-Hospital    69.44  69.44  1    4.33 0.0457 
-Residuals   16.02 496.61 31       -      - 
+### Exercise 2 
 
-                  Err.term(s) Err.df VC(SS) 1 
-Drug              (4)     31  fixed 2 
-Disease           (4)     31  fixed 3 
-Hospital          (4)     31   2.97 4 
-Residuals           -      -  16.02 
-(VC = variance component) 
-```
-```r
-> summary(drugmod2) 
-```
-```
-
-Call:lm(formula = Effectiveness ~ Drug + Disease + Drug:Disease +  r(Hospital), data = drug) 
-
-Coefficients: 
-                    Estimate Std. Error t value Pr(>|t|)     
-(Intercept)         8.33333    0.44132  18.883  < 2e-16 *** 
-Drug(A)            -0.08333    0.62446  -0.133  0.89476     
-Drug(B)            -1.83333    0.62446  -2.936  0.00645 **  
-Disease(D)          0.77778    0.44156   1.761  0.08871 .   
-Hospital(1)        -1.33333    0.44156  -3.020  0.00524 **  
-Drug(A):Disease(D)  1.97222    0.62446   3.158  0.00369 **  
-Drug(B):Disease(D) -4.11111    0.62446  -6.583 3.26e-07 *** 
-
-s: 2.648 on 29 degrees of freedom 
-Multiple R-squared: 0.7001, 
-Adjusted R-squared: 0.638  
-F-statistic: 11.28 on 6 and 29 DF,  p-value: 1.727e-06 
-```
-```r
-> Anova(drugmod2, type="III") 
-```
-
-```
-Analysis of variance (unrestricted model) 
-Response: Effectiveness 
-
-               Mean Sq Sum Sq Df F value Pr(>F) 
-Drug           58.53 117.06  2    8.34 0.0014 
-Disease        32.11  32.11  1    4.57 0.0410 
-Hospital       69.44  69.44  1    9.89 0.0038 
-Drug:Disease  146.53 293.06  2   20.88 0.0000 
-Residuals       7.02 203.56 29       -      - 
-
-              Err.term(s) Err.df VC(SS) 1 
-Drug                 (5)     29  fixed 2 
-Disease              (5)     29  fixed 3 
-Hospital             (5)     29   3.47 4 
-Drug:Disease         (5)     29  fixed 5 
-Residuals              -      -   7.02 
-(VC = variance component)
-```
-
-```r
-> anova(drugmod1, drugmod2) 
-```
-
-```
-Analysis of Variance Table 
-
-Model 1: Effectiveness ~ Drug + Disease + Hospital 
-Model 2: Effectiveness ~ Drug + Disease + Hospital + Drug:Disease 
-
-  Res.Df    RSS Df Sum of Sq      F    Pr(>F)     
-1     31 496.61                                   
-2     29 203.33  2    293.28 20.914 2.381e-06 *** 
-```
-
-### Exersise 2
-
-n Figure 3 above you can see the frequencies of letters (plus space and special characters) in a single poem by William Shakespeare. You can see that he, for instance, uses the letters “e” and “t” a lot. Other poets may use the letters by other frequencies. We have gathered such frequency data from 23 poems in total; 8 by William Blake, 7 by T.S. Eliot and 8 by William Shakespeare. The letter frequencies are here considered as variables describing the poetry of these three poets. 
-
-In Table 3 the first 4 rows and the first 5 columns of the “poetry” data set are shown. In addition, a principal component analysis was conducted with a summary shown for the first 5 components. Loadings-and scores plots for PC1 vs PC2 are shown in Figure 4.
-
-a) Give a shortgeneral description of the method of Principal Component Analysis (PCA). You may use the poetry data example for illustration, if needed.
-b) We now turn to the PCA of the poetry data. What portion of the total variability in the po-etry data is captured jointly by the two first components? And how much is captured jointly by components 3 and 4?
-c) Based on Figure 4 give an interpretation of the two first principal components. Select two variables that you think would be good variables for discriminating between the three au-thors and explain why.
+The data in exercise 1 were really part of a bigger study that was repeated over three consecutive years from 2009 to 2011. The scientist performed an analysis of the data, across all three years, which gave the R-output given in Table 2 in the Appendix. Write a short report (~1-2 pages) based on the R output where you explain the model, its assumptions, the hypothesis tests and conclude on the results of the study.
 
 ### Exercise 3
 
-a) First, a linear discriminant analysis (LDA) was conductedusing PC1 and PC2 as predic-tors. Some output from R is given in the table below. Use the output to classify the six test samples to either Shakespeare, Eliot or Blake.  
+A student studied reindeer that stayed at two different locations in northern Norway. One site was close to a wind mill farm near the coast (Kjøllefjord) and the other site was in the inland at the Finnmark plateau. A random sample of 10 reindeer was sampled at each site and the student counted the number of steps each reindeer took in a 4 minute period (variable “steps”) as a response variable and as an indicator of stress level. The student also registered the number of calves for each reindeer (0 or 1). The data are displayed in Table 3a in the Appendix.
 
-b) Write up a confusion matrix for the test classification with true author as rows andclassi-fied authors as columns. Compute the test error rate. An alternative analysis was conducted using a multinomial logistic regression model. The analysis and output is given below. 
+a) In Table 3b the results from a Poisson-regression is given (with reference level parametrization). Explain shortly the model which has been assumed for the analysis and give reasons to why a Poisson model is a reasonable choice in this case. 
 
-c) Define pBlake as the probability that a poem with observed scores PC1 and PC2 is written by William Blake. Write up an expression for the estimated pBlakebased on the output above. What is the posterior probability of a poem being written by Blake if the observed scores for both PC1 and PC2 are equal to 0?
+b) Based on the output find the estimated expected step counts for two reindeer, one with and one without calf. 
+
+c) In Table 3c the results from a deviance test for comparing two models has been conducted. Describe briefly the test procedure and use the output to test the hypothesis that reindeer close to the wind mill farm (coast) is expected to have a different expected step count (stress level) than reindeer in the inland.
+
+### Exercise 4
+
+In a beer liking study 9 women tasted 9 different beer types: 3 types of Ale  (A1, A2, A3), 3 types of Strong Lager (SL1, SL2, SL3) and 3 types of Lager (L1, L2, L3). They scored each beer with a score between 1 (dislike) and 7 (like), and the data are given in Table 4a.  A cluster analysis was conducted on the Euclidian distances between the beer type scores with the single linkage method.
+
+a) Describe shortly the single linkage method and illustrate by finding the missing number in the bottom part of Table 4b (the distance between SL3 and the cluster L1/L3). 
+
+b) Based on the dendrogram in Figure 4, answer the questions below: 
+
+    1. Which class of beers (Ale, Strong Lager or Lager) seems to show highest internal similarity with regard to liking?  
+    
+    2. Which of the nine beers is least similar to the others in liking? 
+    
+    3. If you should put the nine beers into three clusters based on the single linkage clustering, at approximately what distance (height) would you cut the dendrogram tree, and which beers would make up the three clusters?
+    
+### Appendix to exam STAT340
+
+__Table 1a:__ The pear data from 2011
+
+```{r}
+do.call(cbind, split(Pear2011$REF, Pear2011$Sort)) %>% 
+  as.tibble()
+```
+
+
+__Table 1b:__ R Commander output for exercise 1b
+
+```{r}
+LinearModel.1 <- lm(REF ~ Sort, data = Pear2011)
+summary(LinearModel.1)
+Anova(LinearModel.1, type = "III")
+```
+
+__Table 1c:__ Tukey test results for exercise 1d. 
+
+```{r}
+simple.glht(LinearModel.1, "Sort")
+```
+
+```{r}
+cld(simple.glht(LinearModel.1,'Sort', level = 0.95))
+```
+
+__Table 2:__ R output for exercise 2
+
+```{r}
+Pear$Year <- as.factor(Pear$Year)
+LinearModel.2 <- lm(REF ~ Sort * r(Year), data = Pear)
+Anova(LinearModel.2, type = "III")
+```
+
+__Table 3a :__ Data for exercise 3
+
+```{r, echo=FALSE}
+Reindeer$calf <- factor(Reindeer$calf)
+options(contrasts = c("contr.treatment", "contr.poly"))
+```
+
+```{r}
+Reindeer
+```
+
+__Table 3b:__ Output from R Commander for exercise 3a
+
+```{r}
+GLM.1 <- glm(steps ~ calf, family = poisson(log), data = Reindeer)
+GLM.2 <- glm(steps ~ calf * site, family = poisson(log), data = Reindeer)
+summary(GLM.1)
+```
+
+__Table 3c:__ Deviance test for exercise 3c
+
+```{r}
+anova(GLM.1, GLM.2, test = "Chisq")
+```
+
+__Table 4a :__ Beer liking data for 9 women
+
+```{r, echo=FALSE}
+dta_txt <- "
+  K1 K2 K3 K4 K5 K6 K7 K8 K9 
+A1 3 1 3 1 5 7 2 1 4 
+A2 6 5 7 5 3 5 4 5 6 
+A3 6 6 3 2 2 2 7 6 6 
+SL1 6 6 4 3 2 5 5 1 6 
+SL2 5 2 6 2 3 5 2 6 2 
+SL3 5 2 7 2 6 7 4 7 5 
+L1 4 5 7 4 5 4 6 6 4 
+L2 5 6 5 5 5 3 5 5 6 
+L3 5 6 6 3 6 3 6 7 5 "
+dta <- read.table(textConnection(dta_txt), header = TRUE)
+dta
+```
+
+
+__Table 4b:__ Euclidian distance matrix before clustering (top), and after step 1 of single linkage (bottom). Note that "L1/L3" denotes the cluster of L1 and L3.
+
+```{r}
+dist(dta)
+```
+
+```{r, fig.cap="Dendrogram from single linkage clustering of female beer liking scores"}
+plot(hclust(dist(dta), method = "single"), 
+     main = "Cluster Dendrogram for Solution HClust.12",
+     sub = "Method=single, Distance=euclidian",
+     xlab = "Observation Number in dataset female.beer")
+```
+
