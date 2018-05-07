@@ -154,7 +154,8 @@ ggplot(mod1.fit, aes(time, pulse, fill = indiv)) + geom_point(shape = 21) + geom
 f. Another analysis was performed as shown below. Describe the difference between mod2 and mod1. Are there any extra parameters estimated? Why is mod2 probably a more reasonable model than mod1?
 
 ```{r}
-mod2 <- lme(pulse ~ (time + diet + exertype) ^ 2, random = ~1 | id, data = exer)
+mod2 <- lme(pulse ~ (time + diet + exertype) ^ 2, 
+            random = ~1 | id, data = exer)
 summary(mod2)
 ```
 
@@ -189,7 +190,9 @@ h. A third model was analysed by:
 
 ```{r}
 library(nlme)
-mod3 <- lme(pulse ~ (time + diet + exertype) ^ 2, random = ~1 | id, correlation = corAR1(), data = exer)
+mod3 <- lme(pulse ~ (time + diet + exertype) ^ 2, 
+            random = ~1 | id, correlation = corAR1(), 
+            data = exer)
 summary(mod3)
 ```
 
