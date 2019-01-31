@@ -16,7 +16,7 @@ bookdown::gitbook:
         <li><a name="title" href="javascript:void(0)"><b>Lecturer:</b></a><ul>
         <li><a href="https://www.nmbu.no/ans/thore.egeland" target="blank">Thore Egeland</a></li></ul></li>
         <li><a name="title" href="javascript:void(0)"><b>Assistent Teachers:</b></a><ul>
-        <li><a href="https://www.nmbu.no/ans/raju.rimal" target="blank">Raju Rimal</a></li></ul></li>
+        <li><a href="https://www.nmbu.no/ans/raju.rimal" target="blank">Kathrine Frey Frøslie</a></li></ul></li>
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
