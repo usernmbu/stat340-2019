@@ -1,8 +1,7 @@
 all:
 	make gitbook
 	make pdf
-	make deploy
-
+	
 gitbook:
 	Rscript -e "bookdown::render_book('.', output_format = 'bookdown::gitbook')"
 	
