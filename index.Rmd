@@ -1,6 +1,6 @@
 ---
 title: "Applied Methods in Statistics"
-author: "Thore Egeland and Kathrine Frey Frøslie"
+author: "Raju, Rimal, Kathrine Frey Frøslie and Thore Egeland"
 date: "`r paste('Year:', format(Sys.Date(), '%Y'))`"
 site: bookdown::bookdown_site
 output:
