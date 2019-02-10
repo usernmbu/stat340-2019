@@ -1,6 +1,8 @@
 # Regression Analysis
 
-In this exercise we will use `birth.rdata` and `bodydata.rdata` datasets. We can load those data as below:
+In this exercise we first need to load some data sets available on Canvas.
+The below commands must be modified. A simple option is to set the working directory in R-studio by going  `Session - Set working directory - Choose directory``. Then the bodydata can be loaded 
+by running `load("bodydata")` and similarly for the other data sets.
 
 ```{r, echo = T}
 load("_data/birth.rdata")
