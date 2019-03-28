@@ -22,7 +22,7 @@
   <meta name="twitter:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
   
 
-<meta name="author" content="Thore Egeland and Kathrine Frey Frøslie">
+<meta name="author" content="Raju, Rimal, Kathrine Frey Frøslie and Thore Egeland">
 
 
 
@@ -47,7 +47,6 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113782065-1"></script>
 <script>
@@ -113,10 +112,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Applied Methods in Statistics</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a><ul>
-<li class="chapter" data-level="" data-path="lecture-and-exercise-plan.html"><a href="lecture-and-exercise-plan.html"><i class="fa fa-check"></i>Lecture and Exercise Plan</a></li>
-<li class="chapter" data-level="" data-path="reference-books.html"><a href="reference-books.html"><i class="fa fa-check"></i>Reference Books</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a></li>
 <li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a><ul>
 <li class="chapter" data-level="" data-path="exercise-1-create-new-project.html"><a href="exercise-1-create-new-project.html"><i class="fa fa-check"></i>Exercise 1: Create New Project</a></li>
 <li class="chapter" data-level="" data-path="exercise-2-importing-data-in-r.html"><a href="exercise-2-importing-data-in-r.html"><i class="fa fa-check"></i>Exercise 2: Importing data in R</a><ul>
@@ -151,7 +147,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i>Regression Analysis</a><ul>
-<li class="chapter" data-level="" data-path="least-sqaures-app.html"><a href="least-sqaures-app.html"><i class="fa fa-check"></i>Least Sqaures App</a></li>
+<li class="chapter" data-level="" data-path="least-squares-app.html"><a href="least-squares-app.html"><i class="fa fa-check"></i>Least Squares App</a></li>
 <li class="chapter" data-level="" data-path="dataset-birth.html"><a href="dataset-birth.html"><i class="fa fa-check"></i>Dataset: birth</a><ul>
 <li><a href="dataset-birth.html#overview-of-data"><i class="fa fa-edit"></i> Overview of data</a></li>
 <li><a href="dataset-birth.html#linear-regression"><i class="fa fa-book"></i> Linear Regression</a></li>
@@ -243,7 +239,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="ans">
 <p><strong>For dataset: <code>runMen</code></strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(runMen[,<span class="op">-</span><span class="dv">9</span>], <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-137-1.svg" width="100%" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-134-1.svg" width="100%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(runMen[,<span class="op">-</span><span class="dv">9</span>])</code></pre></div>
 <pre><code>       M100  M200  M400  M800 M1500 M5000  M10K  M42K
 M100  1.000 0.918 0.831 0.744 0.686 0.601 0.615 0.504
@@ -257,7 +253,7 @@ M42K  0.504 0.585 0.701 0.803 0.865 0.931 0.943 1.000</code></pre>
 <p>Mens running 5000m have the highest correlation (0.974) with the mens running 10000m.</p>
 <p><strong>For dataset: <code>runWomen</code></strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(runWomen[,<span class="op">-</span><span class="dv">8</span>], <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-138-1.svg" width="100%" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-135-1.svg" width="100%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(runWomen[,<span class="op">-</span><span class="dv">8</span>])</code></pre></div>
 <pre><code>       M100  M200  M400  M800 M1500 M3000  M42K
 M100  1.000 0.947 0.808 0.693 0.704 0.724 0.683
@@ -284,7 +280,7 @@ M800  0.595 0.697 0.740 0.785 0.834 0.817 0.820 0.785
 M1500 0.517 0.636 0.676 0.848 0.876 0.858 0.868 0.822
 M3000 0.571 0.681 0.684 0.856 0.882 0.865 0.864 0.814
 M42K  0.612 0.701 0.647 0.811 0.830 0.803 0.817 0.762</code></pre>
-<p>Men’s M1500 shows the highest corrlation to women’s M3000 and appears to be the best indicator, but in order to really check this we should run a regression analysis with cross-validation to see which predicts best.</p>
+<p>Men’s M1500 shows the highest correlation to women’s M3000 and appears to be the best indicator, but in order to really check this we should run a regression analysis with cross-validation to see which predicts best.</p>
 </div>
 <ul>
 <li>Run a PCA (with scale=FALSE) on the men’s data and print out a summary and the weights (loadings) for the two first PC’s. How many components is needed to explain at least 99% of the variation in the data? Try to give an interpretation of PC1, and explain why so few components explains so much of the total variability.</li>
@@ -361,7 +357,7 @@ M42K  0.343 -0.4319  0.228 -0.3176  0.489  0.3413  0.4028 -0.15986</code></pre>
 <p>Make a biplot with the first two components. You may use the argument “xlabs” in biplot to indicate that “Nations” should be used to label the scores from each country. Give comments to how the nations cluster relative to the loadings.</p>
 <div class="ans">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(pr, <span class="dt">xlabs =</span> runMen<span class="op">$</span>Nation, <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-143-1.svg" width="100%" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-140-1.svg" width="100%" /></p>
 <p>On the first axis (PC1) we observe that Cook’s Islands and West Samoa have the largest weights, and they therefore have on average poor (long time) national records for all distance. At the other end we find USA and others with on average good national records. Along PC2 (vertically) we find those with relatively poor times on long distances, but relatively good times on short, at the bottom (Dom. Repub, Bermuda, Singapore, Malaysia, Thailand and West Samoa) whereas at the top we find countries with poor records on short distances compared to their long distance records (Costa Rica, North-Korea, Cook’s Island and others).</p>
 </div>
 <ul>
@@ -415,7 +411,7 @@ $adj.r.squared
 
 Full model: runWomen$M3000 ~ M100 + M200 + M400 + M800 + M1500 + M5000 + 
     M10K + M42K
-&lt;environment: 0x0000000020ff8a10&gt;
+&lt;environment: 0x00000000223db410&gt;
 
       Step  RSS  AIC R2pred   Cp F value Pr(&gt;F)  
 M42K     1 5.49 -101  0.644 7.01    0.01  0.907  
@@ -496,7 +492,7 @@ F-statistic: 28.2 on 8 and 43 DF,  p-value: 1e-14 </code></pre>
 <pre><code>Backward elimination, alpha-to-remove: 0.05
 
 Full model: runWomen$M3000 ~ PC1 + PC2 + PC3 + PC4 + PC5 + PC6 + PC7 + PC8
-&lt;environment: 0x0000000023374320&gt;
+&lt;environment: 0x000000001e27c4d0&gt;
 
     Step  RSS  AIC R2pred     Cp F value Pr(&gt;F)
 PC5    1 5.49 -101  0.632  7.003    0.00   0.96

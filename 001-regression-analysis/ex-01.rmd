@@ -11,7 +11,7 @@ load("_data/mtcars.rdata")
 ```
 
 
-## Least Sqaures App
+## Least Squares App
 Play around with the least squares app on Play around with the least squares app on [http://solve.shinyapps.io/LeastSquaresApp](http://solve.shinyapps.io/LeastSquaresApp)
 
 1. Use `N=10`

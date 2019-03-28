@@ -22,7 +22,7 @@
   <meta name="twitter:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
   
 
-<meta name="author" content="Thore Egeland and Kathrine Frey Frøslie">
+<meta name="author" content="Raju, Rimal, Kathrine Frey Frøslie and Thore Egeland">
 
 
 
@@ -47,7 +47,6 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113782065-1"></script>
 <script>
@@ -113,10 +112,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Applied Methods in Statistics</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a><ul>
-<li class="chapter" data-level="" data-path="lecture-and-exercise-plan.html"><a href="lecture-and-exercise-plan.html"><i class="fa fa-check"></i>Lecture and Exercise Plan</a></li>
-<li class="chapter" data-level="" data-path="reference-books.html"><a href="reference-books.html"><i class="fa fa-check"></i>Reference Books</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a></li>
 <li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a><ul>
 <li class="chapter" data-level="" data-path="exercise-1-create-new-project.html"><a href="exercise-1-create-new-project.html"><i class="fa fa-check"></i>Exercise 1: Create New Project</a></li>
 <li class="chapter" data-level="" data-path="exercise-2-importing-data-in-r.html"><a href="exercise-2-importing-data-in-r.html"><i class="fa fa-check"></i>Exercise 2: Importing data in R</a><ul>
@@ -151,7 +147,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i>Regression Analysis</a><ul>
-<li class="chapter" data-level="" data-path="least-sqaures-app.html"><a href="least-sqaures-app.html"><i class="fa fa-check"></i>Least Sqaures App</a></li>
+<li class="chapter" data-level="" data-path="least-squares-app.html"><a href="least-squares-app.html"><i class="fa fa-check"></i>Least Squares App</a></li>
 <li class="chapter" data-level="" data-path="dataset-birth.html"><a href="dataset-birth.html"><i class="fa fa-check"></i>Dataset: birth</a><ul>
 <li><a href="dataset-birth.html#overview-of-data"><i class="fa fa-edit"></i> Overview of data</a></li>
 <li><a href="dataset-birth.html#linear-regression"><i class="fa fa-book"></i> Linear Regression</a></li>
@@ -240,7 +236,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The data called exer, consists of people who were randomly assigned to two different diets: low-fat and not low-fat and three different types of exercise: at rest, walking leisurely and running. Their pulse rate was measured at three different time points during their assigned exercise: at 1 minute, 15 minutes and 30 minutes.</p>
 <p>Upon downloading the data, you can load and plot the data by</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(exer, <span class="dt">outer =</span> <span class="ot">TRUE</span>, <span class="dt">aspect =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">key =</span> <span class="ot">NULL</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-203-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-200-1.svg" width="672" /></p>
 <p>You will see six plots with heading’s like <code>2:1</code> which means <code>diet=2</code> and exercises <code>type=1</code>. In each plot we have three repeated measurements for each of 5 people.</p>
 <p>In these exercises you will be asked to answer some questions. Use the R-outputs to the extent your find it necessary.</p>
 <ol style="list-style-type: lower-alpha">
@@ -347,7 +343,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </ol>
 <div class="ans">
 <p>Model 1 is based on the assumption that all error terms (and hence all observations) are independent. Since we know that there are three repeated observations on each person, we should expect that observations made on the same person are dependent. For instance, a person with low puls at time 1 is expected to also have (relatively) low puls at time points2 and 3. The Figure below confirms this tendency, especially for exercise types 1 and 2. We see that the residuals of any given person tend to be either above or below the fitted lines.</p>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-206-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-203-1.svg" width="672" /></p>
 </div>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Another analysis was performed as shown below. Describe the difference between mod2 and mod1. Are there any extra parameters estimated? Why is mod2 probably a more reasonable model than mod1?</li>
@@ -407,7 +403,7 @@ Number of Observations: 90
 Number of Groups: 30 </code></pre>
 <div class="ans">
 <p>Model 2 assumes a random intercept for each individual and the random intercept is assumed to follow <span class="math inline">\(N(0, \sigma_\alpha^2)\)</span>. So, <span class="math inline">\(\sigma_\alpha\)</span> is an extra parameters to be estimated. From model 2, we can obtain a separate fitted line for each individual, which is more resonable and which take better into account that we may have dependence between observations made on the same person.</p>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-208-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-205-1.svg" width="672" /></p>
 </div>
 <ol start="7" style="list-style-type: lower-alpha">
 <li>For models containing random effects there is a function <code>ranef</code> in the <code>nlme</code>-package which displays the predicted random effects. The first 5 random effects are shown below with “rowname” equal to the id number of a given person. Explain what it means that person with id=4 has a random effect of -3.802.</li>

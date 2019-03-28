@@ -16,8 +16,8 @@ library(MASS)
 
 ## Iris Dataset
 
-- a) Consider the famous iris data set `iris.train.rdata` as introduced in lesson 8.
-Reproduce the pairs plot for the four sepal and petal variables as given in lesson 8 slide 4.
+- a) Consider the famous iris data set `iris.train.rdata` as introduced in the lectures.
+Reproduce the pairs plot for the four sepal and petal variables as given in the lectures.
 Which variable appears to be discriminating the species best? And which is worst?
 
 <div class="ans">

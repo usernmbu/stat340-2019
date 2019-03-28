@@ -22,7 +22,7 @@
   <meta name="twitter:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
   
 
-<meta name="author" content="Thore Egeland and Kathrine Frey Frøslie">
+<meta name="author" content="Raju, Rimal, Kathrine Frey Frøslie and Thore Egeland">
 
 
 
@@ -47,7 +47,6 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113782065-1"></script>
 <script>
@@ -113,10 +112,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Applied Methods in Statistics</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a><ul>
-<li class="chapter" data-level="" data-path="lecture-and-exercise-plan.html"><a href="lecture-and-exercise-plan.html"><i class="fa fa-check"></i>Lecture and Exercise Plan</a></li>
-<li class="chapter" data-level="" data-path="reference-books.html"><a href="reference-books.html"><i class="fa fa-check"></i>Reference Books</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a></li>
 <li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a><ul>
 <li class="chapter" data-level="" data-path="exercise-1-create-new-project.html"><a href="exercise-1-create-new-project.html"><i class="fa fa-check"></i>Exercise 1: Create New Project</a></li>
 <li class="chapter" data-level="" data-path="exercise-2-importing-data-in-r.html"><a href="exercise-2-importing-data-in-r.html"><i class="fa fa-check"></i>Exercise 2: Importing data in R</a><ul>
@@ -151,7 +147,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i>Regression Analysis</a><ul>
-<li class="chapter" data-level="" data-path="least-sqaures-app.html"><a href="least-sqaures-app.html"><i class="fa fa-check"></i>Least Sqaures App</a></li>
+<li class="chapter" data-level="" data-path="least-squares-app.html"><a href="least-squares-app.html"><i class="fa fa-check"></i>Least Squares App</a></li>
 <li class="chapter" data-level="" data-path="dataset-birth.html"><a href="dataset-birth.html"><i class="fa fa-check"></i>Dataset: birth</a><ul>
 <li><a href="dataset-birth.html#overview-of-data"><i class="fa fa-edit"></i> Overview of data</a></li>
 <li><a href="dataset-birth.html#linear-regression"><i class="fa fa-book"></i> Linear Regression</a></li>
@@ -245,10 +241,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>You may plot the spectra in <code>X</code> one-by-one as,:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(X[, <span class="dv">1</span>], <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-151-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-148-1.svg" width="672" /></p>
 <p>We can also plot multiple (all) spectra together, takes more time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">matplot</span>(X[, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-152-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-149-1.svg" width="672" /></p>
 <p>The peaks show molecule sizes that are abundant in the sample.</p>
 <ul>
 <li>First run a PCA on <code>X</code>. How many components are needed to explain 80% and 90% of the variability in <code>X</code>?</li>
@@ -327,7 +323,7 @@ Cumulative Proportion  0.85768</code></pre>
 <div class="ans">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plsmod &lt;-<span class="st"> </span><span class="kw">plsr</span>(Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">ncomp =</span> <span class="dv">10</span>)
 <span class="kw">scoreplot</span>(plsmod, <span class="dt">comps =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="st">&#39;names&#39;</span>, <span class="dt">pch =</span> <span class="fl">0.7</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-155-1.svg" width="100%" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-152-1.svg" width="100%" /></p>
 <p>We observe that there are clusters of observations and that there is a tendency of successive numbers to be close in the scoreplot. Cluster sizes are difficult to determine.</p>
 </div>
 <ul>
@@ -336,7 +332,7 @@ Cumulative Proportion  0.85768</code></pre>
 <div class="ans">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clust1 &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(plsmod<span class="op">$</span>scores[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]), <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)
 <span class="kw">plot</span>(clust1, <span class="dt">cex =</span> <span class="fl">0.5</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-156-1.svg" width="100%" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-153-1.svg" width="100%" /></p>
 <p>From the dendrogram we observe several clusters of size four, and some of three with successive observation numbers. This implies that the replicates are more similar to each other than samples from different milk samples. Sample 159 seems to be an outlier, very different from all others.</p>
 </div>
 <ul>
@@ -386,7 +382,7 @@ clust2<span class="op">$</span>cluster</code></pre></div>
 <div class="ans">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MSEP &lt;-<span class="st"> </span><span class="kw">c</span>(plsmod<span class="op">$</span>validation<span class="op">$</span>PRESS0, plsmod<span class="op">$</span>validation<span class="op">$</span>PRESS)<span class="op">/</span><span class="dv">180</span>
 <span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>, MSEP, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-160-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-157-1.svg" width="672" /></p>
 <p>The prediction error is heavily reduced as we introduce components 1 and 2, but there is a small gain by adding components 3, 4 and 5. Simple models are usually more robust, so I would not go any further than 5 components here.</p>
 </div>
 <ul>
@@ -415,7 +411,7 @@ clust2<span class="op">$</span>cluster</code></pre></div>
 MSEP2 &lt;-<span class="st"> </span><span class="kw">c</span>(plsmod2<span class="op">$</span>validation<span class="op">$</span>PRESS0, plsmod2<span class="op">$</span>validation<span class="op">$</span>PRESS)<span class="op">/</span><span class="dv">180</span>
 <span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>, MSEP, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)
 <span class="kw">points</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>, MSEP2, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="dv">4</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-164-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-161-1.svg" width="672" /></p>
 <p>We see that LOO-CV underestimates the prediction error, as commented in exercise f.</p>
 </div>
 

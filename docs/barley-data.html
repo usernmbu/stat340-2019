@@ -22,7 +22,7 @@
   <meta name="twitter:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
   
 
-<meta name="author" content="Thore Egeland and Kathrine Frey Frøslie">
+<meta name="author" content="Raju, Rimal, Kathrine Frey Frøslie and Thore Egeland">
 
 
 
@@ -47,7 +47,6 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113782065-1"></script>
 <script>
@@ -113,10 +112,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Applied Methods in Statistics</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a><ul>
-<li class="chapter" data-level="" data-path="lecture-and-exercise-plan.html"><a href="lecture-and-exercise-plan.html"><i class="fa fa-check"></i>Lecture and Exercise Plan</a></li>
-<li class="chapter" data-level="" data-path="reference-books.html"><a href="reference-books.html"><i class="fa fa-check"></i>Reference Books</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a></li>
 <li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a><ul>
 <li class="chapter" data-level="" data-path="exercise-1-create-new-project.html"><a href="exercise-1-create-new-project.html"><i class="fa fa-check"></i>Exercise 1: Create New Project</a></li>
 <li class="chapter" data-level="" data-path="exercise-2-importing-data-in-r.html"><a href="exercise-2-importing-data-in-r.html"><i class="fa fa-check"></i>Exercise 2: Importing data in R</a><ul>
@@ -151,7 +147,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i>Regression Analysis</a><ul>
-<li class="chapter" data-level="" data-path="least-sqaures-app.html"><a href="least-sqaures-app.html"><i class="fa fa-check"></i>Least Sqaures App</a></li>
+<li class="chapter" data-level="" data-path="least-squares-app.html"><a href="least-squares-app.html"><i class="fa fa-check"></i>Least Squares App</a></li>
 <li class="chapter" data-level="" data-path="dataset-birth.html"><a href="dataset-birth.html"><i class="fa fa-check"></i>Dataset: birth</a><ul>
 <li><a href="dataset-birth.html#overview-of-data"><i class="fa fa-edit"></i> Overview of data</a></li>
 <li><a href="dataset-birth.html#linear-regression"><i class="fa fa-book"></i> Linear Regression</a></li>
@@ -282,7 +278,7 @@ sort(1):soil(1)     13.8       10.1    1.36 1.84e-01</code></pre>
 </ul>
 <div class="ans">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">allEffects</span>(mod1,<span class="dt">confidence.level =</span> .<span class="dv">95</span>))</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-128-1.svg" width="100%" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-125-1.svg" width="100%" /></p>
 From the plot, it seems that a farmer can expect an increase in yield when using sort 2 instead of sort 1 for both types of soil, and there may be a higher gain of sort 2 over sort 1 for soil-type 2 than for soil type 1. If this is so, there is a so-called interaction effect of sort and soil on yield.
 </div>
 <ul>
@@ -366,7 +362,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <pre><code>Backward elimination, alpha-to-remove: 0.05
 
 Full model: Yield ~ sort * soil * fert * site
-&lt;environment: 0x000000001ece2330&gt;
+&lt;environment: 0x0000000021401ce8&gt;
 
                     Step   RSS AIC R2pred   Cp F value Pr(&gt;F)
 sort:soil:fert:site    1 16905 231  0.659 14.4    0.39   0.54
@@ -389,7 +385,7 @@ sort:soil:fert         5 21162 230  0.720 10.5    2.37   0.14</code></pre>
 
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
 <span class="kw">plot</span>(mod4)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-134-1.svg" width="100%" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-131-1.svg" width="100%" /></p>
 <p>The residual plots give no evidence of any problems with the model assumptions.</p>
 </div>
 <ul>

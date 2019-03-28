@@ -60,7 +60,7 @@ If you were going to "predict" a nation's record for women's M3000, which record
 cor(runWomen[,-8], runMen[,-9])
 ```
 
-Men's M1500 shows the highest corrlation to women's M3000 and appears to be the best indicator, but in order to really check this we should run a regression analysis with cross-validation to see which predicts best.
+Men's M1500 shows the highest correlation to women's M3000 and appears to be the best indicator, but in order to really check this we should run a regression analysis with cross-validation to see which predicts best.
 
 </div>
 

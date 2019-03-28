@@ -22,7 +22,7 @@
   <meta name="twitter:description" content="This contains the weekly exercises related to Applied Methods in Statistics (STAT340)" />
   
 
-<meta name="author" content="Thore Egeland and Kathrine Frey Frøslie">
+<meta name="author" content="Raju, Rimal, Kathrine Frey Frøslie and Thore Egeland">
 
 
 
@@ -47,7 +47,6 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113782065-1"></script>
 <script>
@@ -113,10 +112,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Applied Methods in Statistics</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a><ul>
-<li class="chapter" data-level="" data-path="lecture-and-exercise-plan.html"><a href="lecture-and-exercise-plan.html"><i class="fa fa-check"></i>Lecture and Exercise Plan</a></li>
-<li class="chapter" data-level="" data-path="reference-books.html"><a href="reference-books.html"><i class="fa fa-check"></i>Reference Books</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Practical Information</a></li>
 <li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a><ul>
 <li class="chapter" data-level="" data-path="exercise-1-create-new-project.html"><a href="exercise-1-create-new-project.html"><i class="fa fa-check"></i>Exercise 1: Create New Project</a></li>
 <li class="chapter" data-level="" data-path="exercise-2-importing-data-in-r.html"><a href="exercise-2-importing-data-in-r.html"><i class="fa fa-check"></i>Exercise 2: Importing data in R</a><ul>
@@ -151,7 +147,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i>Regression Analysis</a><ul>
-<li class="chapter" data-level="" data-path="least-sqaures-app.html"><a href="least-sqaures-app.html"><i class="fa fa-check"></i>Least Sqaures App</a></li>
+<li class="chapter" data-level="" data-path="least-squares-app.html"><a href="least-squares-app.html"><i class="fa fa-check"></i>Least Squares App</a></li>
 <li class="chapter" data-level="" data-path="dataset-birth.html"><a href="dataset-birth.html"><i class="fa fa-check"></i>Dataset: birth</a><ul>
 <li><a href="dataset-birth.html#overview-of-data"><i class="fa fa-edit"></i> Overview of data</a></li>
 <li><a href="dataset-birth.html#linear-regression"><i class="fa fa-book"></i> Linear Regression</a></li>
@@ -239,7 +235,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="plot-the-heights-versus-the-weights-for-all-observations-in-bodydata." class="section level4">
 <h4>Plot the heights versus the weights for all observations in bodydata.</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(bodydata, <span class="kw">plot</span>(<span class="dt">x =</span> Height, <span class="dt">y =</span> Weight))</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-50-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-47-1.svg" width="672" /></p>
 </div>
 <div id="spice-up-the-plot" class="section level3">
 <h3>Spice up the plot</h3>
@@ -254,7 +250,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="plot-all-variables-against-each-other" class="section level4">
 <h4>Plot all variables against each other</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(bodydata, <span class="dt">col =</span> mycolors)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-52-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-49-1.svg" width="672" /></p>
 </div>
 <div id="which-variables-seem-to-be-most-correlated-to-each-other" class="section level4">
 <h4>Which variables seem to be most correlated to each other?</h4>
@@ -295,7 +291,7 @@ Circumference  0.899 0.5448 0.3547         1.000</code></pre>
       <span class="dt">lower.panel =</span> panel.smooth, 
       <span class="dt">upper.panel =</span> panel.cor,
       <span class="dt">diag.panel =</span> panel.hist)</code></pre></div>
-<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-57-1.svg" width="672" /></p>
+<p><img src="STAT340-2018_files/figure-html/unnamed-chunk-54-1.svg" width="672" /></p>
 <p>Here the <code>panel.smooth</code> deals with the smooth line on the lower panel of <code>pairs</code> plot.</p>
 <p><strong>Note::</strong> Chapter 5 of the R book contains numerous examples of graphics. <strong>Note::</strong> For those interested in playing around with plots in R checkout: <a href="http://r4ds.had.co.nz/data-visualisation.html" class="uri">http://r4ds.had.co.nz/data-visualisation.html</a></p>
 
