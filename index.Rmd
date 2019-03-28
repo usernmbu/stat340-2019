@@ -23,7 +23,7 @@ description: "This contains the weekly exercises related to Applied Methods in S
 knitr::opts_chunk$set(echo = FALSE,
                       comment = NULL)
 options(scipen = 10, digits = 3)
-pkgs <- c("mixlm", "tidyverse")
+pkgs <- c("mixlm", "tidyverse", "car")
 for (pkg in pkgs)
   suppressPackageStartupMessages(require(pkg, character.only = TRUE))
 ```
