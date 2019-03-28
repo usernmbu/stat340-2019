@@ -3,4 +3,6 @@
 .RData
 .Ruserdata
 000-compulsory-assignment/
+_bookdown_files/*_cache
+*.log
 _exam

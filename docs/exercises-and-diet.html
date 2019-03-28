@@ -59,41 +59,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -235,16 +261,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The data and some examples are found at <a href="https://stats.idre.ucla.edu/r/seminars/repeated-measures-analysis-with-r/">statistics.ats.ucla.edu</a></p>
 <p>The data called exer, consists of people who were randomly assigned to two different diets: low-fat and not low-fat and three different types of exercise: at rest, walking leisurely and running. Their pulse rate was measured at three different time points during their assigned exercise: at 1 minute, 15 minutes and 30 minutes.</p>
 <p>Upon downloading the data, you can load and plot the data by</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(exer, <span class="dt">outer =</span> <span class="ot">TRUE</span>, <span class="dt">aspect =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">key =</span> <span class="ot">NULL</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(exer, <span class="dt">outer =</span> <span class="ot">TRUE</span>, <span class="dt">aspect =</span> <span class="st">&quot;fill&quot;</span>, <span class="dt">key =</span> <span class="ot">NULL</span>)</code></pre>
 <p><img src="STAT340-2018_files/figure-html/unnamed-chunk-200-1.svg" width="672" /></p>
-<p>You will see six plots with heading’s like <code>2:1</code> which means <code>diet=2</code> and exercises <code>type=1</code>. In each plot we have three repeated measurements for each of 5 people.</p>
+<p>You will see six plots with heading’s like <code>2:1</code> which means <code>diet=2</code> and exercises <code>type=1</code>.
+In each plot we have three repeated measurements for each of 5 people.</p>
 <p>In these exercises you will be asked to answer some questions. Use the R-outputs to the extent your find it necessary.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Below is a output from a linear model fitted to the data. State the model that has been fitted and the assumptions made. Which parametrization is used?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">contrasts =</span> <span class="kw">c</span>(<span class="st">&quot;contr.sum&quot;</span>, <span class="st">&quot;contr.poly&quot;</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">contrasts =</span> <span class="kw">c</span>(<span class="st">&quot;contr.sum&quot;</span>, <span class="st">&quot;contr.poly&quot;</span>))
 mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(pulse <span class="op">~</span><span class="st"> </span>(time <span class="op">+</span><span class="st"> </span>diet <span class="op">+</span><span class="st"> </span>exertype) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">data =</span> exer)
-<span class="kw">summary</span>(mod1)</code></pre></div>
+<span class="kw">summary</span>(mod1)</code></pre>
 <pre><code>
 Call:
 lm(formula = pulse ~ (time + diet + exertype)^2, data = exer)
@@ -272,7 +299,7 @@ s: 7.53 on 80 degrees of freedom
 Multiple R-squared: 0.769,
 Adjusted R-squared: 0.743 
 F-statistic: 29.6 on 9 and 80 DF,  p-value: &lt;2e-16 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(mod1)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(mod1)</code></pre>
 <pre><code>Analysis of Variance Table
 
 Response: pulse
@@ -296,23 +323,37 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 \]</span></p>
 <p>Where we assume that the errors are identically and independently distributed (iid) as:</p>
 <p><span class="math inline">\(\epsilon_{ijkl} \sim N(0, \sigma^2)\)</span> for all <span class="math inline">\(j = 1, 2\)</span> (For Diet); <span class="math inline">\(k = 1, 2, 3\)</span> (For Exercise Type) and <span class="math inline">\(l = 1, 2, 3\)</span> (For individual time points)</p>
-<p>In orther words it is a linear model with main effects of time, diet and exercise type, plus all second-order interactions between these.</p>
-<p>Remark: From the ANOVA-table output we may observe that time has only one degree of freedom (thus one parameter is estimated for the effect of time) which means that time is assumed to be a continuous effect. If time alternatively was modelled as a categorical variable, it would have had 2 degrees of freedom in the ANOVA table (the number of time-levels minus one).</p>
-<p>Further, a sum-to-zero parametrization is used for all categorical effects, for instance, we assume that the two diet effects sum to zero, hence the estimate of <code>diet(2)</code> is: <code>diet(2) = -diet(1) = -(-0.1778) = 0.1778</code></p>
-<p>The three exercise type effects likewise, that is: <code>exertype(3) = -(exertype(1) + exertype(2)) = -(1.2333 + 4.0000) = -5.233</code></p>
-<p>For interactions between categorical effects, the effects sum to zero if we keep one variable fixed at one level and sum across the levels of the other. E.g. for diet 1 the interaction effects with exercise types 1, 2 and 3 sum to zero, and so on. That is: we would from the ouput find:</p>
+<p>In orther words it is a linear model with main effects of time, diet and exercise type,
+plus all second-order interactions between these.</p>
+<p>Remark: From the ANOVA-table output we may observe that time
+has only one degree of freedom (thus one parameter is estimated for the effect of time)
+which means that time is assumed to be a continuous effect. If time alternatively was
+modelled as a categorical variable, it would have had 2 degrees of freedom in the ANOVA table
+(the number of time-levels minus one).</p>
+<p>Further, a sum-to-zero parametrization is used for all categorical effects, for instance,
+we assume that the two diet effects sum to zero, hence the estimate of <code>diet(2)</code> is:
+<code>diet(2) = -diet(1) = -(-0.1778) = 0.1778</code></p>
+<p>The three exercise type effects likewise, that is:
+<code>exertype(3) = -(exertype(1) + exertype(2)) = -(1.2333 + 4.0000) = -5.233</code></p>
+<p>For interactions between categorical effects, the effects sum to zero if we keep one variable
+fixed at one level and sum across the levels of the other. E.g. for diet 1 the interaction effects with exercise types 1, 2 and 3 sum to zero, and so on. That is:
+we would from the ouput find:</p>
 <p><code>diet(1):exertype(3) = -(diet(1):exertype(1) + diet(1):exertype(2)) = -(2.2444 + 2.0111) = -4.256</code></p>
 <p>However, it also means that for fixed level 3 for exercise type, the diet effects should sum to zero. That is:</p>
 <p><code>diet(2):exertype(3) = - diet(1):exertype(3) = -(-4.256) = 4.256</code></p>
 <p>For interactions between the continuous variable time and a catergorical variable, the effects sum to zero across the levels of the categorical variable if we keep time fixed.</p>
-<p>Hence: <code>time:diet(2) = -time:diet(1) = -(-1.783) = 1.783</code></p>
-<p>and <code>time:exertype(3) = -(time:exertype(1) + time:exertype(2)) = -(-5.05 - 4.25)=  9.30</code></p>
+<p>Hence:
+<code>time:diet(2) = -time:diet(1) = -(-1.783) = 1.783</code></p>
+<p>and
+<code>time:exertype(3) = -(time:exertype(1) + time:exertype(2)) = -(-5.05 - 4.25)=  9.30</code></p>
 </div>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>Write up the fitted model for pulse as a function of time for the special case of <code>diet=1</code> and <code>exertype=1</code>. Do the same for <code>diet=2</code> and <code>exertype=3</code>.</li>
+<li>Write up the fitted model for pulse as a function of time for the special case of <code>diet=1</code>
+and <code>exertype=1</code>. Do the same for <code>diet=2</code> and <code>exertype=3</code>.</li>
 </ol>
 <div class="ans">
-<p>The fitted model for <code>diet=1</code> and <code>exertype=1</code> is found directly by selecting the estimated coefficients from the output for which diet=1 and exertype=1:</p>
+<p>The fitted model for <code>diet=1</code> and <code>exertype=1</code> is found directly by selecting the estimated
+coefficients from the output for which diet=1 and exertype=1:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \hat{\mathtt{pulse}} &amp;= 88.4 + 5.65 \mathtt{time} -0.178 + 1.233-1.783 \mathtt{time} -5.05 \mathtt{time} + 2.244 \\
@@ -342,15 +383,20 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <li>Are there any problems related to the model assumptions for the model fitted in a. ?</li>
 </ol>
 <div class="ans">
-<p>Model 1 is based on the assumption that all error terms (and hence all observations) are independent. Since we know that there are three repeated observations on each person, we should expect that observations made on the same person are dependent. For instance, a person with low puls at time 1 is expected to also have (relatively) low puls at time points2 and 3. The Figure below confirms this tendency, especially for exercise types 1 and 2. We see that the residuals of any given person tend to be either above or below the fitted lines.</p>
+<p>Model 1 is based on the assumption that all error terms (and hence all observations) are
+independent. Since we know that there are three repeated observations on each person, we
+should expect that observations made on the same person are dependent. For instance,
+a person with low puls at time 1 is expected to also have (relatively) low puls at time
+points2 and 3. The Figure below confirms this tendency, especially for exercise types 1 and 2.
+We see that the residuals of any given person tend to be either above or below the fitted lines.</p>
 <p><img src="STAT340-2018_files/figure-html/unnamed-chunk-203-1.svg" width="672" /></p>
 </div>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Another analysis was performed as shown below. Describe the difference between mod2 and mod1. Are there any extra parameters estimated? Why is mod2 probably a more reasonable model than mod1?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">lme</span>(pulse <span class="op">~</span><span class="st"> </span>(time <span class="op">+</span><span class="st"> </span>diet <span class="op">+</span><span class="st"> </span>exertype) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>, 
+<pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">lme</span>(pulse <span class="op">~</span><span class="st"> </span>(time <span class="op">+</span><span class="st"> </span>diet <span class="op">+</span><span class="st"> </span>exertype) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>, 
             <span class="dt">random =</span> <span class="op">~</span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>id, <span class="dt">data =</span> exer)
-<span class="kw">summary</span>(mod2)</code></pre></div>
+<span class="kw">summary</span>(mod2)</code></pre>
 <pre><code>Linear mixed-effects model fit by REML
  Data: exer 
   AIC BIC logLik
@@ -406,9 +452,12 @@ Number of Groups: 30 </code></pre>
 <p><img src="STAT340-2018_files/figure-html/unnamed-chunk-205-1.svg" width="672" /></p>
 </div>
 <ol start="7" style="list-style-type: lower-alpha">
-<li>For models containing random effects there is a function <code>ranef</code> in the <code>nlme</code>-package which displays the predicted random effects. The first 5 random effects are shown below with “rowname” equal to the id number of a given person. Explain what it means that person with id=4 has a random effect of -3.802.</li>
+<li>For models containing random effects there is a function <code>ranef</code> in the <code>nlme</code>-package
+which displays the predicted random effects. The first 5 random effects are shown below
+with “rowname” equal to the id number of a given person. Explain what it means that person
+with id=4 has a random effect of -3.802.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ranef</span>(mod2)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,,drop =<span class="st"> </span>F]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ranef</span>(mod2)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,,drop =<span class="st"> </span>F]</code></pre>
 <pre><code>  (Intercept)
 4      -3.802
 1      -1.653
@@ -421,11 +470,11 @@ Number of Groups: 30 </code></pre>
 <ol start="8" style="list-style-type: lower-alpha">
 <li>A third model was analysed by:</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nlme)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nlme)
 mod3 &lt;-<span class="st"> </span><span class="kw">lme</span>(pulse <span class="op">~</span><span class="st"> </span>(time <span class="op">+</span><span class="st"> </span>diet <span class="op">+</span><span class="st"> </span>exertype) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>, 
             <span class="dt">random =</span> <span class="op">~</span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>id, <span class="dt">correlation =</span> <span class="kw">corAR1</span>(), 
             <span class="dt">data =</span> exer)
-<span class="kw">summary</span>(mod3)</code></pre></div>
+<span class="kw">summary</span>(mod3)</code></pre>
 <pre><code>Linear mixed-effects model fit by REML
  Data: exer 
   AIC BIC logLik
@@ -488,12 +537,13 @@ Number of Groups: 30 </code></pre>
 <ol style="list-style-type: lower-roman">
 <li>Which of mod2 and mod3 is to prefer. Explain why based on the output below.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(mod2, mod3)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(mod2, mod3)</code></pre>
 <pre><code>     Model df AIC BIC logLik   Test L.Ratio p-value
 mod2     1 12 610 639   -293                       
 mod3     2 13 611 642   -293 1 vs 2   0.702   0.402</code></pre>
 <div class="ans">
-<p>The <code>anova()</code> function used here returns the result of a likelihood-ratio test (a chi-square test). The null-hypothesis for the test is that the two models fit the data equally well. The p-value is large, and we retain the null-hypothesis. Hence, the extra refinement introduced in mod3 is not improving the model fit significantly, and we may keep the simpler mod2.</p>
+<p>The <code>anova()</code> function used here returns the result of a likelihood-ratio test (a chi-square test). The null-hypothesis for the test is that the two models fit the data equally well. The p-value is large, and we retain the null-hypothesis. Hence, the extra refinement introduced
+in mod3 is not improving the model fit significantly, and we may keep the simpler mod2.</p>
 </div>
 
 </div>
@@ -609,7 +659,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
